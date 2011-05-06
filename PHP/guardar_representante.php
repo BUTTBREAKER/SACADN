@@ -16,13 +16,12 @@ if($_POST) {
  $direccion = $_POST['direccion'];
  $fecha_registro = date("d/m/y");  
 
- $sql= "INSERT INTO representantes ( cedula, nombre, apellido, fecha_nacimiento,  
+ $sql= "INSERT INTO representantes (cedula, nombre, apellido, fecha_nacimiento,  
   lugar_nacimiento, genero , telefono , direccion, fecha_registro)
  VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento',
   '$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
    
  $conexion->query($sql);
-$resultado = mysqli_query($conexion,$sql);
 
  }
 

@@ -36,6 +36,7 @@ $estados = array_map(static fn (object $info): string => $info->estado, $venezue
           Cédula
         </label>
       </div>
+
       <div class="col-md-6 form-floating mb-3">
         <input class="form-control" placeholder=" " name="nombre" required />
         <label class="ms-2">

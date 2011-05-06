@@ -14,7 +14,6 @@ $sql = <<<SQL
   JOIN representantes r ON r.id = e.id_representante
 SQL;
 
-
 $result = $db->query($sql);
 
 
@@ -36,7 +35,8 @@ $result = $db->query($sql);
         <th>Opciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody> 
+
       <?php while ($mostrar = $result->fetch_assoc()) { ?>
         <tr>
           <td><?= $mostrar['cedula'] ?></td>

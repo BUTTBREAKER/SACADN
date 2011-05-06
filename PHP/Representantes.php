@@ -6,12 +6,14 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
-$sql = <<<SQL
-  SELECT cedula, nombre, apellido, fecha_nacimiento, lugar_nacimiento,
-  genero, telefono, direccion, fecha_registro FROM representantes
+ $sql = <<<SQL
+  SELECT  cedula, nombre, apellido, fecha_nacimiento, lugar_nacimiento,
+  genero, telefono, direccion, fecha_registro FROM representantes 
 SQL;
 
+
 $result = $db->query($sql);
+
 
 ?>
 

@@ -7,15 +7,15 @@ include __DIR__ . '/partials/header.php';
 $user = auth()['usuario'];
 $conn = require_once __DIR__ . '/conexion_be.php';
 
-$query_estudiantes = "SELECT COUNT(*) AS count FROM estudiantes";
+$query_asignaciones_estudiantes = "SELECT COUNT(*) AS count FROM asignaciones_estudiantes";
 $query_materias = "SELECT COUNT(*) AS count FROM materias";
 $query_profesores = "SELECT COUNT(*) AS count FROM profesores";
 
-$result_estudiantes = $conn->query($query_estudiantes);
+$result_asignaciones_estudiantes = $conn->query($query_asignaciones_estudiantes);
 $result_materias = $conn->query($query_materias);
 $result_profesores = $conn->query($query_profesores);
 
-$count_estudiantes = $result_estudiantes->fetch_assoc()['count'];
+$count_asignaciones_estudiantes = $result_asignaciones_estudiantes->fetch_assoc()['count'];
 $count_materias = $result_materias->fetch_assoc()['count'];
 $count_profesores = $result_profesores->fetch_assoc()['count'];
 
@@ -38,10 +38,10 @@ $conn->close();
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Estudiantes', 'Materias', 'Profesores'],
+      labels: ['Primero A', 'Materias', 'Profesores'],
       datasets: [{
-        label: 'Cantidad de Registros',
-        data: [<?= $count_estudiantes ?>, <?= $count_materias ?>, <?= $count_profesores ?>],
+        label: 'Cantidad de Estudiantes',
+        data: [<?= $count_asignaciones_estudiantes ?>, <?= $count_materias ?>, <?= $count_profesores ?>],
         borderWidth: 1,
         backgroundColor: ['#C2EFB3', '#C4B0B3', '#4C56D8']
       }]
