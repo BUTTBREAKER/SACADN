@@ -3,9 +3,10 @@ require __DIR__ . '/../vendor/autoload.php';
 include __DIR__ . '/partials/header.php';
 ?>
 
+
 <body>
   <div class="container card card-body table-responsive">
-    <h1 class="mt-5 mb-4">Consulta de Estudiantes por Momentos y Sección</h1>
+    <h1 class="mt-5 mb-4">Consulta de Notas por Momentos y Sección</h1>
 
    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
@@ -47,99 +48,65 @@ include __DIR__ . '/partials/header.php';
           </select>
         </div>
         <div class="col-md-4 d-grid">
-          <button type="submit" class="btn btn-primary mt-md-4">Consultar</button>
+          <button type="submit" class="btn btn-primary mt-md-4">Consultar Notas</button>
         </div>
       </div>
     </form>
 
-    <?php
+   <?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_momento']) && isset($_GET['id_seccion'])) {
       // Obtener los valores de los parámetros del formulario
       $idMomento = $_GET['id_momento'];
       $idSeccion = $_GET['id_seccion'];
 
-      // Consultar las notas en base al momento y la sección seleccionados
-      $sql = "SELECT e.id AS id_estudiante, e.cedula AS cedulaEstudiante, e.nombre AS nombreEstudiante, e.apellido AS apellidoEstudiante,
-             ne.id AS id_nivel_estudio, ne.nombre AS nivel_estudio, s.id AS id_seccion, s.nombre AS seccion
-              FROM asignaciones_estudiantes ae
-              JOIN estudiantes e ON e.id = ae.id_estudiante 
-              JOIN niveles_estudio ne ON ne.id = ae.id_nivel_estudio
-              JOIN secciones 
-              JOIN materias ma ON ae.id_materia = ma.id
-              JOIN asignaciones_estudiantes ae ON ae.id_estudiante = e.id
-              JOIN momentos m ON b.id_momento = m.id
-              WHERE m.id = ? AND ae.id_seccion = ? AND ae.id_nivel_estudio = (
-                  SELECT id_nivel_estudio FROM secciones WHERE id = ?
-              )";
-      $stmt = $db->prepare($sql);
-      $stmt->bind_param('iii', $idMomento, $idSeccion, $idSeccion);
-      $stmt->execute();
-      $result = $stmt->get_result();
+$sql = 
+  "SELECT m.id AS id_momento, m.numero_momento AS momento, e.id AS id_estudiante, 
+  e.cedula AS cedulaEstudiante, e.nombre AS nombreEstudiante,e.apellido AS apellidoEstudiante
+   FROM boletines b
+   JOIN momentos m ON m.id = b.id_momento
+   JOIN estudiantes e ON e.id = b.id_estudiante
+  ";
+$result = $db->query($sql);
+}
+?>
 
-      // Organizar los datos por estudiante
-      $calificacionesPorEstudiante = [];
-      while ($row = $result->fetch_assoc()) {
-        $calificacionesPorEstudiante[$row['estudiante_id']]['estudiante'] = $row['estudiante'];
-        $calificacionesPorEstudiante[$row['estudiante_id']]['calificaciones'][] = [
-          'materia' => $row['materia'],
-          'calificacion' => $row['calificacion']
-        ];
-      }
+<div class="container card card-body table-responsive">
+  <h3>Materias Asignadas a Profesores</h3>
+  <table id="tablaEstudiantes" class="table table-striped datatable">
+    <thead>
+      <tr>
+        <th>Cédula</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Momento</th>
+      </tr>
+    </thead>
+    <tbody> 
+   <?php while ($mostrar = $result->fetch_assoc()) { ?>
+      <tr>
+        <td> <?= htmlspecialchars($mostrar['cedulaEstudiante']) ?></td>
+        <td><a href="detalles-profesor.php?id=<?= htmlspecialchars($mostrar['id_estudiante']) ?>">
+              <?= htmlspecialchars($mostrar['nombreEstudiante']) ?>
+            </a></td>
+        <td><?= htmlspecialchars($mostrar['apellidoEstudiante']) ?></td>  
+        <td><?= htmlspecialchars($mostrar['momento']) ?></td>
+      </tr>      
+      <?php }?>
+    </tbody>
+  </table>
+</div>
 
-      // Mostrar las notas en una tabla si hay resultados
-      if (!empty($calificacionesPorEstudiante)) {
-        echo '<div class="container card card-body table-responsive">
-                <table id="notas-table" class="table table-striped datatable">
-                    <thead>
-                        <tr>
-                            <th>Estudiante</th>';
-        // Mostrar las cabeceras de las materias
-        $materias = array_unique(array_column(array_merge(...array_values(array_column($calificacionesPorEstudiante, 'calificaciones'))), 'materia'));
-        foreach ($materias as $materia) {
-          echo '<th>' . htmlspecialchars($materia) . '</th>';
-        }
-        echo '          <th>Detalles</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-        // Mostrar las calificaciones por estudiante
-        foreach ($calificacionesPorEstudiante as $estudiante_id => $data) {
-          echo '<tr>
-                    <td>' . htmlspecialchars($data['estudiante']) . '</td>';
-          foreach ($materias as $materia) {
-            $calificacion = '';
-            foreach ($data['calificaciones'] as $calif) {
-              if ($calif['materia'] === $materia) {
-                $calificacion = htmlspecialchars($calif['calificacion']);
-                break;
-              }
-            }
-            echo '<td>' . $calificacion . '</td>';
-          }
-          echo '      <td><a href="detalles_estudiante.php?id=' . htmlspecialchars($estudiante_id) . '" class="btn btn-info">Ver Detalles</a></td>
-                    </tr>';
-        }
-        echo '      </tbody>
-                </table>
-            </div>';
-      }
-       else {
-        echo "<p class='mt-4'>No se encontraron notas para el momento y la sección seleccionados.</p>";
-      }
-    }
-    ?>
-
-  </div>
-<script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
+  <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 
   <!-- Inicializar Simple-DataTables -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const tablaNotas = new simpleDatatables.DataTable("#notas-table");
+      const tablaEstudiantes= new simpleDatatables.DataTable("#tablaEstudiantes");
     });
   </script>
 </body>
+
 
 <?php include __DIR__ . '/partials/footer.php' 
 ///$sql = <<<SQL

@@ -33,10 +33,9 @@ $_POST['lugar_nacimiento'],
 $_POST['genero'],
 $_POST['telefono'],    
 $_POST['direccion'],
-$_GET['cedula']
+$_POST['cedula']
 ]);
-
-   
+  
  exit(<<<HTML
   <body>
     <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
@@ -47,7 +46,7 @@ $_GET['cedula']
         icon: 'success',
         showConfirmButton: false,
         timer: 3000
-      }).then(() => location.href = )
+      }).then(() => location.href = './Profesores.php' )
     </script>
   </body>
   HTML);

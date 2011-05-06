@@ -74,6 +74,9 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
         <?php } ?>
       </tbody>
     </table>
+      <div >
+        <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
+     </div>
   <?php } else { ?>
     <p>Este profesor no tiene asignadas materias.</p>
   <?php } ?>

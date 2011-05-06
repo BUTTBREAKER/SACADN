@@ -87,9 +87,8 @@ while ($row = $result_calificaciones->fetch_assoc()) {
 ?>
 
 <body>
-    <div class="container">
+    <div class="container card card-body table-responsive">
         <h1 class="mt-5 mb-4">Detalles del Estudiante</h1>
-
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Información del Estudiante</h5>
@@ -139,8 +138,11 @@ while ($row = $result_calificaciones->fetch_assoc()) {
                 </div>
             </div>
         </div>
+        <div >
+        <buttontype= "button" class="btn-group btn-group-lg mx-3 "><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
+     </div>
     </div>
-
+ 
     <script>
         function printNotas() {
             var selectedMomento = document.getElementById('momento').value;
@@ -169,6 +171,7 @@ while ($row = $result_calificaciones->fetch_assoc()) {
             window.print();
         }
     </script>
+    
 </body>
 
 <?php include __DIR__ . '/partials/footer.php' ?>

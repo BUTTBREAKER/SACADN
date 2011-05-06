@@ -34,7 +34,7 @@ $result = $db->query($sql);
         <th>Sexo</th>
         <th>Teléfono</th>
         <th>Dirección</th>
-        <th>Representados</th>
+        <th>Num.Representados</th>
         <th>Opciones</th>
       </tr>
     </thead>

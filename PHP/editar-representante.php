@@ -12,7 +12,7 @@ if ($_POST) {
   lugar_nacimiento = ?,
   genero = ?,
   telefono = ?,
-  direccion = ?,
+  direccion = ?
   WHERE cedula = ?
   SQL;
 
@@ -25,7 +25,7 @@ if ($_POST) {
       $_POST['genero'],
       $_POST['telefono'],
       $_POST['direccion'],
-      $_GET['cedula'] 
+      $_POST['cedula'] 
     ]);
 
  exit(<<<HTML
