@@ -5,9 +5,11 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
+
 $sql = <<<SQL
   SELECT p.id AS idProfesor, p.cedula AS cedulaProfesor, p.nombre AS nombreProfesor, apellido AS apellidoProfesor, m.id AS idMateria, m.nombre AS materia,
-   ne.id AS idNivel_estudio, ne.nombre As nivel_estudio, s.id idSeccion, s.nombre AS seccion FROM asignaciones a
+   ne.id AS idNivel_estudio, ne.nombre As nivel_estudio, s.id idSeccion, s.nombre AS seccion FROM 
+   asignaciones a
 JOIN profesores p ON p.id = a.id_profesor
 JOIN materias m ON m.id = a.id_materia
 JOIN niveles_estudio ne ON ne.id = a.id_nivel_estudio

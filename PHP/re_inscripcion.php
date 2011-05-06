@@ -3,10 +3,9 @@ require __DIR__ . '/../vendor/autoload.php';
 include __DIR__ . '/partials/header.php';
 ?>
 
-
 <body>
   <div class="container card card-body table-responsive">
-    <h1 class="mt-5 mb-4">Consulta de Notas por Momentos y Sección</h1>
+    <h1 class="mt-5 mb-4">Consulta de Estudiantes por Momentos y Sección</h1>
 
    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
@@ -48,12 +47,12 @@ include __DIR__ . '/partials/header.php';
           </select>
         </div>
         <div class="col-md-4 d-grid">
-          <button type="submit" class="btn btn-primary mt-md-4">Consultar Notas</button>
+          <button type="submit" class="btn btn-primary mt-md-4">Consultar</button>
         </div>
       </div>
     </form>
 
-   <?php
+    <?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_momento']) && isset($_GET['id_seccion'])) {
       // Obtener los valores de los parámetros del formulario
@@ -61,13 +60,15 @@ include __DIR__ . '/partials/header.php';
       $idSeccion = $_GET['id_seccion'];
 
       // Consultar las notas en base al momento y la sección seleccionados
-      $sql = "SELECT e.id AS estudiante_id, e.nombre AS estudiante, ma.nombre AS materia, c.calificacion
-              FROM calificaciones c
-              JOIN boletines b ON c.id_boletin = b.id
-              JOIN estudiantes e ON b.id_estudiante = e.id
-              JOIN momentos m ON b.id_momento = m.id
-              JOIN materias ma ON c.id_materia = ma.id
+      $sql = "SELECT e.id AS id_estudiante, e.cedula AS cedulaEstudiante, e.nombre AS nombreEstudiante, e.apellido AS apellidoEstudiante,
+             ne.id AS id_nivel_estudio, ne.nombre AS nivel_estudio, s.id AS id_seccion, s.nombre AS seccion
+              FROM asignaciones_estudiantes ae
+              JOIN estudiantes e ON e.id = ae.id_estudiante 
+              JOIN niveles_estudio ne ON ne.id = ae.id_nivel_estudio
+              JOIN secciones 
+              JOIN materias ma ON ae.id_materia = ma.id
               JOIN asignaciones_estudiantes ae ON ae.id_estudiante = e.id
+              JOIN momentos m ON b.id_momento = m.id
               WHERE m.id = ? AND ae.id_seccion = ? AND ae.id_nivel_estudio = (
                   SELECT id_nivel_estudio FROM secciones WHERE id = ?
               )";
@@ -130,8 +131,7 @@ include __DIR__ . '/partials/header.php';
     ?>
 
   </div>
-
-  <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
+<script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 
   <!-- Inicializar Simple-DataTables -->
   <script>
@@ -141,4 +141,15 @@ include __DIR__ . '/partials/header.php';
   </script>
 </body>
 
-<?php include __DIR__ . '/partials/footer.php' ?>
+<?php include __DIR__ . '/partials/footer.php' 
+///$sql = <<<SQL
+  // SELECT m.id AS id_momento, m.numero_momento AS momento, e.id As id_estudiante, e.cedula AS cedulaEstudiante,e.nombre AS nombreEstudiante,
+//e.apellido As apellidoEstudiante, s.id AS id_seccion, s.nombre AS nombreSeccion, s.id_nivel_estudio AS nombreNivel FROM inscripciones i
+//JOIN momentos m ON m.id = i.id_momento
+//JOIN estudiantes e ON e.id = i.id_estudiante
+//JOIN secciones s ON s.id = i.id_seccion
+//SQL;
+
+//$result = $db->query($sql);///
+?>
+

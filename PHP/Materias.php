@@ -8,6 +8,7 @@
   // Consulta para obtener la lista de materias
   $sql = 'SELECT id, nombre, fecha_registro FROM materias';
   $result = $db->query($sql);
+
 ?>
 
 <div class="container card card-body table-responsive">
@@ -17,11 +18,14 @@
 
   <!-- Tabla para mostrar las materias existentes -->
   <table id="tablaMaterias" class="datatable">
+  <thead>
     <tr>
       <th>ID</th>
       <th>Nombre</th>
       <th>Fecha de Registro</th>
     </tr>
+  </thead>
+  <tbody>
     <?php while ($materia = $result->fetch_assoc()) { ?>
       <tr>
         <td><?= $materia['id'] ?></td>
@@ -29,6 +33,7 @@
         <td><?= $materia['fecha_registro'] ?></td>
       </tr>
     <?php } ?>
+    </tbody>
   </table>
 </div>
 </div>

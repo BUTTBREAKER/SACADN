@@ -12,7 +12,7 @@ if ($conexion === false) {
 }
 
 // Obtener los estudiantes, niveles de estudio y secciones
-$estudiantes_result = $conexion->query('SELECT id, nombre, apellido FROM estudiantes');
+$estudiantes_result = $conexion->query('SELECT id, cedula, nombre, apellido FROM estudiantes');
 $estudiantes = $estudiantes_result->fetch_all(MYSQLI_ASSOC);
 
 $niveles_result = $conexion->query('SELECT id, nombre FROM niveles_estudio');
