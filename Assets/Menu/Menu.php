@@ -2,10 +2,9 @@
 session_start();
 
 if (!key_exists('usuario_id', $_SESSION)) {
-  exit(header('Location: salir.php'));
+    exit(header('Location: salir.php'));
 }
 
-// Obtener el nombre de usuario de la sesión
 $nombre_usuario = $_SESSION['usuario_id'];
 ?>
 
@@ -16,150 +15,210 @@ $nombre_usuario = $_SESSION['usuario_id'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SACADN</title>
+    <link rel="icon" type="image/ico" href="../Sacadn.ico"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <style>
-* {
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-    box-sizing: border-box;
-}
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
 
-.navbar {
-    background: #2fcdcd;
-    height: 80px;
-    width: 100%;
-}
+        .navbar {
+            background: #2fcdcd;
+            height: 80px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
 
-.enlace {
-    position: absolute;
-    padding: -px 40px 20px ;
-}
+        .logo img {
+            height: 80px;
+        }
 
-.logo {
-    height: 100px;
-    display: block; /* Asegura que el logo se comporte como un bloque */
-    margin: 0 auto; /* Centra horizontalmente */
-}
+        .nav-links ul {
+            display: flex;
+            align-items: center;
+        }
 
-.nav-links {
-    float: right;
-    margin-right: 20px;
-}
+        .nav-links li {
+            margin: 0 10px;
+        }
 
-.nav-links li {
-    display: inline-block;
-    line-height: 80px;
-    margin: 0 5px;
-}
+        .nav-links a {
+            color: #fff;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 3px;
+            transition: background 0.3s ease;
+        }
 
-.nav-links li a {
-    color: #fff;
-    font-size: 18px;
-    padding: 7px 13px;
-    border-radius: 3px;
-    text-transform: uppercase;
-}
+        .nav-links a:hover {
+            background: #000090;
+            color: #fff;
+        }
 
-.nav-links li a.active,
-.nav-links li a:hover {
-    background: #000090;
-    transition: .5s;
-}
+        .nav-submenu {
+            display: none;
+            position: absolute;
+            background: #2fcdcd;
+            padding: 10px;
+            border-radius: 3px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.checkbtn {
-    font-size: 30px;
-    color: #fff;
-    float: right;
-    line-height: 80px;
-    margin-right: 40px;
-    cursor: pointer;
-    display: none;
-}
+        .nav-links li:hover .nav-submenu {
+            display: block;
+        }
 
-#check {
-    display: none;
-}
+        .nav-submenu a {
+            display: block;
+            color: #fff;
+            padding: 5px 0;
+        }
 
-section {
-    background: url(fondo.jpg) no-repeat;
-    background-size: cover;
-    background-position: center center;
-    height: calc(100vh - 80px);
-}
+        .menu-toggle {
+            display: none; /* Oculta el botón de menú por defecto */
+        }
 
-@media (max-width: 858px) {
-    .enlace {
-        padding-left: 20px;
-    }
+        @media screen and (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+            }
 
-    .checkbtn {
-        display: block;
-    }
+            .nav-links {
+                display: none;
+                width: 100%;
+                text-align: center;
+                margin-top: 20px;
+            }
 
-    .nav-links {
-        position: fixed;
-        width: 100%;
-        height: 100vh;
-        background: #2c3e50;
-        top: 80px;
-        left: -100%;
-        text-align: center;
-        transition: all .5s;
-    }
+            .nav-links.active {
+                display: flex;
+                justify-content: space-between;
+            }
 
-    .nav-links li {
-        display: block;
-        margin: 50px 0;
-        line-height: 30px;
-    }
+            .nav-links ul {
+                flex-direction: column;
+            }
 
-    .nav-links li a {
-        font-size: 20px;
-    }
+            .nav-links li {
+                margin: 10px 0;
+            }
 
-    .nav-links li a:hover,
-    .nav-links li a.active {
-        background: none;
-        color: red;
-    }
+            .nav-links a {
+                padding: 10px 0;
+            }
 
-    .cerrar-sesion {
-        color: #fff;
-        background-color: #ff0000;
-        padding: 10px 20px;
-        border-radius: 5px;
-        margin-top: 20px;
-    }
+            .nav-links li:hover .nav-submenu {
+                display: none;
+            }
 
-    #check:checked ~ .nav-links {
-        left: 0;
-    }
-}
+            .nav-links li:hover .nav-submenu.active {
+                display: block;
+            }
 
+            .menu-toggle {
+                display: block; /* Muestra el botón de menú en pantallas pequeñas */
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: transparent;
+                border: none;
+                cursor: pointer;
+            }
+
+            .menu-toggle i {
+                font-size: 24px; /* Tamaño del ícono */
+                color: #fff; /* Color del ícono */
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-            <i class="fas fa-bars"></i>
-        </label>
-        
-        <a href="#" class="enlace">
-            <img src="../Sacadn.ico" alt="SACADN Logo" class="logo">
-        </a>
-
-        <ul class="nav-links">
-            <li><a class="active" href="#">Inicio</a></li>
-            <li><a href="#">Notas</a></li>
-            <li><a href="#">Estudiantes</a></li>
-            <li><a href="#">Profesores</a></li> 
-            <li><a href="#">Acerca de</a></li>
-            <li><a href="#">Contacto</a></li>
-            <li><a href="salir.php">Salir</a></li>
-        </ul>
+        <div class="logo">
+            <img src="../Sacadn.ico" alt="SACADN Logo">
+        </div>
+        <button class="menu-toggle">
+            <i class="fas fa-bars"></i> <!-- Ícono de hamburguesa de Font Awesome -->
+        </button>
+        <div class="nav-links">
+            <ul>
+                <li><a class="active" href="#">Inicio</a></li>
+                <li>
+                    <a href="#">Notas</a>
+                    <div class="nav-submenu">
+                        <a href="#">Año Escolar - Semestres</a>
+                        <a href="#">Ver Periodos</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Años escolares</a>
+                    <div class="nav-submenu">
+                        <a href="#">Año Escolar - Semestres</a>
+                        <a href="#">Ver Periodos</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Asignaturas</a>
+                    <div class="nav-submenu">
+                        <a href="#">Ver Asignaturas</a>
+                        <a href="#">Materias</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Estudiantes</a>
+                    <div class="nav-submenu">
+                        <a href="#">Lista Estudiantes</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Profesores</a>
+                    <div class="nav-submenu">
+                        <a href="#">Lista Profesores</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Representantes</a>
+                    <div class="nav-submenu">
+                        <a href="#">Lista Representantes</a>
+                    </div>
+                </li>
+                <li><a href="salir.php">Salir</a></li>
+            </ul>
+        </div>
     </nav>
+    <<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".nav-links");
+        const subMenus = document.querySelectorAll(".nav-submenu");
+
+        menuToggle.addEventListener("click", function () {
+            navLinks.classList.toggle("active");
+
+            // Mostrar u ocultar los submenús cuando se hace clic en el botón de menú
+            subMenus.forEach(subMenu => {
+                subMenu.classList.remove("active");
+            });
+        });
+
+        // Mostrar u ocultar los submenús cuando se hace clic en los elementos principales del menú
+        document.querySelectorAll(".nav-links > ul > li").forEach(link => {
+            link.addEventListener("click", function () {
+                const subMenu = this.querySelector(".nav-submenu");
+                if (subMenu) {
+                    subMenu.classList.toggle("active");
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
