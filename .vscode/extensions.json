@@ -1,6 +1,6 @@
 {
-    "recommendations": [
-        "bmewburn.vscode-intelephense-client",
-        "EditorConfig.EditorConfig"
-    ]
+  "recommendations": [
+    "bmewburn.vscode-intelephense-client",
+    "EditorConfig.EditorConfig"
+  ]
 }
