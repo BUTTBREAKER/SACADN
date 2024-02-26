@@ -1,0 +1,6 @@
+{
+  "intelephense.format.braces": "k&r",
+  "intelephense.environment.phpVersion": "8.2.16",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true
+}
