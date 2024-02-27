@@ -53,7 +53,7 @@
                       required
                       minlength="4"
                       maxlength="20"
-                      pattern="[0-9]{4,20}"
+                      pattern=".{4,20}"
                       title="La contraseña debe tener entre 4 y 20 caracteres."
                     />
                     <small class="error-message"></small>

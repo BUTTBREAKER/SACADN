@@ -1,10 +1,17 @@
 <?php
 
-$conexion = mysqli_connect("localhost","root","","sacadn1");
-/*
-if($conxion){
-    echo'Contectado exitosamente a la Base de Datos';
-}else{
-    echo 'No se a podido conectar a la Base de Datos';
-}
-*/
+$_ENV += (function () {
+  $vars = require_once __DIR__ . '/../.env.php';
+
+  return is_array($vars) ? $vars : [];
+})();
+
+$conexion = new mysqli(
+  $_ENV['DB_HOST'],
+  $_ENV['DB_USERNAME'],
+  $_ENV['DB_PASSWORD'],
+  $_ENV['DB_DATABASE'],
+  $_ENV['DB_PORT']
+);
+
+return $conexion;

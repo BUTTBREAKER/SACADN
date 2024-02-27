@@ -1,0 +1,18 @@
+{
+  "PHP Tags": {
+    "scope": "html",
+    "prefix": "php",
+    "body": [
+      "<?php $1 ?>"
+    ],
+    "description": "PHP Standard tags"
+  },
+  "PHP Short echo tag": {
+    "scope": "html",
+    "prefix": "phpe",
+    "body": [
+      "<?= $1 ?>"
+    ],
+    "description": "PHP Short echo tag"
+  }
+}

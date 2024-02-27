@@ -155,63 +155,64 @@
    </style>
 </head>
 <body>
-   <nav class="navbar">
-       <div class="logo">
-           <img src="../Sacadn.ico" alt="SACADN Logo">
-       </div>
-       <button class="menu-toggle">
-           <i class="fas fa-bars"></i> <!-- Ícono de hamburguesa de Font Awesome -->
-       </button>
-       <div class="nav-links">
-           <ul>
-               <li><a class="active" href="#">Inicio</a></li>
-               <li>
-                   <a href="#">Notas</a>
-               </li>
-               <li>
-                   <a href="#">Años escolares</a>
-                   <div class="nav-submenu">
-                       <a href="#">Año Escolar - Semestres</a>
-                       <a href="#">Ver Periodos</a>
-                   </div>
-               </li>
-               <li>
-                   <a href="#">Asignaturas</a>
-                   <div class="nav-submenu">
-                       <a href="#">Ver Asignaturas</a>
-                       <a href="#">Materias</a>
-                   </div>
-               </li>
-               <li>
-                   <a href="#">Estudiantes</a>
-                   <div class="nav-submenu">
-                       <a href="#">Lista Estudiantes</a>
-                   </div>
-               </li>
-               <li>
-                   <a href="#">Profesores</a>
-                   <div class="nav-submenu">
-                       <a href="#">Lista Profesores</a>
-                   </div>
-               </li>
-               <li>
-                   <a href="#">Representantes</a>
-                   <div class="nav-submenu">
-                       <a href="#">Lista Representantes</a>
-                   </div>
-               </li>
-               <li><a href="salir.php">Salir</a></li>
-           </ul>
-       </div>
-   </nav>
-
-   <script>
-       // Espera a que el contenido de la página se haya cargado
-       document.addEventListener("DOMContentLoaded", function () {
-           // Selecciona el botón de menú y el contenedor de enlaces de navegación
-           const menuToggle = document.querySelector(".menu-toggle");
-           const navLinks = document.querySelector(".nav-links");
-           const subMenus = document.querySelectorAll(".nav-submenu");
+    <nav class="navbar">
+        <div class="logo">
+            <img src="../Sacadn.ico" alt="SACADN Logo">
+        </div>
+        <button class="menu-toggle">
+            <i class="fas fa-bars"></i> <!-- Ícono de hamburguesa de Font Awesome -->
+        </button>
+        <div class="nav-links">
+            <ul>
+                <li><a class="active" href="#">Inicio</a></li>
+                <li>
+                    <a href="#">Notas</a>
+                    <div class="nav-submenu">
+                        <a href="#">Año Escolar - Semestres</a>
+                        <a href="#">Ver Periodos</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Años escolares</a>
+                    <div class="nav-submenu">
+                        <a href="#">Año Escolar - Semestres</a>
+                        <a href="#">Ver Periodos</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Asignaturas</a>
+                    <div class="nav-submenu">
+                        <a href="#">Ver Asignaturas</a>
+                        <a href="#">Materias</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Estudiantes</a>
+                    <div class="nav-submenu">
+                        <a href="#">Lista Estudiantes</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Profesores</a>
+                    <div class="nav-submenu">
+                        <a href="#">Lista Profesores</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#">Representantes</a>
+                    <div class="nav-submenu">
+                        <a href="#">Lista Representantes</a>
+                    </div>
+                </li>
+                <li><a href="salir.php">Salir</a></li>
+            </ul>
+        </div>
+    </nav>
+    <<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".nav-links");
+        const subMenus = document.querySelectorAll(".nav-submenu");
 
            // Agrega un event listener al botón de menú
            menuToggle.addEventListener("click", function () {
