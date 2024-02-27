@@ -194,7 +194,7 @@ $nombre_usuario = $_SESSION['usuario_id'];
             </ul>
         </div>
     </nav>
-    <<script>
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
         const menuToggle = document.querySelector(".menu-toggle");
         const navLinks = document.querySelector(".nav-links");
