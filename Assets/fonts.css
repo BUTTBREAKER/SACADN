@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 100;
   font-display: swap;
-  src: url(poppins/pxiGyp8kv8JHgFVrLPTedw.ttf) format('truetype');
+  src: url(fonts/poppins/pxiGyp8kv8JHgFVrLPTedw.ttf) format('truetype');
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 200;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLFj_V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLFj_V1s.ttf) format('truetype');
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-style: normal;
   font-weight: 300;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLDz8V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLDz8V1s.ttf) format('truetype');
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(poppins/pxiEyp8kv8JHgFVrFJA.ttf) format('truetype');
+  src: url(fonts/poppins/pxiEyp8kv8JHgFVrFJA.ttf) format('truetype');
 }
 
 @font-face {
@@ -35,7 +35,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLGT9V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLGT9V1s.ttf) format('truetype');
 }
 
 @font-face {
@@ -43,7 +43,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLEj6V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLEj6V1s.ttf) format('truetype');
 }
 
 @font-face {
@@ -51,7 +51,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLCz7V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLCz7V1s.ttf) format('truetype');
 }
 
 @font-face {
@@ -59,7 +59,7 @@
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLDD4V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLDD4V1s.ttf) format('truetype');
 }
 
 @font-face {
@@ -67,5 +67,5 @@
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: url(poppins/pxiByp8kv8JHgFVrLBT5V1s.ttf) format('truetype');
+  src: url(fonts/poppins/pxiByp8kv8JHgFVrLBT5V1s.ttf) format('truetype');
 }
