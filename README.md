@@ -1,4 +1,4 @@
-## SACADN - Sistema de Gestión Escolar
+<h1 style="text-align: center">SACADN - Sistema de Gestión Escolar</h1>
 
 <picture style="display: flex; justify-content: center">
   <img src="https://raw.githubusercontent.com/BUTTBREAKER/SACADN/main/Sacadn.ico" alt="Logo de la aplicación" height="150" />
