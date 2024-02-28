@@ -8,8 +8,28 @@
        exit(header('Location: salir.php'));
    }
 
-   // Asigna el valor de la clave 'usuario_id' en $_SESSION a la variable $nombre_usuario
-   $nombre_usuario = $_SESSION['usuario_id'];
+   require_once __DIR__ . '/../../PHP/conexion_be.php';
+// Prepara la consulta SQL para obtener el nombre del usuario
+$query = "SELECT Usuario FROM usuarios WHERE id = ?";
+if ($sentencia = $conexion->prepare($query)) {
+    // Vincula los parámetros
+    $sentencia->bind_param("i", $_SESSION['usuario_id']);
+
+    // Ejecuta la consulta
+    $sentencia->execute();
+
+    // Almacena el resultado de la consulta
+    $sentencia->bind_result($usuario);
+
+    // Obtiene el resultado
+    $sentencia->fetch();
+
+    // Cierra la sentencia
+    $sentencia->close();
+}
+
+// Cierra la conexión a la base de datos
+$conexion->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -208,7 +228,7 @@
             </ul>
         </div>
     </nav>
-    <<script>
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
         const menuToggle = document.querySelector(".menu-toggle");
         const navLinks = document.querySelector(".nav-links");
