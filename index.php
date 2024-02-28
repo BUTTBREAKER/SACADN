@@ -31,17 +31,17 @@
             <form id="registerForm" action="php/registro_usuario_be.php" method="POST" class="formulario__register">
                 <h1>Regístrate aquí</h1>
                 <div class="form-control">
-                    <input id="registerUsuario" placeholder="Usuario" name="usuario" />
+                    <input id="registerUsuario" placeholder="Usuario" name="usuario" required />
                     <small class="error-message"></small>
                     <span></span>
                 </div>
                 <div class="form-control">
-                    <input id="registerNombreCompleto" placeholder="Nombre completo" name="nombre_completo" />
+                    <input id="registerNombreCompleto" placeholder="Nombre completo" name="nombre_completo"  required/>
                     <small class="error-message"></small>
                     <span></span>
                 </div>
                 <div class="form-control">
-                    <input id="registerCedula" placeholder="Cédula" name="cedula" />
+                    <input type= "number" id="registerCedula" placeholder="Cédula" name="cedula"  required/>
                     <small class="error-message"></small>
                     <span></span>
                 </div>
