@@ -29,6 +29,7 @@
     <div class="container" id="container">
         <div class="form-container register-container">
             <form id="registerForm" action="php/registro_usuario_be.php" method="POST" class="formulario__register">
+            <img src="./Sacadn.ico" style="width: 100px; height: 100px;">
                 <h1>Regístrate aquí</h1>
                 <div class="form-control">
                     <input id="registerUsuario" placeholder="Usuario" name="usuario" required />
@@ -68,6 +69,7 @@
 
         <div class="form-container login-container">
             <form id="loginForm" action="php/login_usuario_be.php" method="POST" class="formulario__login">
+            <img src="./Sacadn.ico" style="width: 100px; height: 100px;">
                 <h1>Inicia sesión aquí</h1>
                 <div class="form-control">
                     <input type="text" id="loginUsuario" placeholder="Usuario" name="usuario" />
