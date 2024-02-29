@@ -50,9 +50,8 @@ $conexion->close();
            box-sizing: border-box;
        }
 
-       /* Establece los estilos para el encabezado de navegación */
        .navbar {
-           background: #2fcdcd;
+           background: #2DA0FA;
            height: 80px;
            width: 100%;
            display: flex;
@@ -61,12 +60,10 @@ $conexion->close();
            padding: 0 20px;
        }
 
-       /* Establece los estilos para el logotipo */
        .logo img {
            height: 80px;
        }
 
-       /* Establece los estilos para los enlaces de navegación */
        .nav-links ul {
            display: flex;
            align-items: center;
@@ -77,7 +74,7 @@ $conexion->close();
        }
 
        .nav-links a {
-           color: #000; /* Cambia el color del texto del menú a negro */
+           color: #000;
            font-size: 18px;
            padding: 10px;
            border-radius: 3px;
@@ -85,41 +82,38 @@ $conexion->close();
        }
 
        .nav-links a:hover {
-           background: #000090;
+           background: #89BFFB;
            color: #fff;
        }
 
-       /* Establece los estilos para el submenú */
        .nav-submenu {
-           display: none; /* Oculta el submenú por defecto */
+           display: none;
            position: absolute;
-           background: #2fcdcd;
+           background: #72D6EE;
            padding: 10px;
            border-radius: 3px;
            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
        }
 
-       /* Muestra el submenú cuando el usuario hace hover sobre el elemento de navegación */
        .nav-links li:hover .nav-submenu {
            display: block;
        }
 
        .nav-submenu a {
            display: block;
-           color: #000; /* Cambia el color del texto del submenú a negro */
+           color: #000;
            padding: 5px 0;
        }
 
-       /* Establece los estilos para el botón de menú */
        .menu-toggle {
-           display: none; /* Oculta el botón de menú por defecto */
+           display: none;
        }
 
-       /* Establece los estilos para el menú desplegable en pantallas pequeñas */
        @media screen and (max-width: 768px) {
            .navbar {
                flex-direction: column;
                height: auto;
+               justify-content: center; /* Centra los elementos del menú */
            }
 
            .nav-links {
@@ -129,14 +123,14 @@ $conexion->close();
                margin-top: 20px;
            }
 
-           /* Muestra el menú desplegable cuando el usuario hace clic en el botón de menú */
            .nav-links.active {
                display: flex;
-               justify-content: space-between;
+               flex-direction: column; /* Cambia la dirección del menú desplegado */
            }
 
            .nav-links ul {
                flex-direction: column;
+               align-items: center; /* Centra los elementos del menú desplegado */
            }
 
            .nav-links li {
@@ -147,18 +141,13 @@ $conexion->close();
                padding: 10px 0;
            }
 
-           /* Oculta el submenú cuando el usuario hace clic en el botón de menú */
            .nav-links li:hover .nav-submenu {
-               display: none;
-           }
-
-           /* Muestra el submenú cuando el usuario hace clic en el botón de menú */
-           .nav-links li:hover .nav-submenu.active {
                display: block;
+               position: static; /* Cambia la posición del submenú al mostrarlo */
            }
 
            .menu-toggle {
-               display: block; /* Muestra el botón de menú en pantallas pequeñas */
+               display: block;
                position: absolute;
                top: 20px;
                right: 20px;
@@ -168,8 +157,8 @@ $conexion->close();
            }
 
            .menu-toggle i {
-               font-size: 24px; /* Tamaño del ícono */
-               color: #fff; /* Color del ícono */
+               font-size: 24px;
+               color: #fff;
            }
        }
    </style>
@@ -180,7 +169,7 @@ $conexion->close();
             <img src="../Sacadn.ico" alt="SACADN Logo">
         </div>
         <button class="menu-toggle">
-            <i class="fas fa-bars"></i> <!-- Ícono de hamburguesa de Font Awesome -->
+            <i class="fas fa-bars"></i>
         </button>
         <div class="nav-links">
             <ul>
@@ -229,35 +218,14 @@ $conexion->close();
         </div>
     </nav>
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const menuToggle = document.querySelector(".menu-toggle");
-        const navLinks = document.querySelector(".nav-links");
-        const subMenus = document.querySelectorAll(".nav-submenu");
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.querySelector(".menu-toggle");
+            const navLinks = document.querySelector(".nav-links");
 
-           // Agrega un event listener al botón de menú
-           menuToggle.addEventListener("click", function () {
-               // Alterna la clase 'active' en el contenedor de enlaces de navegación
-               navLinks.classList.toggle("active");
-
-               // Oculta los submenús cuando se hace clic en el botón de menú
-               subMenus.forEach(subMenu => {
-                   subMenu.classList.remove("active");
-               });
-           });
-
-           // Agrega un event listener a cada elemento de navegación
-           document.querySelectorAll(".nav-links > ul > li").forEach(link => {
-               link.addEventListener("click", function () {
-                   // Selecciona el submenú asociado al elemento de navegación
-                   const subMenu = this.querySelector(".nav-submenu");
-
-                   // Alterna la clase 'active' en el submenú
-                   if (subMenu) {
-                       subMenu.classList.toggle("active");
-                   }
-               });
-           });
-       });
+            menuToggle.addEventListener("click", function () {
+                navLinks.classList.toggle("active");
+            });
+        });
    </script>
 </body>
 </html>
