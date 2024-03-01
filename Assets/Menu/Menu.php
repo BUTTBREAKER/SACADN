@@ -176,10 +176,6 @@ $conexion->close();
                 <li><a class="active" href="#">Inicio</a></li>
                 <li>
                     <a href="#">Notas</a>
-                    <div class="nav-submenu">
-                        <a href="#">Año Escolar - Semestres</a>
-                        <a href="#">Ver Periodos</a>
-                    </div>
                 </li>
                 <li>
                     <a href="#">Años escolares</a>
