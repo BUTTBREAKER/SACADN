@@ -39,189 +39,112 @@ $conexion->close();
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>SACADN</title>
    <link rel="icon" type="image/ico" href="../Sacadn.ico"/>
-   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
-   <style>
-       /* Establece los estilos por defecto para todos los elementos */
-       * {
-           padding: 0;
-           margin: 0;
-           text-decoration: none;
-           list-style: none;
-           box-sizing: border-box;
-       }
+ <!--=============== REMIXICONS ===============-->
+ <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
+   <!--=============== CSS ===============-->
+      <link rel="stylesheet" href="../Assets/Menu/css/styles.css">
 
-       .navbar {
-           background: #2DA0FA;
-           height: 80px;
-           width: 100%;
-           display: flex;
-           align-items: center;
-           justify-content: space-between;
-           padding: 0 20px;
-       }
+   </head>
+   <body>
+      <!--=============== HEADER ===============-->
+      <header class="header">
+         <nav class="nav container">
+            <div class="nav__data">
+               <a href="#" class="nav__logo">
+               </i> SACADN<img src="../Sacadn.ico">
+               </a>
+               
+               <div class="nav__toggle" id="nav-toggle">
+                  <i class="ri-menu-line nav__burger"></i>
+                  <i class="ri-close-line nav__close"></i>
+               </div>
+            </div>
 
-       .logo img {
-           height: 80px;
-       }
+            <!--=============== NAV MENU ===============-->
+            <div class="nav__menu" id="nav-menu">
+               <ul class="nav__list">
+                  <li><a href="#" class="nav__link">Inicio</a></li>
 
-       .nav-links ul {
-           display: flex;
-           align-items: center;
-       }
+                  <li><a href="#" class="nav__link">Notas</a></li>
 
-       .nav-links li {
-           margin: 0 10px;
-       }
+                  <!--=============== DROPDOWN 1 ===============-->
+                  <li class="dropdown__item">
+                     <div class="nav__link">
+                        Años Escolares <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                     </div>
 
-       .nav-links a {
-           color: #000;
-           font-size: 18px;
-           padding: 10px;
-           border-radius: 3px;
-           transition: background 0.3s ease;
-       }
+                     <ul class="dropdown__menu">
+                        <li>
+                           <a href="#" class="dropdown__link">
+                              <i class="ri-pie-chart-line"></i> Año Escolar-Semestre
+                           </a>                          
+                        </li>
 
-       .nav-links a:hover {
-           background: #89BFFB;
-           color: #fff;
-       }
+                        <li>
+                           <a href="#" class="dropdown__link">
+                              <i class="ri-arrow-up-down-line"></i> Ver Periodo
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
+                    <!--=============== DROPDOWN 2 ===============-->
+                  <li class="dropdown__item">
+                     <div class="nav__link">
+                        Asignaturas <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                     </div>
 
-       .nav-submenu {
-           display: none;
-           position: absolute;
-           background: #72D6EE;
-           padding: 10px;
-           border-radius: 3px;
-           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-       }
+                     <ul class="dropdown__menu">
+                        <li>
+                           <a href="#" class="dropdown__link">
+                              <i class="ri-pie-chart-line"></i> Ver Asignaturas
+                           </a>                          
+                        </li>
 
-       .nav-links li:hover .nav-submenu {
-           display: block;
-       }
+                        <li>
+                           <a href="#" class="dropdown__link">
+                              <i class="ri-arrow-up-down-line"></i> Materias
+                           </a>
+                        </li>
+                     </ul>
+                  </li>
 
-       .nav-submenu a {
-           display: block;
-           color: #000;
-           padding: 5px 0;
-       }
+               <!--=============== DROPDOWN 3 ===============-->
+                  <li class="dropdown__item">
+                     <div class="nav__link">
+                        Profesores <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                     </div>
 
-       .menu-toggle {
-           display: none;
-       }
+                     <ul class="dropdown__menu">
+                        <li>
+                           <a href="#" class="dropdown__link">
+                              <i class="ri-pie-chart-line"></i> Lista de Profesores
+                           </a>                          
+                        </li>
+                     </ul>
+                  </li>
+                  <!--=============== DROPDOWN 3 ===============-->
+                  <li class="dropdown__item">
+                     <div class="nav__link">
+                        Estudiantes
+                     </div>
+                  </li>
+                  <!--=============== DROPDOWN 4 ===============-->
+                     <!--=============== DROPDOWN 3 ===============-->
+                     <li class="dropdown__item">
+                        <div class="nav__link">
+                           Representantes
+                        </div>
+                     </li>
 
-       @media screen and (max-width: 768px) {
-           .navbar {
-               flex-direction: column;
-               height: auto;
-               justify-content: center; /* Centra los elementos del menú */
-           }
+                  <li><a href="salir.php" class="nav__link">Salir</a></li>
+               </ul>
+            </div>
+         </nav>
+      </header>
 
-           .nav-links {
-               display: none;
-               width: 100%;
-               text-align: center;
-               margin-top: 20px;
-           }
-
-           .nav-links.active {
-               display: flex;
-               flex-direction: column; /* Cambia la dirección del menú desplegado */
-           }
-
-           .nav-links ul {
-               flex-direction: column;
-               align-items: center; /* Centra los elementos del menú desplegado */
-           }
-
-           .nav-links li {
-               margin: 10px 0;
-           }
-
-           .nav-links a {
-               padding: 10px 0;
-           }
-
-           .nav-links li:hover .nav-submenu {
-               display: block;
-               position: static; /* Cambia la posición del submenú al mostrarlo */
-           }
-
-           .menu-toggle {
-               display: block;
-               position: absolute;
-               top: 20px;
-               right: 20px;
-               background: transparent;
-               border: none;
-               cursor: pointer;
-           }
-
-           .menu-toggle i {
-               font-size: 24px;
-               color: #fff;
-           }
-       }
-   </style>
-</head>
-<body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="../Sacadn.ico" alt="SACADN Logo">
-        </div>
-        <button class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="nav-links">
-            <ul>
-                <li><a class="active" href="#">Inicio</a></li>
-                <li>
-                    <a href="#">Notas</a>
-                </li>
-                <li>
-                    <a href="#">Años escolares</a>
-                    <div class="nav-submenu">
-                        <a href="#">Año Escolar - Semestres</a>
-                        <a href="#">Ver Periodos</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Asignaturas</a>
-                    <div class="nav-submenu">
-                        <a href="#">Ver Asignaturas</a>
-                        <a href="#">Materias</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Estudiantes</a>
-                    <div class="nav-submenu">
-                        <a href="#">Lista Estudiantes</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Profesores</a>
-                    <div class="nav-submenu">
-                        <a href="#">Lista Profesores</a>
-                    </div>
-                </li>
-                <li>
-                    <a href="#">Representantes</a>
-                    <div class="nav-submenu">
-                        <a href="#">Lista Representantes</a>
-                    </div>
-                </li>
-                <li><a href="salir.php">Salir</a></li>
-            </ul>
-        </div>
-    </nav>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.querySelector(".menu-toggle");
-            const navLinks = document.querySelector(".nav-links");
-
-            menuToggle.addEventListener("click", function () {
-                navLinks.classList.toggle("active");
-            });
-        });
-   </script>
+      <!--=============== MAIN JS ===============-->
+      <script src="../Assets/Menu/js/main.js"></script>
+   </body>
+</html>
 </body>
 </html>
