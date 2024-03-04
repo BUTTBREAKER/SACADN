@@ -63,8 +63,6 @@ $conexion->close();
             <!--=============== NAV MENU ===============-->
             <div class="nav__menu" id="nav-menu">
                <ul class="nav__list">
-                  <li><a href="#" class="nav__link">Inicio</a></li>
-
                   <li><a href="#" class="nav__link">Notas</a></li>
 
                   <!--=============== DROPDOWN 1 ===============-->

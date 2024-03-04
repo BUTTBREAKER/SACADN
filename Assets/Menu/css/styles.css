@@ -8,6 +8,7 @@
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
   --black-color: hsl(220, 94%, 49%);
+  --black-color2: hsl(220, 93%, 58%);
   --black-color-light: hsl(220, 24%, 15%);
   --black-color-lighten: hsl(220, 20%, 18%);
   --white-color: #fff;
@@ -224,7 +225,7 @@ a {
 
 .dropdown__link:hover, 
 .dropdown__sublink:hover {
-  background-color: var(--black-color);
+  background-color: var(--black-color2);
 }
 
 .dropdown__menu, 
