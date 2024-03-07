@@ -3,6 +3,8 @@
         "editorconfig.editorconfig",
         "bmewburn.vscode-intelephense-client",
         "rome.rome",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "onecentlin.laravel-blade",
+        "shufo.vscode-blade-formatter"
     ]
 }
