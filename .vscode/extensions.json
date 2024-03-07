@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "editorconfig.editorconfig",
+        "bmewburn.vscode-intelephense-client",
+        "rome.rome",
+        "bradlc.vscode-tailwindcss"
+    ]
+}

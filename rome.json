@@ -1,0 +1,58 @@
+{
+  "$schema": "./node_modules/rome/configuration_schema.json",
+  "files": {
+    "ignore": ["node_modules", "vendor"]
+  },
+  "javascript": {
+    "globals": [],
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingComma": "none",
+      "quoteProperties": "asNeeded"
+    }
+  },
+  "formatter": {
+    "lineWidth": 90,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "ignore": []
+  },
+  "linter": {
+    "rules": {
+      "a11y": {
+        "all": true
+      },
+      "complexity": {
+        "all": true
+      },
+      "correctness": {
+        "all": true
+      },
+      "nursery": {
+        "all": true
+      },
+      "performance": {
+        "all": true
+      },
+      "security": {
+        "all": true
+      },
+      "style": {
+        "all": true
+      },
+      "suspicious": {
+        "all": true
+      }
+    },
+    "enabled": true
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": false,
+    "useIgnoreFile": true
+  }
+}
