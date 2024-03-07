@@ -1,10 +1,10 @@
 {
   "$schema": "./node_modules/rome/configuration_schema.json",
   "files": {
-    "ignore": ["node_modules", "vendor"]
+    "ignore": [ "node_modules", "vendor" ]
   },
   "javascript": {
-    "globals": [],
+    "globals": [ ],
     "formatter": {
       "quoteStyle": "single",
       "semicolons": "asNeeded",
@@ -16,7 +16,7 @@
     "lineWidth": 90,
     "formatWithErrors": true,
     "indentStyle": "space",
-    "ignore": []
+    "ignore": [ ]
   },
   "linter": {
     "rules": {

@@ -1,157 +1,165 @@
 {
-    // LANGUAGES
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features"
+  // LANGUAGES
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "rome.rome",
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "rome.rome",
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+  },
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "rome.rome",
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rome.rome",
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml"
+  },
+  // BREADCRUMBS
+  "breadcrumbs.enabled": false,
+  // CSS
+  "css.format.newlineBetweenSelectors": false,
+  "css.format.preserveNewLines": false,
+  "css.format.spaceAroundSelectorSeparator": true,
+  "css.lint.boxModel": "warning",
+  "css.lint.compatibleVendorPrefixes": "warning",
+  "css.lint.duplicateProperties": "warning",
+  "css.lint.float": "warning",
+  "css.lint.idSelector": "warning",
+  "css.lint.ieHack": "warning",
+  "css.lint.important": "warning",
+  "css.lint.importStatement": "warning",
+  "css.lint.universalSelector": "warning",
+  "css.lint.unknownVendorSpecificProperties": "warning",
+  "css.lint.zeroUnits": "warning",
+  // EDITOR
+  "editor.bracketPairColorization.enabled": false,
+  "editor.cursorBlinking": "phase",
+  "editor.fontFamily": "'JetBrains Mono'",
+  "editor.fontLigatures": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.lineHeight": 1.5,
+  "editor.linkedEditing": true,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.occurrencesHighlight": false,
+  "editor.scrollbar.verticalScrollbarSize": 7,
+  "editor.suggest.showStatusBar": true,
+  "editor.tabSize": 2,
+  // EXPLORER
+  "explorer.confirmDelete": false,
+  "explorer.fileNesting.enabled": true,
+  "editor.formatOnSave": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js, ${capture}.css, ${capture}.test.jsx",
+    "*.tsx": "${capture}.ts, ${capture}.css, ${capture}.test.tsx",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc",
+    "*.sublime-project": "*.sublime-workspace",
+    ".eslintrc.cjs": ".eslintignore",
+    "composer.json": "composer.lock",
+    ".gitignore": ".gitattributes",
+    "phpunit.xml": ".phpunit.result.cache"
+  },
+  // EXTENSIONS
+  "extensions.experimental.useUtilityProcess": true,
+  // FILES
+  "files.associations": {
+    "*.neon": "yaml",
+    ".env.example": "properties"
+  },
+  "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  // HTML
+  "html.format.indentHandlebars": true,
+  "html.format.indentInnerHtml": true,
+  "html.format.templating": true,
+  "html.hover.references": false,
+  // JSON
+  "json.format.enable": true,
+  "json.format.keepLines": true,
+  // PHP
+  "php.suggest.basic": false,
+  // TERMINAL
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.cursorWidth": 2,
+  "terminal.integrated.defaultProfile.windows": "Command Prompt",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+      "args": [ "-NoLogo" ]
     },
-    "[javascript]": {
-        "editor.defaultFormatter": "rome.rome",
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe"
+      ],
+      "args": [ "/k" ],
+      "icon": "terminal-cmd"
     },
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "rome.rome",
-    },
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
-    },
-    "[php]": {
-        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
-    },
-    "[blade]": {
-        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "rome.rome",
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "rome.rome",
-    },
-    "[xml]": {
-        "editor.defaultFormatter": "redhat.vscode-xml"
-    },
-    // BREADCRUMBS
-    "breadcrumbs.enabled": false,
-    // CSS
-    "css.format.newlineBetweenSelectors": false,
-    "css.format.preserveNewLines": false,
-    "css.format.spaceAroundSelectorSeparator": true,
-    "css.lint.boxModel": "warning",
-    "css.lint.compatibleVendorPrefixes": "warning",
-    "css.lint.duplicateProperties": "warning",
-    "css.lint.float": "warning",
-    "css.lint.idSelector": "warning",
-    "css.lint.ieHack": "warning",
-    "css.lint.important": "warning",
-    "css.lint.importStatement": "warning",
-    "css.lint.universalSelector": "warning",
-    "css.lint.unknownVendorSpecificProperties": "warning",
-    "css.lint.zeroUnits": "warning",
-    // EDITOR
-    "editor.bracketPairColorization.enabled": false,
-    "editor.cursorBlinking": "phase",
-    "editor.fontFamily": "'JetBrains Mono'",
-    "editor.fontLigatures": true,
-    "editor.guides.bracketPairs": "active",
-    "editor.lineHeight": 1.5,
-    "editor.linkedEditing": true,
-    "editor.minimap.enabled": false,
-    "editor.multiCursorModifier": "ctrlCmd",
-    "editor.occurrencesHighlight": false,
-    "editor.scrollbar.verticalScrollbarSize": 7,
-    "editor.suggest.showStatusBar": true,
-    "editor.tabSize": 2,
-    // EXPLORER
-    "explorer.confirmDelete": false,
-    "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.patterns": {
-        "*.ts": "${capture}.js",
-        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-        "*.jsx": "${capture}.js, ${capture}.css, ${capture}.test.jsx",
-        "*.tsx": "${capture}.ts, ${capture}.css, ${capture}.test.tsx",
-        "tsconfig.json": "tsconfig.*.json",
-        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc",
-        "*.sublime-project": "*.sublime-workspace",
-        ".eslintrc.cjs": ".eslintignore",
-        "composer.json": "composer.lock",
-        ".gitignore": ".gitattributes",
-        "phpunit.xml": ".phpunit.result.cache"
-    },
-    // EXTENSIONS
-    "extensions.experimental.useUtilityProcess": true,
-    // FILES
-    "files.associations": {
-        "*.neon": "yaml",
-        ".env.example": "properties"
-    },
-    "files.autoSave": "onFocusChange",
-    "files.eol": "\n",
-    "files.insertFinalNewline": true,
-    "files.trimTrailingWhitespace": true,
-    // HTML
-    "html.format.indentHandlebars": true,
-    "html.format.indentInnerHtml": true,
-    "html.format.templating": true,
-    "html.hover.references": false,
-    // JSON
-    "json.format.enable": true,
-    "json.format.keepLines": true,
-    // PHP
-    "php.suggest.basic": false,
-    // TERMINAL
-    "terminal.integrated.cursorBlinking": true,
-    "terminal.integrated.cursorStyle": "line",
-    "terminal.integrated.cursorWidth": 2,
-    "terminal.integrated.defaultProfile.windows": "Command Prompt",
-    "terminal.integrated.profiles.windows": {
-        "PowerShell": {
-            "source": "PowerShell",
-            "icon": "terminal-powershell",
-            "args": [ "-NoLogo" ]
-        },
-        "Command Prompt": {
-            "path": [
-                "${env:windir}\\Sysnative\\cmd.exe",
-                "${env:windir}\\System32\\cmd.exe"
-            ],
-            "args": [ "/k" ],
-            "icon": "terminal-cmd"
-        },
-        "Git Bash": {
-            "source": "Git Bash"
-        }
-    },
-    // WINDOWS
-    "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
-    // WORKBENCH
-    "workbench.colorTheme": "Ayu Mirage",
-    "workbench.sideBar.location": "left",
-    "workbench.iconTheme": "material-icon-theme",
-    "workbench.layoutControl.enabled": false,
-    "workbench.startupEditor": "none",
-    // MATERIAL ICON THEME
-    "material-icon-theme.hidesExplorerArrows": true,
-    "material-icon-theme.activeIconPack": "react",
-    // XML
-    "redhat.telemetry.enabled": true,
-    // INTELEPHENSE
-    "intelephense.environment.phpVersion": "8.2.16",
-    "intelephense.format.braces": "psr12",
-    // ERROR LENS
-    "errorLens.enabledDiagnosticLevels": [
-        "error",
-        "warning",
-        "info",
-        "hint"
-    ],
-    "errorLens.enableOnDiffView": true,
-    "errorLens.gutterIconsEnabled": true,
-    "errorLens.gutterIconSet": "defaultOutline",
-    "errorLens.gutterIconSize": "auto",
-    "errorLens.messageTemplate": "$message ($source)",
-    "errorLens.onSave": true,
-    "errorLens.onSaveTimeout": 0,
-    "errorLens.scrollbarHackEnabled": true,
-    "errorLens.statusBarIconsEnabled": true,
-    "errorLens.statusBarColorsEnabled": true,
-    "errorLens.statusBarIconsAtZero": "hide",
-    // TAILWIND
-    "tailwindCSS.emmetCompletions": true,
+    "Git Bash": {
+      "source": "Git Bash"
+    }
+  },
+  // WINDOWS
+  "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
+  // WORKBENCH
+  "workbench.colorTheme": "Ayu Mirage",
+  "workbench.sideBar.location": "left",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.layoutControl.enabled": false,
+  "workbench.startupEditor": "none",
+  // MATERIAL ICON THEME
+  "material-icon-theme.hidesExplorerArrows": true,
+  "material-icon-theme.activeIconPack": "react",
+  // XML
+  "redhat.telemetry.enabled": true,
+  // INTELEPHENSE
+  "intelephense.environment.phpVersion": "8.2.16",
+  "intelephense.format.braces": "psr12",
+  // ERROR LENS
+  "errorLens.enabledDiagnosticLevels": [
+    "error",
+    "warning",
+    "info",
+    "hint"
+  ],
+  "errorLens.enableOnDiffView": true,
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.gutterIconSet": "defaultOutline",
+  "errorLens.gutterIconSize": "auto",
+  "errorLens.messageTemplate": "$message ($source)",
+  "errorLens.onSave": true,
+  "errorLens.onSaveTimeout": 0,
+  "errorLens.scrollbarHackEnabled": true,
+  "errorLens.statusBarIconsEnabled": true,
+  "errorLens.statusBarColorsEnabled": true,
+  "errorLens.statusBarIconsAtZero": "hide",
+  // TAILWIND
+  "tailwindCSS.emmetCompletions": true,
+  // BLADE
+  "bladeFormatter.format.indentInnerHtml": true,
+  "bladeFormatter.format.indentSize": 2,
+  "bladeFormatter.format.noMultipleEmptyLines": true,
+  "bladeFormatter.format.sortHtmlAttributes": "alphabetical",
+  "bladeFormatter.format.sortTailwindcssClasses": true,
+  "bladeFormatter.format.wrapLineLength": 80,
 }
