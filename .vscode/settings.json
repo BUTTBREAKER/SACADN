@@ -24,6 +24,9 @@
     "[typescriptreact]": {
         "editor.defaultFormatter": "rome.rome",
     },
+    "[xml]": {
+        "editor.defaultFormatter": "redhat.vscode-xml"
+    },
     // BREADCRUMBS
     "breadcrumbs.enabled": false,
     // CSS
