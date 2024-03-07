@@ -116,7 +116,7 @@
     "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
     // WORKBENCH
     "workbench.colorTheme": "Ayu Mirage",
-    "workbench.sideBar.location": "right",
+    "workbench.sideBar.location": "left",
     "workbench.iconTheme": "material-icon-theme",
     "workbench.layoutControl.enabled": false,
     "workbench.startupEditor": "none",
