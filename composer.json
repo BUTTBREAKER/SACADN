@@ -36,6 +36,8 @@
     }
   },
   "scripts": {
+    "dev": "start php -S localhost:80 -t public & npm run dev",
+    "prepare": "git pull & composer i & npm i & php artisan migrate:fresh --seed",
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php artisan package:discover --ansi"
