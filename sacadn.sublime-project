@@ -1,0 +1,66 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "file_exclude_patterns": [
+        ".editorconfig",
+        ".env.example",
+        ".gitattributes",
+        "artisan",
+        "composer.lock",
+        "package-lock.json",
+        "phpunit.xml",
+        "postcss.config.js",
+        "rome.json",
+        "tailwind.config.js",
+        "tsconfig.json",
+        "vite.config.js",
+        ".env",
+        "composer.json",
+        "package.json",
+        "README.md",
+        ".phpunit.result.cache"
+      ],
+      "folder_exclude_patterns": [
+        ".vscode",
+        "bootstrap",
+        "config",
+        "node_modules",
+        "storage",
+        "tests",
+        "vendor",
+        "app/Console",
+        "app/Exceptions",
+        "app/Providers"
+      ],
+    }
+  ],
+  "settings": {
+    "LSP": {
+      "formatters": {
+        "source.json.sublime": "LSP-json",
+      },
+      "LSP-intelephense": {
+        "settings": {
+          "intelephense.environment.phpVersion": "8.2.16",
+          "intelephense.format.braces": "psr12",
+        },
+      },
+      "LSP-html": {
+        "settings": {
+          "html.format.enable": false,
+        },
+      },
+      "LSP-biome": {
+        "enabled": false,
+      },
+      "LSP-eslint": {
+        "enabled": false,
+      },
+      "LSP-rome": {
+        "enabled": true
+      },
+    },
+    "lsp_format_on_save": true,
+  },
+}
