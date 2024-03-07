@@ -68,12 +68,13 @@
     "*.jsx": "${capture}.js, ${capture}.css, ${capture}.test.jsx",
     "*.tsx": "${capture}.ts, ${capture}.css, ${capture}.test.tsx",
     "tsconfig.json": "tsconfig.*.json",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc, postcss.config.js, rome.json, tailwind.config.js, tsconfig.json, vite.config.js",
     "*.sublime-project": "*.sublime-workspace",
     ".eslintrc.cjs": ".eslintignore",
-    "composer.json": "composer.lock",
+    "composer.json": "composer.lock, phpunit.xml",
     ".gitignore": ".gitattributes",
-    "phpunit.xml": ".phpunit.result.cache"
+    "phpunit.xml": ".phpunit.result.cache",
+    ".env": ".env.example",
   },
   // EXTENSIONS
   "extensions.experimental.useUtilityProcess": true,
