@@ -16,7 +16,7 @@
         "tsconfig.json",
         "vite.config.js",
         ".env",
-        "composer.json",
+        // "composer.json",
         "package.json",
         "README.md",
         ".phpunit.result.cache"
@@ -39,6 +39,7 @@
     "LSP": {
       "formatters": {
         "source.json.sublime": "LSP-json",
+        "embedding.php": "LSP-intelephense",
       },
       "LSP-intelephense": {
         "settings": {
@@ -58,7 +59,7 @@
         "enabled": false,
       },
       "LSP-rome": {
-        "enabled": true
+        "enabled": true,
       },
     },
     "lsp_format_on_save": true,
