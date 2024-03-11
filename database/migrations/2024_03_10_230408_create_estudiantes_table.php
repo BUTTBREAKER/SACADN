@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('fn')->notNull();
             $table->string('estado', 20)->notNull();
             $table->string('lugar', 20)->notNull();
-            $table->string('genero', 12)->notNull();
+            $table->enum('genero', ['masculino', 'femenino'])->nullable();
             $table->timestamps();
         });
     }
