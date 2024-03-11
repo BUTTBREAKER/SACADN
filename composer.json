@@ -2,7 +2,10 @@
   "name": "laravel/laravel",
   "type": "project",
   "description": "The skeleton application for the Laravel framework.",
-  "keywords": [ "laravel", "framework" ],
+  "keywords": [
+    "laravel",
+    "framework"
+  ],
   "license": "MIT",
   "require": {
     "php": "^8.1",
@@ -36,7 +39,11 @@
     }
   },
   "scripts": {
-    "dev": "start php -S localhost:80 -t public & npm run dev",
+    "dev": [
+      "Composer\\Config::disableProcessTimeout",
+      "start php -S 0.0.0.0:80 -t public",
+      "start npm run dev"
+    ],
     "prepare": "git pull & composer i & npm i & php artisan migrate:fresh --seed",
     "post-autoload-dump": [
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
@@ -54,7 +61,7 @@
   },
   "extra": {
     "laravel": {
-      "dont-discover": [ ]
+      "dont-discover": []
     }
   },
   "config": {
