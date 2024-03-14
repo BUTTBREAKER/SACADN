@@ -123,7 +123,7 @@
   // WINDOWS
   "window.title": "${dirty}${activeEditorShort}${separator}${rootName}",
   // WORKBENCH
-  "workbench.colorTheme": "Ayu Mirage",
+  "workbench.colorTheme": "Ayu Dark",
   "workbench.sideBar.location": "left",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.layoutControl.enabled": false,
