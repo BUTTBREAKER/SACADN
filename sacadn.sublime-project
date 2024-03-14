@@ -11,7 +11,7 @@
         "package-lock.json",
         "phpunit.xml",
         "postcss.config.js",
-        "rome.json",
+        // "rome.json",
         "tailwind.config.js",
         "tsconfig.json",
         "vite.config.js",
@@ -24,7 +24,7 @@
       "folder_exclude_patterns": [
         ".vscode",
         "bootstrap",
-        "config",
+        // "config",
         "node_modules",
         "storage",
         "tests",

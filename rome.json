@@ -4,7 +4,9 @@
     "ignore": [ "node_modules", "vendor" ]
   },
   "javascript": {
-    "globals": [ ],
+    "globals": [
+      "route"
+    ],
     "formatter": {
       "quoteStyle": "single",
       "semicolons": "asNeeded",
