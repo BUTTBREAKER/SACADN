@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SweetAlert2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-default@4/default.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless@4/borderless.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4@4/bootstrap-4.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@4/bulma.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui@4/material-ui.min.css" /> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin@4/wordpress-admin.min.css" /> -->
+  </head>
+  <body>
+    <script src="sweetalert2.min.js"></script>
+    <script>
+      Swal.fire({
+        title: 'Test',
+        icon: 'success'
+      }).then(() => Swal.fire({
+        title: 'Title 2',
+        icon: 'error',
+        toast: true,
+        position: 'top-end',
+        timerProgressBar: true,
+        timer: 5000,
+        showConfirmButton: false
+      })).then(() => Swal.fire({
+        title: 'Introduce tu usuario de github',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Buscar',
+        showLoaderOnConfirm: true,
+        allowOutsideClick: () => !Swal.isLoading(),
+        preConfirm: async (login = '') => {
+          try {
+            const githubUrl = `https://api.github.com/users/${login}`
+            const response = await fetch(githubUrl)
+
+            if (!response.ok) {
+              return Swal.showValidationMessage(JSON.stringify(await response.json()))
+            }
+
+            return response.json()
+          } catch (error) {
+            Swal.showValidationMessage(`Request failed: ${error}`)
+          }
+        }
+      }).then((result = { isConfirmed: true, value: { login: '', avatar_url: '' } }) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: `${result.value.login}'s avatar`,
+            imageUrl: result.value.avatar_url
+          })
+        }
+      }))
+    </script>
+  </body>
+</html>

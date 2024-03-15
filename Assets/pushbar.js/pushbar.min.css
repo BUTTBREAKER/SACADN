@@ -1,0 +1,8 @@
+/**
+ * Minified by jsDelivr using clean-css v4.2.1.
+ * Original file: /npm/pushbar.js@1.0.0/src/pushbar.css
+ * 
+ * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
+ */
+html.pushbar_locked{overflow:hidden;-ms-touch-action:none;touch-action:none}.pushbar_locked .pushbar_main_content.pushbar_blur{filter:blur(15px)}.pushbar_overlay{z-index:-999;position:fixed;width:100%;height:100%;top:0;left:0;will-change:opacity;transition:opacity .5s ease;opacity:0;background:#3c3442}html.pushbar_locked .pushbar_overlay{opacity:.8;z-index:999}[data-pushbar-id]{z-index:1000;position:fixed;overflow-y:auto;will-change:transform;transition:transform .5s ease;background:#fff}[data-pushbar-direction=left][data-pushbar-id],[data-pushbar-direction=right][data-pushbar-id]{top:0;width:256px;max-width:100%;height:100%}[data-pushbar-direction=bottom][data-pushbar-id],[data-pushbar-direction=top][data-pushbar-id]{left:0;width:100%;min-height:150px}[data-pushbar-direction=left][data-pushbar-id]{left:0;transform:translateZ(0) translateX(-100%)}[data-pushbar-direction=right][data-pushbar-id]{right:0;transform:translateZ(0) translateX(100%)}[data-pushbar-direction=top][data-pushbar-id]{top:0;transform:translateZ(0) translateY(-100%)}[data-pushbar-direction=bottom][data-pushbar-id]{bottom:0;transform:translateZ(0) translateY(100%)}[data-pushbar-id].opened{display:block;transform:translateX(0) translateY(0)}
+/*# sourceMappingURL=/sm/5cd953b26aff20d505764731204b656a3a5ccbcafdce0c6481f947a178f01b55.map */
