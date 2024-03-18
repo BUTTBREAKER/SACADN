@@ -1,4 +1,7 @@
 /* Contenedores */
+*{ font-family: 'Montserrat', sans-serif;
+
+}
 .datatable-wrapper.no-header .datatable-container {
 	border-top: 1px solid #d9d9d9;
 }
