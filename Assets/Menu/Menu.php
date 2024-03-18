@@ -114,25 +114,16 @@ $conexion->close();
 
                      <ul class="dropdown__menu">
                         <li>
-                           <a href="#" class="dropdown__link">
+                           <a href="profesores.php" class="dropdown__link">
                               <i class="ri-pie-chart-line"></i> Lista de Profesores
                            </a>                          
                         </li>
                      </ul>
                   </li>
                   <!--=============== DROPDOWN 3 ===============-->
-                  <li class="dropdown__item">
-                     <div class="nav__link">
-                        Estudiantes
-                     </div>
-                  </li>
-                  <!--=============== DROPDOWN 4 ===============-->
-                     <!--=============== DROPDOWN 3 ===============-->
-                     <li class="dropdown__item">
-                        <div class="nav__link">
-                           Representantes
-                        </div>
-                     </li>
+                  <li><a href="Estudiantes.php" class="nav__link">Estudiantes</a></li>
+
+                  <li><a href="Representantes.php" class="nav__link">Representantes</a></li>
 
                   <li><a href="salir.php" class="nav__link">Salir</a></li>
                </ul>
