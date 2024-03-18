@@ -51,7 +51,20 @@ if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
 }
 
 // Función para mostrar un mensaje de error y redirigir al usuario a la página de inicio
-function mostrarMensajeError($mensaje) {
-    echo '<script>alert("' . $mensaje . '"); window.location = "../index.php";</script>';
+function mostrarMensajeError(string $mensaje): void {
+  echo <<<HTML
+  <body>
+    <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
+    <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+    <script>
+      Swal.fire({
+        title: '$mensaje',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 3000
+      }).then(() => location.href = './salir.php')
+    </script>
+  </body>
+  HTML;
 }
 ?>
