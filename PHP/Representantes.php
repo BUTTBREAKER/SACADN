@@ -20,6 +20,7 @@ include('../Assets/Menu/Menu.php');
     <table id="tablaRepresentantes" class="datatable">
         <thead>
             <tr>
+                <th>#</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Cédula</th>
@@ -50,6 +51,7 @@ if ($result) {
     // Comenzar a imprimir las filas de la tabla
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
+        echo "<td class='text-center'>$i</td>";
         echo "<td>" . $row['nombre'] . "</td>";
         echo "<td>" . $row['apellido'] . "</td>";
         echo "<td>" . $row['cedula'] . "</td>";
