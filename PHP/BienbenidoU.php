@@ -1,15 +1,18 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bienvenido</title>
-    <link rel="icon" type="image/ico" href="../Sacadn.ico"/>
-    <link rel="stylesheet" href="../Assets/style.css" />
-    <link rel="stylesheet" href="../Assets/fontawesome/css/all.min.css" />
-</head>
-<body>
-    
-</body>
-</html>
+<?php include('../Assets/Menu/Menu.php') ?>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <div class="container">
+        <div class="row mt-3 justify-content-md-center">
+            <div class="col-md-6">
+            <h1>Bienvenido, <?php echo $usuario; ?> </h1>
+                <p>¡Gracias por iniciar sesión!</p>
+            </div>
+        </div>
+        <div class="row mt-3 justify-content-md-center">
+            <!-- Aquí puedes agregar más contenido si es necesario -->
+        </div>
+    </div>
+    <?php include('partials/footer.php') ?>

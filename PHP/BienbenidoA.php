@@ -17,5 +17,5 @@
             <!-- Aquí puedes agregar más contenido si es necesario -->
         </div>
     </div>
+    <?php include('partials/footer.php') ?>
 
-</html>
