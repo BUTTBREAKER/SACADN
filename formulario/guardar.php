@@ -2,6 +2,8 @@
 
 require 'con_db.php';
 
+$resultado = null;
+
 if(isset($_POST['guardar'])){
 
  $ci_repr = $_POST['ci_repr'];
