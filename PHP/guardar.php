@@ -1,6 +1,6 @@
 <?php 
 
-require 'con_db.php';
+require __DIR__."/conexion_be.php";
 
 $resultado = null;
 

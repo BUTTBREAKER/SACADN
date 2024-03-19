@@ -1,7 +1,8 @@
 <?php
+require __DIR__."/middlewares/autorizacion.php";
 
 // Verifica si el directorio de respaldo existe, si no, créalo
-$backupDirectory = __DIR__ . '/../backups';
+$backupDirectory = __DIR__ .'/backups';
 if (!is_dir($backupDirectory)) {
   if (!mkdir($backupDirectory, 0777, true)) {
     die("Error al crear el directorio de respaldo.");
@@ -10,7 +11,7 @@ if (!is_dir($backupDirectory)) {
 
 $backupPath = $backupDirectory . '/full_backup.mysql.sql';
 
-$conexion = require __DIR__."/../conexion_be.php";
+$conexion = require __DIR__."/conexion_be.php";
 
 // Abre el archivo para escritura
 $backupFile = fopen($backupPath, 'w');
@@ -46,18 +47,20 @@ foreach ($tables as $table) {
 
 fclose($backupFile);
 
-exit(<<<HTML
-<html>
-  <head>
-  </head>
+echo <<<HTML
   <body>
+    <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
+    <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
     <script>
-      alert('Base de datos respaldada exitósamente');
-      location.href = '../../';
+      Swal.fire({
+        title: 'Base  de Datos Respaldada correctamente',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 3000
+      }).then(() => location.href = "../index.php");
     </script>
   </body>
-</html>
-HTML);
+  HTML;
 
 $conexion->close();
 ?>
