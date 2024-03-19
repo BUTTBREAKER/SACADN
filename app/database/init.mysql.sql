@@ -125,11 +125,11 @@ CREATE TABLE `representantes` (
 -- Estructura de tabla para la tabla `secciones_a#os`
 --
 
-CREATE TABLE `secciones_a#os` (
-  `id_secc_a#o` int(11) NOT NULL,
-  `a#o` varchar(5) DEFAULT NULL,
+CREATE TABLE `secciones_anios` (
+  `id_secc_anio` int(11) NOT NULL,
+  `anio` varchar(5) DEFAULT NULL,
   `seccion` varchar(5) DEFAULT NULL,
-  `fech_secc_a#o` datetime DEFAULT NULL,
+  `fech_secc_anio` datetime DEFAULT NULL,
   `id_per` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -186,7 +186,7 @@ ALTER TABLE `representantes`
 --
 -- Indices de la tabla `secciones_a#os`
 --
-ALTER TABLE `secciones_a#os`
-  ADD PRIMARY KEY (`id_secc_a#o`);
+ALTER TABLE `secciones_anios`
+  ADD PRIMARY KEY (`id_secc_anio`);
 
 COMMIT;

@@ -30,8 +30,6 @@ if ($sentencia = $conexion->prepare($query)) {
    $sentencia->close();
 }
 
-// Cierra la conexión a la base de datos
-$conexion->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">

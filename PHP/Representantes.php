@@ -1,106 +1,70 @@
 <?php
+
+require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
-include('conexion2.php');
-include('../Assets/Menu/Menu.php');
+/** @var mysqli */
+$db = require_once __DIR__ . '/conexion_be.php';
+include_once __DIR__ . '/../Assets/Menu/Menu.php';
 
-function calcularEdad(string $fecha_nac): int {
-  $fecha_nac = new DateTimeImmutable($fecha_nac);
-  $fecha_nacTimestamp = $fecha_nac->getTimestamp();
-  $timestampActual = time();
+/* Selecciona campo ci_repr y cambiale el nombre a cedula, ..., de la tabla representantes */
+$sql = <<<SQL
+  SELECT ci_repr AS cedula, nombre_completo AS nombres, apellido AS apellidos,
+  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
+  genero AS sexo, telefono, direccion, fech_repr AS fecha_registro FROM representantes
+SQL;
 
-  $diferencia = $timestampActual - $fecha_nacTimestamp;
+$result = $db->query($sql);
 
-  $edad = date('Y', $diferencia);
-  $edad -= 1970;
-
-  return abs($edad);
-}
-
-function formatearFecha(string $crudo): string {
-  $datetime = new DateTimeImmutable($crudo);
-
-  return $datetime->format('d/m/Y');
-}
 ?>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Representantes</title>
-    <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Representantes</title>
+  <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
 </head>
+
 <body>
 
-    <div style="overflow-x: auto;">
-        <table id="tablaRepresentantes" class="datatable">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Cédula</th>
-                    <th>Estado</th>
-                    <th>Lugar</th>
-                    <th>Género</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-        // Verificar la conexión
-        if ($conn->connect_error) {
-        die("Error de conexión a la base de datos: " . $conn->connect_error);
-        }
-        
-        // Realizar la consulta a la base de datos para obtener los datos de los profesores
-        $query = "SELECT * FROM representantes";
-        $result = $conn->query($query);
-        
-        // Verificar si la consulta tuvo éxito
-        if ($result) {
-        // Inicializar el contador para enumerar las filas
-        $i = 1;
-        // Comenzar a imprimir las filas de la tabla
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td class='text-center'>$i</td>";
-            echo "<td>" . $row['nombre'] . "</td>";
-            echo "<td>" . $row['apellido'] . "</td>";
-            echo "<td>" . $row['cedula'] . "</td>";
-            echo "<td>" . $row['estado'] . "</td>";
-            echo "<td>" . $row['lugar'] . "</td>";
-            echo "<td>" . $row['genero'] . "</td>";
-            echo "<td>" . $row['telefono'] . "</td>";
-            echo "<td>" . $row['direccion'] . "</td>";
-            echo "<td class='text-center'>
-            <button>Modificar</button>
-            <button>Eliminar</button></td>"; // Aquí puedes agregar botones de acción si lo deseas
-            echo "</tr>";
-            // Incrementar el contador
-            $i++;
-        }
-        } else {
-        // Manejar el caso en que la consulta falle
-        echo "Error al consultar la base de datos: " . $conn->error;
-        }
-        
-        // Cerrar la conexión a la base de datos después de usarla
-        $conn->close();
-         ?>
-            </tbody>
-        </table>
-    </div>
+  <div style="overflow-x: auto;">
+    <table id="tablaRepresentantes" class="datatable">
+      <tr>
+        <!-- <td>ID</td> -->
+        <th>Cédula</th>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Fecha de nacimiento</th>
+        <th>Edad</th>
+        <th>Estado de nacimiento</th>
+        <th>Lugar de nacimiento</th>
+        <th>Sexo</th>
+        <th>Teléfono</th>
+        <th>Dirección</th>
+        <th>Fecha</th>
+      </tr>
+      <?php while ($mostrar = $result->fetch_assoc()) { ?>
+        <tr>
+          <td><?= $mostrar['cedula'] ?></td>
+          <td><?= $mostrar['nombres'] ?></td>
+          <td><?= $mostrar['apellidos'] ?></td>
+          <td><?= formatearFecha($mostrar['fecha_nacimiento']) ?></td>
+          <td><?= calcularEdad($mostrar['fecha_nacimiento']) ?></td>
+          <td><?= $mostrar['estado_nacimiento'] ?></td>
+          <td><?= $mostrar['lugar_nacimiento'] ?></td>
+          <td><?= $mostrar['sexo'] ?></td>
+          <td><?= $mostrar['telefono'] ?></td>
+          <td><?= $mostrar['direccion'] ?></td>
+          <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
+        </tr>
+      <?php } ?>
+    </table>
+  </div>
 
-    <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
-    <script>
-        const tablaRepresentantes = new simpleDatatables.DataTable("#tablaRepresentantes");
-    </script>
-<?php include('partials/footer.php') ?>
+  <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
+  <script>
+    const tablaRepresentantes = new simpleDatatables.DataTable("#tablaRepresentantes");
+  </script>
+  <?php include('partials/footer.php') ?>
