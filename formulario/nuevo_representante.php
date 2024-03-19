@@ -7,6 +7,7 @@
     <title>Registro Representante</title>  
     <link rel="stylesheet" type="text/css" href="">
 </head>
+
 <style type="text/css">
 .contenedor
 { 
@@ -56,7 +57,7 @@
   }
     
   .formulario input[type="text"]{
-      width: 600px;
+      width: 400px;
       padding: 5px 5px;}
   .formulario input[type="date"]{
       width: 150px;
@@ -148,7 +149,7 @@
 </style>
  <body>
     <div class="contenedor">
-      <form class="formulario" method="post" action="./guardar.php" autocomplete="off">
+      <form class="formulario" method="post" action="./guardar_representante.php" autocomplete="off">
         <div class="input-contenedor">
           <header class="header">
            <nav class="title">
@@ -161,13 +162,12 @@
           <div class="contenedor1">
               <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"><path fill="#000000" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342"/></svg></i>
               <label for="nom_repr">C.I</label>
-          <input type="number-tlf" id="registerCedula" placeholder="Cédula" name="ci_repr" required>
+          <input type="number-tlf" id="registrarCedula" placeholder="Cédula" name="ci_repr"  maxlength="[1-8]" pattern="[0-9]+" title="Número de cédula invalido, mínimo tener 8 caracteres" required>
                </div>
                
         <div class="contenedor1">
               <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 512 512"><path fill="#000000" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342"/></svg></i>
-              <label >Nombres</label>
-          <input type="text" id="registerNombreCompleto" placeholder="Nombre Completo" name="nombre_completo" required>
+           <input type="text" id="registerNombreCompleto" placeholder="Nombres" name="nombre_completo" pattern="[A-Z-ÁÉÍÓÚ],[a-z-áéíóú]" title="Por favor llenar los campos vacíos"required>
                </div>
                
 
@@ -182,10 +182,6 @@
                 <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 2048 2048"><path fill="#000000" d="M1664 512h256v1536H256V512h256V384h128v128h896V384h128zm128 128h-128v128h128zm-256 0H640v128h896zm-1024 0H384v128h128zM384 1920h1408V896H384zM256 384V256H128v1408H0V128h256V0h128v128h896V0h128v128h256v128h-256v128h-128V256H384v128zm384 1024v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128zm-768 256v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128zm-256-512v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128z"/></svg></i>
            <label for="f/n_repr">Fecha de nacimiento</label>
           <input type="date" id="registerFecha_nac" placeholder="dia/mes/año" name="fecha_nac" required>
-            <i></i>
-            <label for="edad_repr">Edad</label>
-          <input type="number" id="registerEdad" placeholder="" name="edad">
-               </div>
               
 
                <div class="contenedor1">
@@ -227,7 +223,7 @@
           <div class="row">
           
            <button type="submit">Guardar</button>
-           <a href="tabla_registro.php" class="btn btn-primary">Regresar</a>
+           <button type="submit">Regresar</button>
             </div>
           <br>
            </div>

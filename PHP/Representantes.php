@@ -2,6 +2,25 @@
 // Incluir el archivo de conexión a la base de datos
 include('conexion2.php');
 include('../Assets/Menu/Menu.php');
+
+function calcularEdad(string $fecha_nac): int {
+  $fecha_nac = new DateTimeImmutable($fecha_nac);
+  $fecha_nacTimestamp = $fecha_nac->getTimestamp();
+  $timestampActual = time();
+
+  $diferencia = $timestampActual - $fecha_nacTimestamp;
+
+  $edad = date('Y', $diferencia);
+  $edad -= 1970;
+
+  return abs($edad);
+}
+
+function formatearFecha(string $crudo): string {
+  $datetime = new DateTimeImmutable($crudo);
+
+  return $datetime->format('d/m/Y');
+}
 ?>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
@@ -13,22 +32,26 @@ include('../Assets/Menu/Menu.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Profesores</title>
+    <title>Lista de Representantes</title>
     <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
 </head>
 <body>
+    <button style="width: 150px;">Nuevo Registro</button>
     <table id="tablaRepresentantes" class="datatable">
         <thead>
             <tr>
                 <th>#</th>
+                <th>Cédula</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
-                <th>Cédula</th>
-                <th>Estado</th>
-                <th>Lugar</th>
+                <th>Fecha de Nacimiento</th>
+                <th>Edad</th>
+                <th>Estado de Nacimiento</th>
+                <th>Lugar de Nacimiento</th>
                 <th>Género</th>
                 <th>Teléfono</th>
                 <th>Dirección</th>
+                <th>Fecha de Registro</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -52,14 +75,17 @@ if ($result) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td class='text-center'>$i</td>";
-        echo "<td>" . $row['nombre'] . "</td>";
+        echo "<td>" . $row['ci_repr'] . "</td>";
+        echo "<td>" . $row['nombre_completo'] . "</td>";
         echo "<td>" . $row['apellido'] . "</td>";
-        echo "<td>" . $row['cedula'] . "</td>";
+        echo "<td>" .formatearFecha($row['fecha_nac']). "</td>";
+        echo "<td>" .calcularEdad($row['fecha_nac']) ."</td>";
         echo "<td>" . $row['estado'] . "</td>";
         echo "<td>" . $row['lugar'] . "</td>";
         echo "<td>" . $row['genero'] . "</td>";
         echo "<td>" . $row['telefono'] . "</td>";
         echo "<td>" . $row['direccion'] . "</td>";
+        echo "<td>" . formatearFecha($row['fech_repr']) . "</td>";
         echo "<td class='text-center'>
         <button>Modificar</button>
         <button>Eliminar</button></td>"; // Aquí puedes agregar botones de acción si lo deseas
