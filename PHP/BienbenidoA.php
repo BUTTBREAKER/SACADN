@@ -1,11 +1,6 @@
 
 
     <?php include('../Assets/Menu/Menu.php') ?>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
     <div class="container">
         <div class="row mt-3 justify-content-md-center">
             <div class="col-md-6">

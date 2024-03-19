@@ -13,19 +13,32 @@
     }
 
     .footer {
-        background-color: #f8f9fa;
+        width: 50%;
+        background-color: transparent;
         color: #333;
         padding: 20px;
         text-align: right;
         position: fixed;
-        bottom: 0;
-        right: 0;
+        bottom: 1em;
+        right: 1em;
+        animation: blink 2000ms infinite;
+        animation-direction: alternate;
     }
 
     .footer p {
         margin: 0;
         font-size: 16px;
         font-weight: bold;
+    }
+
+    @keyframes blink {
+      from {
+        text-shadow: 0 0 10px rgba(0, 0, 0, .25);
+      }
+
+      to {
+        text-shadow: 0 0 10px #0756f299;
+      }
     }
 </style>
 </head>

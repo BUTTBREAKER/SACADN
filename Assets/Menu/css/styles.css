@@ -48,6 +48,8 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   background-color: var(--body-color);
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 ul {
@@ -62,16 +64,19 @@ a {
 
 /*=============== REUSABLE CSS CLASSES ===============*/
 .container {
-  max-width: 1120px;
-  margin-inline: 1.5rem;
+  width: 80%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /*=============== HEADER ===============*/
 .header {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   width: 100%;
+  margin-bottom: 20px;
   background-color: var(--black-color);
   box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
   z-index: var(--z-fixed);
@@ -279,6 +284,7 @@ a {
     height: calc(var(--header-height) + 2rem);
     display: flex;
     justify-content: space-between;
+    padding: 0 40px;
   }
   .nav__toggle {
     display: none;
@@ -286,13 +292,12 @@ a {
   .nav__list {
     height: 100%;
     display: flex;
-    column-gap: 3rem;
   }
   .nav__link {
     height: 100%;
     padding: 0;
     justify-content: initial;
-    column-gap: .25rem;
+    margin-right: 8px;
   }
   .nav__link:hover {
     background-color: transparent;

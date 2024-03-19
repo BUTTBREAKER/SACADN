@@ -48,7 +48,7 @@ $conexion->close();
    <body>
       <!--=============== HEADER ===============-->
       <header class="header">
-         <nav class="nav container">
+         <nav class="nav">
             <div class="nav__data">
                <a href="#" class="nav__logo">
                </i> SACADN<img src="../Sacadn.ico">
