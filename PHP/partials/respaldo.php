@@ -1,11 +1,5 @@
 <?php
 
-$_ENV += (function () {
-  $vars = require_once __DIR__ . '/../../.env.php';
-
-  return is_array($vars) ? $vars : [];
-})();
-
 // Verifica si el directorio de respaldo existe, si no, créalo
 $backupDirectory = __DIR__ . '/../backups';
 if (!is_dir($backupDirectory)) {
@@ -16,17 +10,7 @@ if (!is_dir($backupDirectory)) {
 
 $backupPath = $backupDirectory . '/full_backup.mysql.sql';
 
-$conexion = new mysqli(
-  $_ENV['DB_HOST'],
-  $_ENV['DB_USERNAME'],
-  $_ENV['DB_PASSWORD'],
-  $_ENV['DB_DATABASE'],
-  $_ENV['DB_PORT'],
-);
-
-if ($conexion->connect_error) {
-  die("Error de conexión: " . $conexion->connect_error);
-}
+$conexion = require __DIR__."/../conexion_be.php";
 
 // Abre el archivo para escritura
 $backupFile = fopen($backupPath, 'w');
