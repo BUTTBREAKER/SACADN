@@ -4,6 +4,15 @@ require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
 $db = require_once __DIR__ . '/conexion_be.php';
 include_once __DIR__ . '/../Assets/Menu/Menu.php';
+
+if ($db->connect_error) {
+  die("Error de conexión a la base de datos: " . $db->connect_error);
+}
+
+// Realizar la consulta a la base de datos para obtener los datos de los profesores
+$query = "SELECT * FROM profesores";
+$result = $db->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,50 +46,27 @@ include_once __DIR__ . '/../Assets/Menu/Menu.php';
     </thead>
     <tbody>
       <?php
-      // Verificar la conexión
-      if ($conn->connect_error) {
-        die("Error de conexión a la base de datos: " . $conn->connect_error);
+      $i = 1;
+      while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td class='text-center'>$i</td>";
+        echo "<td>" . $row['ci_prof'] . "</td>";
+        echo "<td>" . $row['nombre_completo'] . "</td>";
+        echo "<td>" . $row['apellido'] . "</td>";
+        echo "<td>" . formatearFecha($row['fecha_nac']) . "</td>";
+        echo "<td>" . calcularEdad($row['fecha_nac']) . "</td>";
+        echo "<td>" . $row['estado'] . "</td>";
+        echo "<td>" . $row['lugar'] . "</td>";
+        echo "<td>" . $row['genero'] . "</td>";
+        echo "<td>" . $row['telefono'] . "</td>";
+        echo "<td>" . $row['direccion'] . "</td>";
+        echo "<td>" . formatearFecha($row['fech_prof']) . "</td>";
+        echo "<td class='text-center'>
+      <button>Modificar</button>
+      <button>Eliminar</button></td>"; // Aquí puedes agregar botones de acción si lo deseas
+        echo "</tr>";
+      ++$i;
       }
-
-      // Realizar la consulta a la base de datos para obtener los datos de los profesores
-      $query = "SELECT * FROM profesores";
-      $result = $conn->query($query);
-
-      // Verificar si la consulta tuvo éxito
-      if ($result) {
-        // Inicializar el contador para enumerar las filas
-        $i = 1;
-
-        // Comenzar a imprimir las filas de la tabla
-        while ($row = $result->fetch_assoc()) {
-          echo "<tr>";
-          echo "<td class='text-center'>$i</td>";
-          echo "<td>" . $row['ci_prof'] . "</td>";
-          echo "<td>" . $row['nombre_completo'] . "</td>";
-          echo "<td>" . $row['apellido'] . "</td>";
-          echo "<td>" . formatearFecha($row['fecha_nac']) . "</td>";
-          echo "<td>" . calcularEdad($row['fecha_nac']) . "</td>";
-          echo "<td>" . $row['estado'] . "</td>";
-          echo "<td>" . $row['lugar'] . "</td>";
-          echo "<td>" . $row['genero'] . "</td>";
-          echo "<td>" . $row['telefono'] . "</td>";
-          echo "<td>" . $row['direccion'] . "</td>";
-          echo "<td>" . formatearFecha($row['fech_prof']) . "</td>";
-          echo "<td class='text-center'>
-        <button>Modificar</button>
-        <button>Eliminar</button></td>"; // Aquí puedes agregar botones de acción si lo deseas
-          echo "</tr>";
-
-          // Incrementar el contador
-          $i++;
-        }
-      } else {
-        // Manejar el caso en que la consulta falle
-        echo "Error al consultar la base de datos: " . $conn->error;
-      }
-
-      // Cerrar la conexión a la base de datos después de usarla
-      $conn->close();
       ?>
     </tbody>
   </table>
