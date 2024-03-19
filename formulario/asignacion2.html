@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Plantilla Escolar</title>
+<style type="text/css">
+    
+/* Estilos CSS */
+
+.contenedor
+{ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+  padding: 10px 5px 10px 5px;
+  width: 700px;
+  box-shadow: 10px 10px 10px 10px rgba(0,0,0,0.1);
+  border: 1px solid ;
+  margin: 0 auto;
+
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #E7F7EC;
+}
+
+.header {
+    background-color: #2DA0FA;
+    color: white;
+    padding: 2px 0px 2px 0px;
+    text-align: center;
+}
+
+/*.section {
+    background-color: #72D6EE;
+    padding: 10px;
+    margin: 10px;
+}*/
+
+.teacher-list {
+    background-color: #A1CFFF;
+    padding: 10px;
+    margin: 10px;
+}
+
+.student-list {
+    background-color: #E7F7EC;
+    padding: 10px;
+    margin: 10px;
+}
+.formulario {
+           /* background-color: #72D6EE;
+            padding: 20px;
+            border-radius: 10px;
+            width: 640px;*/
+    margin: 0 auto;
+    padding:20px 15px 20px 15px;
+    background-color:#E7F7EC;
+    border: 4px solid ;
+    border-color: #2DA0FB;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    align-items: 30px;
+        }
+.input-contenedor label{
+
+    position: adsolute;
+    top: -10px;
+    left: 10px;
+    background-color: #E7F7EC;
+    padding: 0 5px;
+    font-size: x-large;
+    
+}
+.contenedor1 label
+{
+ position: adsolute;
+ top: 20px;
+ left: 20px;
+ color: black;
+ transition: top 0.5s, font-size 0.5s, color 0.5s;
+ justify-content: center;
+}
+  
+
+.formulario input[type="text"]{
+      width: 400px;
+      padding: 5px 5px;}
+        }
+/*input[type="text"],
+select {
+            width: 400px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #A1CFFF;
+            border-radius: 5px;
+        }*/
+        button {
+            background-color: #2DA0FA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+
+</style>
+</head>
+
+
+<body> 
+    <div class="contenedor">
+    <div class="formulario" class="submit-a#o_seccion" method="post">
+    <div class="input-contenedor">
+    <div class="header">
+        <h3>Registro Escolar</h3>
+       
+    </div>
+    <div class="contenedor1">
+    <label for="periodo">Período Escolar:</label>
+            <input type="text" id="periodo" name="periodo" placeholder="Ejemplo: Primer trimestre">
+
+            <label for="momento">Momento:</label>
+            <select id="estudiantes" name="momento_notas" multiple>
+                <option value="mo">Momento I</option>
+                <option value="estudiante2">Momento II</option>
+                 <option value="estudiante2">Momento III</option>
+    </div>
+
+    <div class="contenedor1">
+        <h2>Asignación de Secciones</h2>
+        <!-- Aquí puedes agregar formularios o elementos para asignar secciones -->
+     <label for="anio">Año:</label>
+            <input type="text" id="anio" name="anio" placeholder="Ejemplo: 2024">
+     <label for="seccion">Sección:</label>
+            <input type="text" id="seccion" name="seccion" placeholder="Ejemplo: A">
+     <label for="materia">Materia:</label>
+            <input type="text" id="materia" name="materia" placeholder="Ejemplo: Matemáticas">
+    </div>
+
+
+    <div class="contenedor1">
+        <h2>Asignación de Profesores</h2>
+        <!-- Aquí puedes agregar formularios o elementos para asignar profesores -->
+         <label for="profesor">Profesor asignado:</label>
+            <select id="profesor" name="profesor">
+                <option value="profesor1">Profesor 1</option>
+                <option value="profesor2">Profesor 2</option>
+                <!-- Agrega más opciones según tus necesidades -->
+            </select>
+
+    </div>
+
+    <div class="teacher-list">
+        <h2>Lista de Profesores</h2>
+        <!-- Aquí puedes mostrar la lista de profesores -->
+        <!-- Ejemplo: -->
+        <ul>
+            <li>Profesor 1</li>
+            <li>Profesor 2</li>
+            <!-- ... -->
+        </ul>
+    </div>
+
+    <div class="student-list">
+        <h2>Lista de Alumnos</h2>
+        <!-- Aquí puedes mostrar la lista de alumnos -->
+        <!-- Asignación de estudiantes -->
+            <label for="estudiantes">Estudiantes asignados:</label>
+            <select id="estudiantes" name="estudiantes" multiple>
+                <option value="estudiante1">Estudiante 1</option>
+                <option value="estudiante2">Estudiante 2</option>
+                <!-- Agrega más opciones según tus necesidades -->
+            </select>
+        <!-- Ejemplo: -->
+        <ul>
+            <li>Alumno 1</li>
+            <li>Alumno 2</li>
+            <!-- ... -->
+        </ul>
+    </div>
+    </div>
+</select>
+    <!-- Aquí puedes agregar más secciones según tus necesidades -->
+
+    <!-- PHP para procesar los datos -->
+    <?php
+    // Aquí puedes escribir el código PHP para procesar los datos del formulario
+    // y mostrar la información dinámica.
+    ?>
+</body>
+</div>
+</div>
+ </form>
+</html>

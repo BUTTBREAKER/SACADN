@@ -8,4 +8,5 @@ $database = "sacadn1");
 
 $conn->set_charset('utf8');
 
-return $conn; ?>
+date_default_timezone_set('America/Caracas');
+return $conn;
