@@ -47,7 +47,7 @@ function formatearFecha(string $crudo): string {
 
  <body>
  	<div class="contenedor">
-    <form class="table" method="post">
+    <form class="table" method="POST">
 <div class="row">
   <h2 style="text-align: center;">Lista Representantes</h2>
 </div>

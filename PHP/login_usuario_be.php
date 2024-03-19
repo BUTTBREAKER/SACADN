@@ -54,4 +54,4 @@ if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
 function mostrarMensajeError($mensaje) {
     echo '<script>alert("' . $mensaje . '"); window.location = "../index.php";</script>';
 }
-?>
+?> 

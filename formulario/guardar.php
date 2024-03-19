@@ -4,7 +4,7 @@ require 'con_db.php';
 
 $resultado = null;
 
-if(isset($_POST['guardar'])){
+if($_POST) {
 
  $ci_repr = $_POST['ci_repr'];
  $nombre_completo = $_POST['nombre_completo'];
@@ -24,8 +24,6 @@ if(isset($_POST['guardar'])){
  $resultado = mysqli_query($conn,$sql);
 
 
-  mysqli_close($conn);
-
  }
 ?>
 <!DOCTYPE html>
@@ -42,12 +40,11 @@ if(isset($_POST['guardar'])){
 		<div class="row">
 			<div class="row" style="text-align: center;">
 
-				<?php if($resultado) { ?>
-				<h3>REGISTRO GUARDADO</h3>
-			   
-			      <?php}else { ?>
-				<h3>ERROR AL GUARGAR</h3>
-			     <?php } ?>
+				<?php if($resultado): ?>
+					<h3>REGISTRO GUARDADO</h3>
+			    <?php else : ?>
+					<h3>ERROR AL GUARGAR</h3>
+			    <?php endif ?>
  
  			  <a href="tabla_registro.php" class="btn btn-primary">Regresar</a>
 
