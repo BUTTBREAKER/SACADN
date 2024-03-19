@@ -14,4 +14,5 @@ $conexion = new mysqli(
   $_ENV['DB_PORT']
 );
 
+date_default_timezone_set('America/Caracas');
 return $conexion;
