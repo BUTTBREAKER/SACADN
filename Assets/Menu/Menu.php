@@ -98,10 +98,14 @@ if ($sentencia = $conexion->prepare($query)) {
                         <a href="#" class="dropdown__link">
                            <i class="ri-pie-chart-line"></i> Ver Asignaturas
                         </a>
+                        <a href="./asignar-materias.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Asignar materias
+                        </a>
+
                      </li>
 
                      <li>
-                        <a href="#" class="dropdown__link">
+                        <a href="./materias.php" class="dropdown__link">
                            <i class="ri-arrow-up-down-line"></i> Materias
                         </a>
                      </li>

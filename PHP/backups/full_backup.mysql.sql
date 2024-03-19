@@ -4,7 +4,7 @@ CREATE TABLE `asignacion` (
   `ci_est` int(11) NOT NULL,
   `ci_prof` int(11) NOT NULL,
   `ID_materias` int(11) NOT NULL,
-  `ID_seccion_a#o` int(11) NOT NULL,
+  `ID_seccion_anio` int(11) NOT NULL,
   PRIMARY KEY (`ID_asig`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 DROP TABLE IF EXISTS estudiantes;
@@ -82,4 +82,28 @@ CREATE TABLE `representantes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO representantes VALUES ('28072391', 'Franyer', 'Sánchez', '2001-10-06', '15', 'Amarrado', 'No sé', 'masculino', '055555555555', 'No me acuerdo', '2018-03-24 00:00:00');
 INSERT INTO representantes VALUES ('30735099', 'Yender', 'Sánchez', '2004-04-30', '19', 'Apendejado', 'En su kokoro', 'masculino', '12345', 'Su casa', '2018-03-24 00:00:00');
-DROP TABLE IF EXISTS secciones_a#os;
+DROP TABLE IF EXISTS secciones_anios;
+CREATE TABLE `secciones_anios` (
+  `ID_seccion_anio` int(11) NOT NULL,
+  `anio` varchar(5) DEFAULT NULL,
+  `seccion` varchar(5) DEFAULT NULL,
+  `fech_seccion_anio` datetime DEFAULT CURRENT_TIMESTAMP,
+  `ID_per` int(11) NOT NULL,
+  PRIMARY KEY (`ID_seccion_anio`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS usuarios;
+CREATE TABLE `usuarios` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_completo` varchar(50) DEFAULT NULL,
+  `Cedula` varchar(11) DEFAULT NULL,
+  `Usuario` varchar(255) DEFAULT NULL,
+  `contrasena` varchar(255) DEFAULT NULL,
+  `rol` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+INSERT INTO usuarios VALUES ('1', 'eliana martines', '31331136', 'eliana', '$2y$10$9jujd5R/Y2Ubv6flQXlpfuRu1zrO8xkz3vQ1TG72QzfB9Z1cQTPia', 'A');
+INSERT INTO usuarios VALUES ('2', 'gregoy albornoz', '30734944', 'parche', '$2y$10$uaeSG4EOuFsw7Xhlo3s26eTmiY/ixbi3gWRYvPvSiJUYa8.djWAjm', 'A');
+INSERT INTO usuarios VALUES ('3', 'Elaine RondÃ³n ', '27890456', 'ela2', '$2y$10$jWAI9MRgYGfoaWzGA7RATekyAIou7tky0fJCERwztjqBWrmIhSg9.', 'A');
+INSERT INTO usuarios VALUES ('4', 'wwww', '222222222', '11111111', '22222222', 'A');
+INSERT INTO usuarios VALUES ('5', 'tttttt', '00009989878', '546546yy', 'tttttt', 'A');
+INSERT INTO usuarios VALUES ('6', 'Elisel Rocet', '456768990', 'Elisel', '$2y$10$xmeCi47RF.CKZKGAXMpuaeKI2srfHvgkAhFZep8SyUooYMBsSpDDu', 'U');

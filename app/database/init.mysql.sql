@@ -85,7 +85,7 @@ CREATE TABLE `notas` (
   `momento_notas` varchar(45) DEFAULT NULL,
   `ci_est` int(11) NOT NULL,
   `ci_prof` int(11) NOT NULL,
-  `ID_materias` int(11) NOT NULL
+  `notas` TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -166,8 +166,8 @@ INSERT INTO `representantes` (`ci_repr`, `nombre_completo`, `apellido`, `fecha_n
 
 CREATE TABLE `secciones_anios` (
   `ID_seccion_anio` int(11) NOT NULL,
-  `anio` varchar(5) DEFAULT NULL,
-  `seccion` varchar(5) DEFAULT NULL,
+  `anio` varchar(20) DEFAULT NULL,
+  `seccion` varchar(1) DEFAULT NULL,
   `fech_seccion_anio` datetime DEFAULT CURRENT_TIMESTAMP,
   `ID_per` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
