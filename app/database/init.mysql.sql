@@ -32,7 +32,7 @@ CREATE TABLE `asignacion` (
   `ci_est` int(11) NOT NULL,
   `ci_prof` int(11) NOT NULL,
   `ID_materias` int(11) NOT NULL,
-  `ID_seccion_a#o` int(11) NOT NULL
+  `ID_seccion_anio` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -161,14 +161,14 @@ INSERT INTO `representantes` (`ci_repr`, `nombre_completo`, `apellido`, `fecha_n
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `secciones_a#os`
+-- Estructura de tabla para la tabla `secciones_anios`
 --
 
-CREATE TABLE `secciones_a#os` (
-  `ID_seccion_a#o` int(11) NOT NULL,
-  `a#o` varchar(5) DEFAULT NULL,
+CREATE TABLE `secciones_anios` (
+  `ID_seccion_anio` int(11) NOT NULL,
+  `anio` varchar(5) DEFAULT NULL,
   `seccion` varchar(5) DEFAULT NULL,
-  `fech_seccion_a#o` datetime DEFAULT CURRENT_TIMESTAMP,
+  `fech_seccion_anio` datetime DEFAULT CURRENT_TIMESTAMP,
   `ID_per` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -246,10 +246,10 @@ ALTER TABLE `representantes`
   ADD PRIMARY KEY (`ci_repr`);
 
 --
--- Indices de la tabla `secciones_a#os`
+-- Indices de la tabla `secciones_anios`
 --
-ALTER TABLE `secciones_a#os`
-  ADD PRIMARY KEY (`ID_seccion_a#o`);
+ALTER TABLE `secciones_anios`
+  ADD PRIMARY KEY (`ID_seccion_anio`);
 
 --
 -- Indices de la tabla `usuarios`
