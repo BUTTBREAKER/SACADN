@@ -149,8 +149,26 @@ if ($sentencia = $conexion->prepare($query)) {
                      </ul>
                   </li>
                <?php endif ?>
-               <li><a href="Representantes.php" class="nav__link">Representantes</a></li>
+              
+               <li class="dropdown__item">
+                  <div class="nav__link">
+                     Representantes <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
 
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="Representantes.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Lista De Representantes
+                        </a>
+                        <?php if ($rol === "A") : ?>
+                        <a href="nuevo_representante.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Registrar Representante
+                        </a>
+                        <?php endif ?>
+                     </li>
+                  </ul>
+               </li>
+                 
                <li><a href="salir.php" class="nav__link">Salir</a></li>
             </ul>
          </div>
@@ -160,8 +178,4 @@ if ($sentencia = $conexion->prepare($query)) {
    <!--=============== MAIN JS ===============-->
    <script src="../Assets/Menu/js/main.js"></script>
 </body>
-
-</html>
-</body>
-
 </html>
