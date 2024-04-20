@@ -25,30 +25,17 @@ if($_POST) {
 
  }
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro Representante</title>  
-    <link rel="stylesheet" type="text/css" href="">
-</head>
+echo <<<HTML
 <body>
-	<div class="contenedor">
-		<div class="row">
-			<div class="row" style="text-align: center;">
-
-				<?php if($resultado): ?>
-					<h3>REGISTRO GUARDADO</h3>
-			    <?php else : ?>
-					<h3>ERROR AL GUARGAR</h3>
-			    <?php endif ?>
- 
- 			  <a href="Representantes.php" class="btn btn-primary">Regresar</a>
-
-			</div>			
-		</div>
-	</div>
+  <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
+  <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+  <script>
+    Swal.fire({
+      title: 'Representante Almacenado correctamente',
+      icon: 'success',
+      showConfirmButton: false,
+      timer: 3000
+    }).then(() => location.href = './representantes.php')
+  </script>
 </body>
-</html>
+HTML;

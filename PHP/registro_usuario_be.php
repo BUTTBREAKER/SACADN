@@ -60,20 +60,38 @@ class Registro {
         }
     }
 
-    private function mostrarMensajeExito($mensaje) {
-        echo '
-        <script>
-            alert("' . $mensaje . '");
-            window.location = "../index.php";
-        </script>';
+    private function mostrarMensajeExito(string $mensaje): void {
+       echo <<<HTML
+        <body>
+          <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
+          <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+          <script>
+            Swal.fire({
+              title: '$mensaje',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 3000
+            }).then(() => location.href = './salir.php')
+          </script>
+        </body>
+        HTML;
     }
 
-    private function mostrarMensajeError($mensaje) {
-        echo '
-        <script>
-            alert("' . $mensaje . '");
-            window.location = "../index.php";
-        </script>';
+    private function mostrarMensajeError(string $mensaje): void {
+       echo <<<HTML
+            <body>
+                <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
+                <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+             <script>
+            Swal.fire({
+              title: '$mensaje',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 3000
+            }).then(() => location.href = './salir.php')
+          </script>
+        </body>
+        HTML;
     }
 }
 
@@ -91,6 +109,3 @@ if (isset($_POST['usuario'], $_POST['nombre_completo'], $_POST['cedula'], $_POST
 
     $registro->registrarUsuario($usuario, $nombre_completo, $cedula, $contrasena, $rol);
 }
-
-$conexion->close();
-?>

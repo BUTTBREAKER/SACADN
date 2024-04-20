@@ -45,6 +45,7 @@ $result = $db->query($sql);
           <th>Teléfono</th>
           <th>Dirección</th>
           <th>Fecha</th>
+          <th>Opciones</th>
         </tr>
       </thead>
       <tbody>
@@ -61,6 +62,16 @@ $result = $db->query($sql);
             <td><?= $mostrar['telefono'] ?></td>
             <td><?= $mostrar['direccion'] ?></td>
             <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
+            <td>
+              <form method="post">
+                <button formaction="eliminar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+                  Eliminar
+                </button>
+                <button formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+                  Editar
+                </button>
+              </form>
+            </td>
           </tr>
           <?php } ?>
         </tbody>

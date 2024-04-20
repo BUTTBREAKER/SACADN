@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="overlay-panel overlay-right">
-                    <h1 class="title">Comienza tu <br /> viaje ahora</h1>
+                    <h1 class="title">Comienza tu <br /> Gestion ahora</h1>
                     <p>Si aún no tienes una cuenta, únete a nosotros y comienza tu gestión</p>
                     <button class="ghost" id="register">Registrarse <i class="fa-solid fa-arrow-right"></i></button>
                 </div>
