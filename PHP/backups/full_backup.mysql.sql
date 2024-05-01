@@ -21,11 +21,14 @@ CREATE TABLE `estudiantes` (
   `ci_repr` int(11) NOT NULL,
   PRIMARY KEY (`ci_est`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<<<<<<< HEAD
 INSERT INTO estudiantes VALUES ('0', '', 'bbbb', '1978-05-16', '0', 'hhhh', 'llll', 'masculino', '2001-05-24 00:00:00', '0');
 INSERT INTO estudiantes VALUES ('999999', '', 'jha{ñoiujñvs', '2015-09-16', '0', 'hhh', 'uypñ', 'masculino', '2001-05-24 00:00:00', '0');
 INSERT INTO estudiantes VALUES ('30734567', 'joseee', 'acevedo', '2003-08-06', '0', 'zulia', 'no se', 'masculino', '2001-05-24 00:00:00', '0');
 INSERT INTO estudiantes VALUES ('30734789', 'jose', 'acevedo', '2003-08-06', '0', 'zulia', 'maracaibo', 'masculino', '2001-05-24 00:00:00', '0');
 INSERT INTO estudiantes VALUES ('31245678', '', 'ramires', '2003-05-06', '0', 'merida', 'palmarito', 'masculino', '2001-05-24 00:00:00', '0');
+=======
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
 DROP TABLE IF EXISTS materias;
 CREATE TABLE `materias` (
   `ID_mater` int(11) NOT NULL,
@@ -65,7 +68,10 @@ CREATE TABLE `profesores` (
   `fech_prof` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ci_prof`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<<<<<<< HEAD
 INSERT INTO profesores VALUES ('0', 'Elaine Yusneidis', 'Rondón Angulo', '2004-01-04', '0', 'Mérida 4', 'Tucaní', 'femenino', '04269759809', 'San Pedro', '2006-05-11 00:00:00');
+=======
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
 DROP TABLE IF EXISTS representantes;
 CREATE TABLE `representantes` (
   `ci_repr` int(11) NOT NULL,
@@ -81,6 +87,10 @@ CREATE TABLE `representantes` (
   `fech_repr` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`ci_repr`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+<<<<<<< HEAD
+=======
+INSERT INTO representantes VALUES ('23892005', 'Emerson455', 'Navarro', '1994-12-08', '0', 'Merida', 'Nueva Bolivia', 'femenino', '0424-7369198', 'Tucani', '2006-05-11 00:00:00');
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
 INSERT INTO representantes VALUES ('123456789', 'John', 'Doe', '1988-01-01', '0', 'Mérida', 'Tovar', 'femenino', '0555-555-5555', 'Tovar,  Carretera Panamericana', '2006-05-11 00:00:00');
 DROP TABLE IF EXISTS secciones_anios;
 CREATE TABLE `secciones_anios` (

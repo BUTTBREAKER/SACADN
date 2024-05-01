@@ -18,7 +18,11 @@ $result = $db->query($sql);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
   <title>Lista de materias</title>
+=======
+  <title>Lista de Representantes</title>
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
   <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
 </head>
 

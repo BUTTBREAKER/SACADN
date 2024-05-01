@@ -1,7 +1,10 @@
 <?php
 
 $db = require_once __DIR__ . '/conexion_be.php';
+<<<<<<< HEAD
 include_once __DIR__ . '/../Assets/Menu/Menu.php';
+=======
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
 
 if ($_POST) {
   $sql = <<<SQL
@@ -77,13 +80,23 @@ $representante = $stmt->get_result()->fetch_assoc();
     justify-content: center;
     align-items: center;
     min-height: 0;
+<<<<<<< HEAD
     padding: 10px 5px 5px 5px;
     width: 750px;
+=======
+    padding: 10px 5px 10px 5px;
+    width: 700px;
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
     box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid;
     margin: 0 auto;
 
   }
+<<<<<<< HEAD
+=======
+  .pagina-content {
+      padding-top: 50px;}
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
 
   .title {
     justify-content: center;
@@ -105,9 +118,15 @@ $representante = $stmt->get_result()->fetch_assoc();
   }
 
   .formulario {
+<<<<<<< HEAD
     width: 700px;
     margin: 0 auto;
     padding: 20px 10px 20px 10px;
+=======
+    width: 640px;
+    margin: 0 auto;
+    padding: 20px 10px 5px 10px;
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
     background-color: #E7F7EC;
     border: 4px solid;
     border-color: #2DA0FB;
@@ -119,7 +138,10 @@ $representante = $stmt->get_result()->fetch_assoc();
   .formulario input[type="text"] {
     width: 400px;
     padding: 5px 5px;
+<<<<<<< HEAD
     border-radius: 30px;
+=======
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
   }
 
   .formulario input[type="date"] {
@@ -130,13 +152,19 @@ $representante = $stmt->get_result()->fetch_assoc();
   .formulario input[type="number"] {
     width: 150px;
     padding: 3px 3px;
+<<<<<<< HEAD
     border-radius: 30px;
+=======
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
   }
 
   .formulario input[type="number-tlf"] {
     width: 150px;
     padding: 3px 3px;
+<<<<<<< HEAD
     border-radius: 30px;
+=======
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
   }
 
   .formulario input [type="sudmit"] {

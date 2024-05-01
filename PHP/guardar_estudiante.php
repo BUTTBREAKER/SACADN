@@ -15,8 +15,13 @@ if($_POST) {
  $genero = $_POST['genero'];
  $fech_est = date("d/m/y");  
 
+<<<<<<< HEAD
  $sql= "INSERT INTO `estudiantes`(`ci_est`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `fech_est`)
  VALUES ('$ci_est','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$fech_est')";
+=======
+ $sql= "INSERT INTO `estudiantes`(`ci_est`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `ci_repr`)
+ VALUES ('$ci_est','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_est','$ci_repr')";
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
    
  $resultado = mysqli_query($conn,$sql);
 
@@ -33,7 +38,11 @@ echo <<<HTML
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
+<<<<<<< HEAD
     }).then(() => location.href ='./Estudiantes.php')
+=======
+    }).then(() => location.href = './representantes.php')
+>>>>>>> c580a3aae25a2245f2a4a5f4af4ca6962248e4d6
   </script>
 </body>
 HTML;
