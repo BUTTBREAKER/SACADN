@@ -63,10 +63,25 @@ if ($sentencia = $conexion->prepare($query)) {
          </div>
 
          <!--=============== NAV MENU ===============-->
-         <div class="nav__menu" id="nav-menu">
-            <ul class="nav__list">
-               <li><a href="#" class="nav__link">Notas</a></li>
+        <li class="dropdown__item">
+                  <div class="nav__link">
+                     Notas<i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
 
+                <ul class="dropdown__menu">
+                     <li>
+                        <a href="Notas.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Ver Notas 
+                        </a>
+                     </li>
+
+                     <li>
+                        <a href="Periodos.php" class="dropdown__link">
+                           <i class="ri-arrow-up-down-line"></i> Consultar Notas 
+                        </a>
+                     </li>
+                  </ul>
+                </li>
                <!--=============== DROPDOWN 1 ===============-->
                <li class="dropdown__item">
                   <div class="nav__link">
@@ -81,7 +96,7 @@ if ($sentencia = $conexion->prepare($query)) {
                      </li>
 
                      <li>
-                        <a href="#" class="dropdown__link">
+                        <a href="Periodos.php" class="dropdown__link">
                            <i class="ri-arrow-up-down-line"></i> Ver Periodo
                         </a>
                      </li>
@@ -95,13 +110,17 @@ if ($sentencia = $conexion->prepare($query)) {
 
                   <ul class="dropdown__menu">
                      <li>
-                        <a href="#" class="dropdown__link">
+                        <a href="Asignaturas.php" class="dropdown__link">
                            <i class="ri-pie-chart-line"></i> Ver Asignaturas
                         </a>
+                        <a href="./asignar-materias.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Asignar materias
+                        </a>
+
                      </li>
 
                      <li>
-                        <a href="#" class="dropdown__link">
+                        <a href="./materias.php" class="dropdown__link">
                            <i class="ri-arrow-up-down-line"></i> Materias
                         </a>
                      </li>
@@ -109,6 +128,7 @@ if ($sentencia = $conexion->prepare($query)) {
                </li>
 
                <!--=============== DROPDOWN 3 ===============-->
+
                <li class="dropdown__item">
                   <div class="nav__link">
                      Profesores <i class="ri-arrow-down-s-line dropdown__arrow"></i>
@@ -119,12 +139,40 @@ if ($sentencia = $conexion->prepare($query)) {
                         <a href="profesores.php" class="dropdown__link">
                            <i class="ri-pie-chart-line"></i> Lista de Profesores
                         </a>
+                         <?php if ($rol === "A") : ?>
+                        <a href="nuevo_profesor.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Registrar Profesor
+                        </a>
+                        <?php endif ?>
                      </li>
                   </ul>
                </li>
                <!--=============== DROPDOWN 3 ===============-->
-               <li><a href="Estudiantes.php" class="nav__link">Estudiantes</a></li>
+               
+                <li class="dropdown__item">
+                   <div class="nav__link">
+                     Estudiantes <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
+
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="Estudiantes.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Lista De Estudiantes
+                        </a>
+                        <?php if ($rol === "A") : ?>
+                        <a href="nuevo_estudiante.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Registrar Estudiante
+                        </a>
+                        <?php endif ?>
+                     </li>
+                  </ul>
+               </li>
+                 
+               
                <?php if ($rol === "A") : ?>
+
+               </li>
+              
                   <li class="dropdown__item">
                      <div class="nav__link">
                         Configuracion <i class="ri-arrow-down-s-line dropdown__arrow"></i>
@@ -144,9 +192,28 @@ if ($sentencia = $conexion->prepare($query)) {
                         </li>
                      </ul>
                   </li>
+              
                <?php endif ?>
-               <li><a href="Representantes.php" class="nav__link">Representantes</a></li>
+              
+               <li class="dropdown__item">
+                  <div class="nav__link">
+                     Representantes <i class="ri-arrow-down-s-line dropdown__arrow"></i>
+                  </div>
 
+                  <ul class="dropdown__menu">
+                     <li>
+                        <a href="Representantes.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Lista De Representantes
+                        </a>
+                        <?php if ($rol === "A") : ?>
+                        <a href="nuevo_representante.php" class="dropdown__link">
+                           <i class="ri-pie-chart-line"></i> Registrar Representante
+                        </a>
+                        <?php endif ?>
+                     </li>
+                  </ul>
+               </li>
+                 
                <li><a href="salir.php" class="nav__link">Salir</a></li>
             </ul>
          </div>
@@ -156,8 +223,4 @@ if ($sentencia = $conexion->prepare($query)) {
    <!--=============== MAIN JS ===============-->
    <script src="../Assets/Menu/js/main.js"></script>
 </body>
-
-</html>
-</body>
-
 </html>

@@ -31,35 +31,50 @@ $result = $db->query($sql);
 
   <div style="overflow-x: auto;">
     <table id="tablaRepresentantes" class="datatable">
-      <tr>
-        <!-- <td>ID</td> -->
-        <th>Cédula</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Fecha de nacimiento</th>
-        <th>Edad</th>
-        <th>Estado de nacimiento</th>
-        <th>Lugar de nacimiento</th>
-        <th>Sexo</th>
-        <th>Teléfono</th>
-        <th>Dirección</th>
-        <th>Fecha</th>
-      </tr>
-      <?php while ($mostrar = $result->fetch_assoc()) { ?>
+      <thead>
         <tr>
-          <td><?= $mostrar['cedula'] ?></td>
-          <td><?= $mostrar['nombres'] ?></td>
-          <td><?= $mostrar['apellidos'] ?></td>
-          <td><?= formatearFecha($mostrar['fecha_nacimiento']) ?></td>
-          <td><?= calcularEdad($mostrar['fecha_nacimiento']) ?></td>
-          <td><?= $mostrar['estado_nacimiento'] ?></td>
-          <td><?= $mostrar['lugar_nacimiento'] ?></td>
-          <td><?= $mostrar['sexo'] ?></td>
-          <td><?= $mostrar['telefono'] ?></td>
-          <td><?= $mostrar['direccion'] ?></td>
-          <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
+          <!-- <td>ID</td> -->
+          <th>Cédula</th>
+          <th>Nombres</th>
+          <th>Apellidos</th>
+          <th>Fecha de nacimiento</th>
+          <th>Edad</th>
+          <th>Estado de nacimiento</th>
+          <th>Lugar de nacimiento</th>
+          <th>Sexo</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Fecha</th>
+          <th>Opciones</th>
         </tr>
-      <?php } ?>
+      </thead>
+      <tbody>
+      <?php while ($mostrar = $result->fetch_assoc()) { ?>
+          <tr>
+            <td><?= $mostrar['cedula'] ?></td>
+            <td><?= $mostrar['nombres'] ?></td>
+            <td><?= $mostrar['apellidos'] ?></td>
+            <td><?= formatearFecha($mostrar['fecha_nacimiento']) ?></td>
+            <td><?= calcularEdad($mostrar['fecha_nacimiento']) ?></td>
+            <td><?= $mostrar['estado_nacimiento'] ?></td>
+            <td><?= $mostrar['lugar_nacimiento'] ?></td>
+            <td><?= $mostrar['sexo'] ?></td>
+            <td><?= $mostrar['telefono'] ?></td>
+            <td><?= $mostrar['direccion'] ?></td>
+            <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
+            <td>
+              <form method="post">
+                <button formaction="eliminar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+                  Eliminar
+                </button>
+                <button formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+                  Editar
+                </button>
+              </form>
+            </td>
+          </tr>
+          <?php } ?>
+        </tbody>
     </table>
   </div>
 
