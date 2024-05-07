@@ -1,4 +1,3 @@
-```php
 <?php
   // Iniciar una sesión para manejar la autenticación de usuario
   session_start();

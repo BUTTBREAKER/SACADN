@@ -4,5 +4,6 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "php.suggest.basic": false,
-  "php.validate.enable": false
+  "php.validate.enable": false,
+  "CodeGPT.apiKey": "Ollama"
 }
