@@ -29,8 +29,8 @@ if (isset($_GET['toggle_estado'])) {
   <title>Panel de Administrador</title>
   <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
   <style type="text/css">
-    .container {
-      max-width: 800px;
+    .contenedor {
+      max-width: 1000px;
       margin: 0 auto;
       padding: 20px;
     }
@@ -41,12 +41,12 @@ if (isset($_GET['toggle_estado'])) {
     }
 
     .users-table {
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
 
     .create-user-form {
   border: 1px solid #ccc;
-  padding: 20px;
+  padding: 19px;
   margin-bottom: 20px;
 }
 
@@ -64,7 +64,7 @@ if (isset($_GET['toggle_estado'])) {
 .create-user-form input[type="number"],
 .create-user-form input[type="password"],
 .create-user-form select {
-  width: 100%;
+  width: 50%;
   padding: 8px;
   margin-bottom: 15px;
 }
@@ -105,7 +105,7 @@ if (isset($_GET['toggle_estado'])) {
     <h1>Panel de Administrador</h1>
 
     <body>
-      <div class="container">
+      <div class="contenedor">
         <h1>Tabla de Usuarios</h1>
         <div class="users-table">
           <table id="userTable" class="table">
