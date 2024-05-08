@@ -85,12 +85,12 @@ include 'conexion_be.php'; // Asumiendo que la conexión se establece aquí
 
 $registro = new Registro($conexion);
 
-if (isset($_POST['usuario'], $_POST['nombre_completo'], $_POST['cedula'], $_POST['contrasena'])) {
+if (isset($_POST['usuario'], $_POST['nombre_completo'], $_POST['cedula'], $_POST['contrasena'],$_POST['rol'])) {
   $usuario = $_POST['usuario'];
   $nombre_completo = $_POST['nombre_completo'];
   $cedula = $_POST['cedula'];
   $contrasena = $_POST['contrasena'];
-  $rol = 'rol';
+  $rol = $_POST['rol'];
 
   $registro->registrarUsuario($usuario, $nombre_completo, $cedula, $contrasena, $rol);
 }
