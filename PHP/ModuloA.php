@@ -23,6 +23,7 @@ if (isset($_GET['toggle_estado'])) {
 }
 
 ?>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,41 +46,41 @@ if (isset($_GET['toggle_estado'])) {
     }
 
     .create-user-form {
-  border: 1px solid #ccc;
-  padding: 19px;
-  margin-bottom: 20px;
-}
+      border: 1px solid #ccc;
+      padding: 19px;
+      margin-bottom: 20px;
+    }
 
-.create-user-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
+    .create-user-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-.create-user-form label {
-  display: block;
-  margin-bottom: 10px;
-}
+    .create-user-form label {
+      display: block;
+      margin-bottom: 10px;
+    }
 
-.create-user-form input[type="text"],
-.create-user-form input[type="number"],
-.create-user-form input[type="password"],
-.create-user-form select {
-  width: 50%;
-  padding: 8px;
-  margin-bottom: 15px;
-}
+    .create-user-form input[type="text"],
+    .create-user-form input[type="number"],
+    .create-user-form input[type="password"],
+    .create-user-form select {
+      width: 50%;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
 
-.create-user-form button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
+    .create-user-form button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
 
-.create-user-form button:hover {
-  background-color: #0056b3;
-}
+    .create-user-form button:hover {
+      background-color: #0056b3;
+    }
 
 
     .table {
@@ -143,50 +144,69 @@ if (isset($_GET['toggle_estado'])) {
       </div>
     </body>
 
-</html>
+    </html>
 
-<div class="create-user-form">
-  <h2>Crear Nuevo Usuario</h2>
-  <form action="registro_usuario_be.php" method="POST">
-    <div class="form-control">
-      <input type="text" id="registerUsuario" placeholder="Usuario" name="usuario" required pattern="[A-Za-z0-9]+" maxlength="20" title="El usuario solo puede contener letras y números, con un máximo de 20 caracteres." />
-      <small class="error-message"></small>
-      <span></span>
+    <div class="create-user-form">
+      <h2>Crear Nuevo Usuario</h2>
+      <form action="registro_usuario_be.php" method="POST">
+        <div class="form-control">
+          <input type="text" id="registerUsuario" placeholder="Usuario" name="usuario" required pattern="[A-Za-z0-9]+" maxlength="20" title="El usuario solo puede contener letras y números, con un máximo de 20 caracteres." />
+          <small class="error-message"></small>
+          <span></span>
+        </div>
+        <div class="form-control">
+        <input type="text"
+       id="registerNombreCompleto"
+       placeholder="Nombre completo"
+       name="nombre_completo"
+       required
+       maxlength="50"
+       onkeypress="return soloLetrasYEspacios(event)"
+       title="El nombre solo puede contener letras y espacios, con un máximo de 50 caracteres."
+>
+        </div>
+        <div class="form-control">
+          <input type="number" id="registerCedula" placeholder="Cédula" name="cedula" required min="0" pattern="[0-9]{11}" title="La cédula debe contener 11 dígitos numéricos." />
+          <small class="error-message"></small>
+          <span></span>
+        </div>
+        <div class="form-control">
+          <input type="password" id="registerContrasena" placeholder="Contraseña" name="contrasena" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
+          <small class="error-message"></small>
+          <span></span>
+        </div>
+        <div class="form-control">
+          <label for="rol">Rol:</label>
+          <select id="rol" name="rol" required>
+            <option value="A">Administrador</option>
+            <option value="U">Usuario</option>
+          </select>
+        </div>
+        <button type="submit">Crear Usuario</button>
+      </form>
     </div>
-    <div class="form-control">
-      <input type="text" id="registerNombreCompleto" placeholder="Nombre completo" name="nombre_completo"  required pattern="[A-Za-z\s]+" maxlength="50" title="El nombre solo puede contener letras y espacios, con un máximo de 50 caracteres."/>
-      <small class="error-message"></small>
-      <span></span>
-    </div>
-    <div class="form-control">
-      <input type="number" id="registerCedula" placeholder="Cédula" name="cedula"  required min="0" pattern="[0-9]{11}" title="La cédula debe contener 11 dígitos numéricos."/>
-      <small class="error-message"></small>
-      <span></span>
-    </div>
-    <div class="form-control">
-      <input type="password" id="registerContrasena" placeholder="Contraseña" name="contrasena" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
-      <small class="error-message"></small>
-      <span></span>
-    </div>
-    <div class="form-control">
-      <label for="rol">Rol:</label>
-      <select id="rol" name="rol" required>
-        <option value="A">Administrador</option>
-        <option value="U">Usuario</option>
-      </select>
-    </div>
-    <button type="submit">Crear Usuario</button>
-  </form>
-</div>
 
 
 
 
-<script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const table = new simpleDatatables.DataTable('#userTable');
-  });
+    <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const table = new simpleDatatables.DataTable('#userTable');
+      });
+    </script>
+   <script>
+  function soloLetrasYEspacios(event) {
+    const tecla = event.key;
+    const esLetra = (tecla >= 'a' && tecla <= 'z') || (tecla >= 'A' && tecla <= 'Z');
+    const esEspacio = tecla === ' ';
+
+    // Si la tecla no es una letra ni un espacio, se cancela la acción predeterminada
+    if (!esLetra && !esEspacio) {
+      event.preventDefault();
+      return false;
+    }
+  }
 </script>
 </body>
 
