@@ -184,7 +184,8 @@ CREATE TABLE `usuarios` (
   `Cedula` varchar(11) DEFAULT NULL,
   `Usuario` varchar(255) DEFAULT NULL,
   `contrasena` varchar(255) DEFAULT NULL,
-  `rol` varchar(4) DEFAULT NULL
+  `rol` varchar(4) DEFAULT NULL,
+  estado ENUM('activo', 'inactivo') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
