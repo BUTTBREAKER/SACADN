@@ -1,16 +1,30 @@
 <?php
+  // Iniciar una sesión para manejar la autenticación de usuario
   session_start();
 
+  // Verificar si el usuario ya está logueado verificando si la clave 'usuario_id' existe en el array $_SESSION
   if (key_exists('usuario_id', $_SESSION)) {
-    require_once __DIR__ . '/PHP/conexion_be.php';
 
+    // Requerir el archivo de conexión a la base de datos
+    require_once __DIR__. '/PHP/conexion_be.php';
+
+    // Consultar la base de datos para recuperar el rol del usuario basado en su ID
     $rol = $conexion
       ->query("SELECT rol FROM usuarios WHERE id={$_SESSION['usuario_id']}")
       ->fetch_assoc()['rol'];
 
-    header("Location: PHP/Bienbenido{$rol}.php");
+    // Redirigir al usuario a la página apropiada basada en su rol
+    header("Location: PHP/Bienvenido{$rol}.php");
     exit;
   }
+
+  // Incluir el archivo de conexión a la base de datos
+  require_once __DIR__ . '/PHP/conexion_be.php';
+
+  // Consultar el número de administradores en la base de datos
+  $sql = "SELECT COUNT(*) as num_administradores FROM usuarios WHERE rol = 'A'";
+  $resultado = $conexion->query($sql);
+  $num_administradores = $resultado->fetch_assoc()['num_administradores'];
 ?>
 
 <!DOCTYPE html>
@@ -32,12 +46,12 @@
             <img src="./Sacadn.ico" style="width: 100px; height: 100px;">
                 <h1>Regístrate aquí</h1>
                 <div class="form-control">
-                    <input id="registerUsuario" placeholder="Usuario" name="usuario" required />
+                    <input id="registerUsuario" pattern="[a-zA-Z0-9]{4,}" title="Sólo letras y números" placeholder="Usuario" name="usuario" required />
                     <small class="error-message"></small>
                     <span></span>
                 </div>
                 <div class="form-control">
-                    <input id="registerNombreCompleto" placeholder="Nombre completo" name="nombre_completo"  required/>
+                    <input id="registerNombreCompleto" minlength="7" maxlength="80" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}" placeholder="Nombre completo" name="nombre_completo"  required/>
                     <small class="error-message"></small>
                     <span></span>
                 </div>
@@ -96,28 +110,16 @@
                 <div class="overlay-panel overlay-right">
                     <h1 class="title">Comienza tu <br /> Gestion ahora</h1>
                     <p>Si aún no tienes una cuenta, únete a nosotros y comienza tu gestión</p>
-                    <button class="ghost" id="register">Registrarse <i class="fa-solid fa-arrow-right"></i></button>
+                    <?php
+                    // Si no hay ningún administrador en la base de datos, mostrar el botón de registro
+                    if ($num_administradores == 0) {
+                        echo '<button class="ghost" id="register">Registrarse <i class="fa-solid fa-arrow-right"></i></button>';
+                    }
+                    ?>
                 </div>
             </div>
         </div>
     </div>
     <script src="./Assets/main.js"></script>
-
-    <script>
-        // Obtener el número de administradores actuales desde el backend (supongamos que se almacena en una variable PHP llamada $num_administradores)
-        const numAdministradores = <?php echo $num_administradores ?>;
-
-        // Supongamos que el límite de administradores permitidos es 5
-        const limiteAdministradores = 5;
-
-        // Determinar el rol deseado para el nuevo usuario
-        let rolNuevoUsuario = 'A'; // Por defecto, se registra como administrador
-        if (numAdministradores >= limiteAdministradores) {
-            rolNuevoUsuario = 'U'; // Si se alcanza el límite, se registra como usuario normal
-        }
-
-        // Establecer el valor del campo oculto 'rol' en el formulario de registro
-        document.getElementById('rol').value = rolNuevoUsuario;
-    </script>
 </body>
 </html>
