@@ -1,6 +1,6 @@
 <?php 
 
-require __DIR__."/conexion2.php";
+require __DIR__."/conexion_be.php";
 
 $resultado = null;
 
@@ -20,7 +20,7 @@ if($_POST) {
  $sql= "INSERT INTO `representantes`(`ci_repr`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_repr`)
  VALUES ('$ci_repr','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_repr')";
    
- $resultado = mysqli_query($conn,$sql);
+ $resultado = mysqli_query($conexion,$sql);
 
 
  }

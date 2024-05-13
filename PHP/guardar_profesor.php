@@ -1,6 +1,6 @@
 <?php 
 
-require __DIR__."/conexion2.php";
+require __DIR__."/conexion_be.php";
 
 $resultado = null;
 
@@ -20,7 +20,7 @@ if($_POST) {
  $sql= "INSERT INTO `profesores`(`ci_prof`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_prof`)
  VALUES ('$ci_prof','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_prof')";
    
- $resultado = mysqli_query($conn,$sql);
+ $resultado = mysqli_query($conexion,$sql);
 
 
  }

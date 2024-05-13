@@ -21,7 +21,7 @@ if($_POST) {
  $sql= "INSERT INTO `representantes`(`ci_repr`, `nombre_completo`, `apellido`, `fecha_nac`, `edad`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_repr`)
  VALUES ('$ci_repr','$nombre_completo','$apellido','$fecha_nac','$edad','$estado','$lugar','$genero','$telefono','$direccion','$fech_repr')";
    
- $resultado = mysqli_query($conn,$sql);
+ $resultado = mysqli_query($conexion,$sql);
 
 
  }
