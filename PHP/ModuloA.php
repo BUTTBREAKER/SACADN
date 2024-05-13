@@ -11,17 +11,6 @@ require_once __DIR__ . '/conexion_be.php';
 $sql = "SELECT ID, nombre_completo, Cedula, Usuario, rol, estado FROM usuarios";
 $resultado = $conexion->query($sql);
 
-// Comprobar si se ha enviado una solicitud para cambiar el estado del usuario
-if (isset($_GET['toggle_estado'])) {
-  // Obtener el ID del usuario y el nuevo estado
-  $usuario_id = $_GET['usuario_id'];
-  $nuevo_estado = $_GET['nuevo_estado'];
-
-  // Actualizar el estado del usuario en la base de datos
-  $update_sql = "UPDATE usuarios SET estado = '$nuevo_estado' WHERE ID = $usuario_id";
-  $conexion->query($update_sql);
-}
-
 ?>
 
 <head>
@@ -131,9 +120,9 @@ if (isset($_GET['toggle_estado'])) {
                 echo "<td>" . $fila['Cedula'] . "</td>";
                 echo "<td>" . $fila['Usuario'] . "</td>";
                 echo "<td>" . $fila['rol'] . "</td>";
-                echo "<td>" . $fila['estado'] . "</td>";
+                echo "<td>" . ucwords($fila['estado']) . "</td>";
                 echo "<td>";
-                echo "<a href='?toggle_estado=true&usuario_id=" . $fila['ID'] . "&nuevo_estado=" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>Alternar Estado</a>";
+                echo "<a data-action='toggle-status' data-user-id='" . $fila['ID'] . "' data-new-state='" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado.php?toggle_estado=true&usuario_id=" . $fila['ID'] . "&nuevo_estado=" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>". ($fila['estado'] === 'activo' ? 'Desactivar' : 'Activar')  ."</a>";
                 echo "</td>";
                 echo "</tr>";
               }
@@ -207,6 +196,22 @@ if (isset($_GET['toggle_estado'])) {
       return false;
     }
   }
+
+
+  document.querySelectorAll('[data-action]').forEach(function (link) {
+    link.onclick = function (event) {
+      event.preventDefault()
+
+      const url = './alternar-estado.php?toggle_estado=true&usuario_id='+link.dataset.userId+'&nuevo_estado='+link.dataset.newState
+
+      console.log(url)
+      fetch(url)
+        .then(function () {
+          link.innerText = link.innerText === 'Activar' ? 'Desactivar' : 'Activar'
+          link.parentElement.previousElementSibling.innerText = link.parentElement.previousElementSibling.innerText === 'Activo' ? 'Inactivo' : 'Activo'
+        })
+    }
+  })
 </script>
 </body>
 

@@ -46,12 +46,12 @@
             <img src="./Sacadn.ico" style="width: 100px; height: 100px;">
                 <h1>Regístrate aquí</h1>
                 <div class="form-control">
-                    <input id="registerUsuario" placeholder="Usuario" name="usuario" required />
+                    <input id="registerUsuario" pattern="[a-zA-Z0-9]{4,}" title="Sólo letras y números" placeholder="Usuario" name="usuario" required />
                     <small class="error-message"></small>
                     <span></span>
                 </div>
                 <div class="form-control">
-                    <input id="registerNombreCompleto" placeholder="Nombre completo" name="nombre_completo"  required/>
+                    <input id="registerNombreCompleto" minlength="7" maxlength="80" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}" placeholder="Nombre completo" name="nombre_completo"  required/>
                     <small class="error-message"></small>
                     <span></span>
                 </div>
