@@ -39,7 +39,7 @@ if ($sentencia = $conexion->prepare($query)) {
    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
    <title>SACADN</title>
-   <link rel="icon" type="image/ico" href="../Sacadn.ico" />
+   <link rel="icon" type="image/ico" href="../favicon.ico" />
    <!--=============== REMIXICONS ===============-->
    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css" rel="stylesheet">
    <!--=============== CSS ===============-->
@@ -53,7 +53,7 @@ if ($sentencia = $conexion->prepare($query)) {
       <nav class="nav">
          <div class="nav__data">
             <a href="#" class="nav__logo">
-               SACADN <img src="../Sacadn.ico" alt="Logo">
+               SACADN <img src="../favicon.ico" alt="Logo">
             </a>
 
             <div class="nav__toggle" id="nav-toggle">
