@@ -1,1 +1,2 @@
-ErrorDocument 404 /proyectos/sacadn/errores/404.html
+ErrorDocument 404 /proyectos/sacadn/views/errors/404.html
+ErrorDocument 500 /proyectos/sacadn/views/errors/500.html

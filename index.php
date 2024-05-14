@@ -1,14 +1,18 @@
 <?php
+
+  require_once __DIR__ . '/vendor/autoload.php';
+  require_once __DIR__ . '/app/bootstrap.php';
+
+  updateErrorsUrls(__DIR__ . '/.htaccess', 'views/errors');
+
   // Iniciar una sesión para manejar la autenticación de usuario
   session_start();
 
-  // Verificar si el usuario ya está logueado verificando si la clave 'usuario_id' existe en el array $_SESSION
   if (key_exists('usuario_id', $_SESSION)) {
 
     // Requerir el archivo de conexión a la base de datos
     require_once __DIR__. '/PHP/conexion_be.php';
 
-    // Consultar la base de datos para recuperar el rol del usuario basado en su ID
     $rol = $conexion
       ->query("SELECT rol FROM usuarios WHERE id={$_SESSION['usuario_id']}")
       ->fetch_assoc()['rol'];
