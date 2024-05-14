@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Container\Container;
 use Psr\Container\ContainerInterface;
+use SACADN\View;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $_ENV += require __DIR__ . '/../.env.php';
@@ -40,6 +41,12 @@ function container(): ContainerInterface {
 
       return $mysql;
     }, true);
+
+    $container->bind(
+      abstract: View::class,
+      concrete: fn (): View => new View(__DIR__ . '/../views'),
+      shared: true
+    );
   }
 
   return $container;
