@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "6678124d5b2d34874ac54979a2318041",
+  "content-hash": "a1bf24bf00056793a6498340243154a1",
   "packages": [
     {
       "name": "eyra/fecha_utils",
@@ -38,6 +38,209 @@
         "source": "https://github.com/ElaRondon/fecha_utils/tree/v1.0.0"
       },
       "time": "2024-03-18T19:56:02+00:00"
+    },
+    {
+      "name": "illuminate/container",
+      "version": "v11.7.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/illuminate/container.git",
+        "reference": "af979ecfd6dfa6583eae5dfe2e9a8840358f4ca7"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/illuminate/container/zipball/af979ecfd6dfa6583eae5dfe2e9a8840358f4ca7",
+        "reference": "af979ecfd6dfa6583eae5dfe2e9a8840358f4ca7",
+        "shasum": ""
+      },
+      "require": {
+        "illuminate/contracts": "^11.0",
+        "php": "^8.2",
+        "psr/container": "^1.1.1|^2.0.1"
+      },
+      "provide": {
+        "psr/container-implementation": "1.1|2.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "11.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Illuminate\\Container\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Taylor Otwell",
+          "email": "taylor@laravel.com"
+        }
+      ],
+      "description": "The Illuminate Container package.",
+      "homepage": "https://laravel.com",
+      "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+      },
+      "time": "2024-04-04T17:36:49+00:00"
+    },
+    {
+      "name": "illuminate/contracts",
+      "version": "v11.7.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/illuminate/contracts.git",
+        "reference": "8782f75e80ab3e6036842d24dbeead34a16f3a79"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/illuminate/contracts/zipball/8782f75e80ab3e6036842d24dbeead34a16f3a79",
+        "reference": "8782f75e80ab3e6036842d24dbeead34a16f3a79",
+        "shasum": ""
+      },
+      "require": {
+        "php": "^8.2",
+        "psr/container": "^1.1.1|^2.0.1",
+        "psr/simple-cache": "^1.0|^2.0|^3.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "11.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Illuminate\\Contracts\\": ""
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "Taylor Otwell",
+          "email": "taylor@laravel.com"
+        }
+      ],
+      "description": "The Illuminate Contracts package.",
+      "homepage": "https://laravel.com",
+      "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+      },
+      "time": "2024-04-17T14:09:55+00:00"
+    },
+    {
+      "name": "psr/container",
+      "version": "2.0.2",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/php-fig/container.git",
+        "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/php-fig/container/zipball/c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+        "reference": "c71ecc56dfe541dbd90c5360474fbc405f8d5963",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=7.4.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "2.0.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Psr\\Container\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "PHP-FIG",
+          "homepage": "https://www.php-fig.org/"
+        }
+      ],
+      "description": "Common Container Interface (PHP FIG PSR-11)",
+      "homepage": "https://github.com/php-fig/container",
+      "keywords": [
+        "PSR-11",
+        "container",
+        "container-interface",
+        "container-interop",
+        "psr"
+      ],
+      "support": {
+        "issues": "https://github.com/php-fig/container/issues",
+        "source": "https://github.com/php-fig/container/tree/2.0.2"
+      },
+      "time": "2021-11-05T16:47:00+00:00"
+    },
+    {
+      "name": "psr/simple-cache",
+      "version": "3.0.0",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/php-fig/simple-cache.git",
+        "reference": "764e0b3939f5ca87cb904f570ef9be2d78a07865"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/764e0b3939f5ca87cb904f570ef9be2d78a07865",
+        "reference": "764e0b3939f5ca87cb904f570ef9be2d78a07865",
+        "shasum": ""
+      },
+      "require": {
+        "php": ">=8.0.0"
+      },
+      "type": "library",
+      "extra": {
+        "branch-alias": {
+          "dev-master": "3.0.x-dev"
+        }
+      },
+      "autoload": {
+        "psr-4": {
+          "Psr\\SimpleCache\\": "src/"
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "PHP-FIG",
+          "homepage": "https://www.php-fig.org/"
+        }
+      ],
+      "description": "Common interfaces for simple caching",
+      "keywords": [
+        "cache",
+        "caching",
+        "psr",
+        "psr-16",
+        "simple-cache"
+      ],
+      "support": {
+        "source": "https://github.com/php-fig/simple-cache/tree/3.0.0"
+      },
+      "time": "2021-10-29T13:26:27+00:00"
     }
   ],
   "packages-dev": [

@@ -5,7 +5,8 @@
     "ext-pdo_mysql": "*",
     "ext-pdo_sqlite": "*",
     "ext-mysqli": "*",
-    "eyra/fecha_utils": "^1.0"
+    "eyra/fecha_utils": "^1.0",
+    "illuminate/container": "^11.7"
   },
   "scripts": {
     "dev:win": "start php -S localhost:8080",
@@ -19,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app"
+      "SACADN\\": "app"
     }
   },
   "require-dev": {
