@@ -34,9 +34,11 @@
     --normal-font-size: 1rem;
   }
 }
+
 .nav {
-   padding: 10 20px;
+  padding: 10 20px;
 }
+
 /*=============== BASE ===============*/
 * {
   box-sizing: border-box;
@@ -50,6 +52,47 @@ body {
   background-color: var(--body-color);
   padding-left: 0px;
   padding-right: 0px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+}
+
+.footer {
+  width: 50%;
+  background-color: transparent;
+  color: #333;
+  padding: 20px;
+  text-align: right;
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  animation: blink 2000ms infinite;
+  animation-direction: alternate;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  from {
+    text-shadow: 0 0 10px rgba(0, 0, 0, .25);
+  }
+
+  to {
+    text-shadow: 0 0 10px #0756f299;
+  }
 }
 
 ul {
@@ -105,6 +148,7 @@ a {
   height: 80px;
   padding: 0 1rem 0 0;
 }
+
 .nav__logo {
   display: inline-flex;
   align-items: center;
@@ -154,13 +198,16 @@ a {
     opacity: 0;
     transition: top .4s, opacity .3s;
   }
+
   .nav__menu::-webkit-scrollbar {
     width: 0;
   }
+
   .nav__list {
     background-color: var(--black-color);
     padding-top: 1rem;
   }
+
   .nav__logo img {
     height: 60px;
   }
@@ -194,6 +241,7 @@ a {
   opacity: 0;
   transform: rotate(90deg);
 }
+
 .show-icon .nav__close {
   opacity: 1;
   transform: rotate(90deg);
@@ -242,7 +290,7 @@ a {
 
 /* Show dropdown menu & submenu */
 .dropdown__item:hover .dropdown__menu,
-.dropdown__subitem:hover > .dropdown__submenu {
+.dropdown__subitem:hover>.dropdown__submenu {
   max-height: 1000px;
   transition: max-height .4s ease-in;
 }
@@ -286,19 +334,23 @@ a {
     justify-content: space-between;
     padding: 0 40px;
   }
+
   .nav__toggle {
     display: none;
   }
+
   .nav__list {
     height: 100%;
     display: flex;
   }
+
   .nav__link {
     height: 100%;
     padding: 0;
     justify-content: initial;
     margin-right: 8px;
   }
+
   .nav__link:hover {
     background-color: transparent;
   }
@@ -344,7 +396,7 @@ a {
   }
 
   /* Show dropdown submenu */
-  .dropdown__subitem:hover > .dropdown__submenu {
+  .dropdown__subitem:hover>.dropdown__submenu {
     opacity: 1;
     top: 0;
     pointer-events: initial;

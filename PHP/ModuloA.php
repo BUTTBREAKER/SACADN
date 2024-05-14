@@ -1,9 +1,7 @@
 <?php
 //verfica que solo pueden entrar los Administradores
-include_once __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 require __DIR__ . "/middlewares/autorizacion.php";
-?>
-<?php
 // Incluir archivo de conexión a la base de datos
 require_once __DIR__ . '/conexion_be.php';
 
@@ -13,84 +11,77 @@ $resultado = $conexion->query($sql);
 
 ?>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administrador</title>
-  <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
-  <style type="text/css">
-    .contenedor {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
+<style type="text/css">
+  .contenedor {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-    h1,
-    h2 {
-      text-align: center;
-    }
+  h1,
+  h2 {
+    text-align: center;
+  }
 
-    .users-table {
-      margin-bottom: 10px;
-    }
+  .users-table {
+    margin-bottom: 10px;
+  }
 
-    .create-user-form {
-      border: 1px solid #ccc;
-      padding: 19px;
-      margin-bottom: 20px;
-    }
+  .create-user-form {
+    border: 1px solid #ccc;
+    padding: 19px;
+    margin-bottom: 20px;
+  }
 
-    .create-user-form h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  .create-user-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
 
-    .create-user-form label {
-      display: block;
-      margin-bottom: 10px;
-    }
+  .create-user-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
 
-    .create-user-form input[type="text"],
-    .create-user-form input[type="number"],
-    .create-user-form input[type="password"],
-    .create-user-form select {
-      width: 50%;
-      padding: 8px;
-      margin-bottom: 15px;
-    }
+  .create-user-form input[type="text"],
+  .create-user-form input[type="number"],
+  .create-user-form input[type="password"],
+  .create-user-form select {
+    width: 50%;
+    padding: 8px;
+    margin-bottom: 15px;
+  }
 
-    .create-user-form button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
+  .create-user-form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
 
-    .create-user-form button:hover {
-      background-color: #0056b3;
-    }
+  .create-user-form button:hover {
+    background-color: #0056b3;
+  }
 
 
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
 
-    .table th,
-    .table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
-    }
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
 
-    .table th {
-      background-color: #f2f2f2;
-    }
-  </style>
-</head>
+  .table th {
+    background-color: #f2f2f2;
+  }
+</style>
 
-<body>
   <div class="container">
     <h1>Panel de Administrador</h1>
 
@@ -213,6 +204,5 @@ $resultado = $conexion->query($sql);
     }
   })
 </script>
-</body>
 
-</html>
+<?php include __DIR__ . '/partials/footer.php' ?>

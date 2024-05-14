@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
 /** @var mysqli */
 $db = require_once __DIR__ . '/conexion_be.php';
-include_once __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_est y cambiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
@@ -17,16 +17,7 @@ $result = $db->query($sql);
 
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de estudiante</title>
-    <link rel="stylesheet" type="text/css" href="">
-</head>
-<style type="text/css">
+<style>
   .contenedor {
     display: flex;
     justify-content: center;
@@ -204,7 +195,6 @@ $result = $db->query($sql);
     background-color: #da190b;
   }
 </style>
- <body>
 
   <div class="contenedor">
     <form class="formulario" method="post" action="./guardar_estudiante.php" autocomplete="off">
@@ -289,7 +279,4 @@ $result = $db->query($sql);
            </form>
            </div>
 
- </body>
- </html>
-
-
+<?php include __DIR__ . '/partials/footer.php' ?>

@@ -11,7 +11,8 @@ $_ENV += require __DIR__ . '/../.env.php';
 
 date_default_timezone_set('America/Caracas');
 
-function updateErrorsUrls(string $htaccessPath, string $errorsDir): void {
+function updateErrorsUrls(string $htaccessPath, string $errorsDir): void
+{
   $root = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
 
   $errors = <<<htaccess
@@ -22,7 +23,8 @@ function updateErrorsUrls(string $htaccessPath, string $errorsDir): void {
   file_put_contents($htaccessPath, $errors);
 }
 
-function container(): ContainerInterface {
+function container(): ContainerInterface
+{
   static $container = null;
 
   if (!$container) {
@@ -30,7 +32,9 @@ function container(): ContainerInterface {
 
     $container->bind(mysqli::class, function (): mysqli {
       $mysql = new mysqli(
-        $_ENV['DB_HOST'], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']
+        $_ENV['DB_HOST'],
+        $_ENV['DB_USERNAME'],
+        $_ENV['DB_PASSWORD']
       );
 
       try {
@@ -50,4 +54,27 @@ function container(): ContainerInterface {
   }
 
   return $container;
+}
+
+function auth(): array
+{
+  static $user = [];
+
+  if (!$user) {
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+      session_start();
+    }
+
+    /** @var mysqli */
+    $db = container()->get(mysqli::class);
+
+    $query = 'SELECT * FROM usuarios WHERE id = ?';
+    $stmt = $db->prepare($query);
+    $stmt->bind_param('i', $_SESSION['usuario_id']);
+    $stmt->execute();
+
+    $user = $stmt->get_result()->fetch_assoc();
+  }
+
+  return $user;
 }

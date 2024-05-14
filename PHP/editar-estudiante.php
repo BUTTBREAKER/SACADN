@@ -1,7 +1,7 @@
 <?php
 
 $db = require_once __DIR__ . '/conexion_be.php';
-include_once __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 if ($_POST) {
   $sql = <<<sql
@@ -54,16 +54,6 @@ $stmt->execute([$_GET['cedula']]);
 $estudiante = $stmt->get_result()->fetch_assoc();
 
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <title>Registro Representante</title>
-  <link rel="icon" href="../favicon.ico" />
-</head>
 
 <style>
   .contenedor {
@@ -247,8 +237,6 @@ $estudiante = $stmt->get_result()->fetch_assoc();
     background-color: #da190b;
   }
 </style>
-
-<body>
   <div class="pagina-content">
     <div class="contenedor">
       <form class="formulario" method="post" autocomplete="off">
@@ -442,14 +430,4 @@ $estudiante = $stmt->get_result()->fetch_assoc();
     </div>
   </div>
 
-</body>
-
-</html>
-
-
-</div>
-</form>
-</div>
-</body>
-
-</html>
+<?php include __DIR__ . '/partials/footer.php' ?>
