@@ -39,7 +39,6 @@
   padding: 10 20px;
 }
 
-/*=============== BASE ===============*/
 * {
   box-sizing: border-box;
   padding: 0;
@@ -49,17 +48,24 @@
 body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
-  background-color: var(--body-color);
-  padding-left: 0px;
-  padding-right: 0px;
+  background: url(img/bg.jpg);
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+
+  --black-shadow: 0 0 10px black;
+  --primary: #4bb6b7;
+  --backdrop: #0009;
 }
 
-body {
-  margin: 0;
-  padding: 0;
+body::before {
+  content: '';
+  background: var(--backdrop);
+  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+  position: fixed;
+  z-index: -1;
 }
 
 .content {
@@ -77,6 +83,7 @@ body {
   right: 1em;
   animation: blink 2000ms infinite;
   animation-direction: alternate;
+  box-sizing: border-box;
 }
 
 .footer p {
@@ -105,12 +112,16 @@ a {
   text-decoration: none;
 }
 
-/*=============== REUSABLE CSS CLASSES ===============*/
 .container {
-  width: 80%;
-  max-width: 1024px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 90%;
+  background: white;
+  color: black;
+  position: relative;
+  margin: auto;
+  padding: 2em;
+  box-sizing: border-box;
+  box-shadow: 0 0 28px black;
+  border-radius: 25px;
 }
 
 /*=============== HEADER ===============*/
