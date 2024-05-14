@@ -7,7 +7,8 @@
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --black-color: hsl(220, 94%, 49%);
+/*  --black-color: hsl(220, 94%, 49%);*/
+  --black-color: #0009;
   --black-color2: hsl(220, 93%, 58%);
   --black-color-light: hsl(220, 24%, 15%);
   --black-color-lighten: hsl(220, 20%, 18%);
@@ -56,7 +57,7 @@ body {
 
   --black-shadow: 0 0 10px black;
   --primary: #4bb6b7;
-  --backdrop: #0009;
+  --backdrop: #000b;
 }
 
 body::before {
@@ -120,7 +121,6 @@ a {
   margin: auto;
   padding: 2em;
   box-sizing: border-box;
-  box-shadow: 0 0 28px black;
   border-radius: 25px;
 }
 
@@ -131,7 +131,7 @@ a {
   left: 0;
   width: 100%;
   margin-bottom: 20px;
-  background-color: var(--black-color);
+  background: linear-gradient(to bottom, var(--black-color), transparent);
   box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
   z-index: var(--z-fixed);
 }
@@ -227,7 +227,7 @@ a {
 
 .nav__link {
   color: var(--white-color);
-  background-color: var(--black-color);
+/*  background-color: var(--black-color);*/
   font-weight: var(--font-semi-bold);
   padding: 1.25rem 1.5rem;
   display: flex;
