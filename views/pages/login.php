@@ -1,0 +1,143 @@
+<?php
+
+declare(strict_types=1);
+
+$showAdministratorRegister ??= true;
+
+?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>SACADN</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="./Assets/fonts.css" />
+    <link rel="stylesheet" href="./Assets/style.css" />
+    <link rel="stylesheet" href="./Assets/fontawesome/css/all.min.css" />
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="form-container register-container">
+        <?php
+
+        if ($showAdministratorRegister) {
+          echo <<<html
+          <form
+            id="registerForm"
+            action="php/registro_usuario_be.php"
+            method="post"
+            class="formulario__register"
+          >
+            <img src="./favicon.ico" width="100" height="100" />
+            <h1>Regístrate aquí</h1>
+            <div class="form-control">
+              <input
+                id="registerUsuario"
+                pattern="[a-zA-Z0-9]{4,}"
+                title="Sólo letras y números"
+                placeholder="Usuario"
+                name="usuario"
+                required
+              /> <small class="error-message"></small> <span></span>
+            </div>
+            <div class="form-control">
+              <input
+                id="registerNombreCompleto"
+                minlength="7"
+                maxlength="80"
+                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
+                placeholder="Nombre completo"
+                name="nombre_completo"
+                required
+              /> <small class="error-message"></small> <span></span>
+            </div>
+            <div class="form-control">
+              <input
+                type="number"
+                id="registerCedula"
+                placeholder="Cédula"
+                name="cedula"
+                required
+              /> <small class="error-message"></small> <span></span>
+            </div>
+            <div class="form-control">
+              <input
+                type="password"
+                id="registerContrasena"
+                placeholder="Contraseña"
+                name="contrasena"
+                required
+                minlength="4"
+                maxlength="20"
+                pattern=".{4,20}"
+                title="La contraseña debe tener entre 4 y 20 caracteres."
+              /> <small class="error-message"></small> <span></span>
+            </div>
+            <input type="hidden" name="rol" id="rol" value="A">
+            <button>Registrar</button>
+          </form>
+          html;
+        }
+
+        ?>
+      </div>
+      <div class="form-container login-container">
+        <form
+          id="loginForm"
+          method="post"
+          class="formulario__login"
+        >
+          <img src="./favicon.ico" width="100" height="100" />
+          <h1>Inicia sesión aquí</h1>
+          <div class="form-control">
+            <input
+              id="loginUsuario" placeholder="Usuario" name="usuario"
+            /> <small class="error-message"></small> <span></span>
+          </div>
+          <div class="form-control">
+            <input
+              type="password"
+              id="loginContrasena"
+              placeholder="Contraseña"
+              name="contrasena"
+            /> <small class="error-message"></small> <span></span>
+          </div>
+          <button value="submit">Iniciar sesión</button>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1 class="title">Bienvenido de nuevo</h1>
+            <p>Si tienes una cuenta, inicia sesión aquí y comienza a trabajar</p>
+            <button class="ghost" id="login">
+              <i class="fa-solid fa-arrow-left"></i>
+              Iniciar sesión
+            </button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1 class="title">Comienza tu gestión ahora</h1>
+            <?php
+
+            if ($showAdministratorRegister) {
+              echo <<<html
+              <p>
+                Si aún no tienes una cuenta, únete a nosotros y comienza tu
+                gestión
+              </p>
+              <button class="ghost" id="register">
+                Registrarse
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+              html;
+            }
+
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./Assets/main.js"></script>
+  </body>
+</html>
