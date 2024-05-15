@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
 /** @var mysqli */
 $db = require_once __DIR__ . '/conexion_be.php';
-include_once __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_repr y cambiale el nombre a cedula, ..., de la tabla representantes */
 $sql = <<<SQL
@@ -16,18 +16,6 @@ SQL;
 $result = $db->query($sql);
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Representantes</title>
-  <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
-</head>
-
-<body>
 
   <div style="overflow-x: auto;">
     <table id="tablaRepresentantes" class="datatable">
@@ -82,4 +70,5 @@ $result = $db->query($sql);
   <script>
     const tablaRepresentantes = new simpleDatatables.DataTable("#tablaRepresentantes");
   </script>
-  <?php include('partials/footer.php') ?>
+
+<?php include __DIR__ . '/partials/footer.php' ?>

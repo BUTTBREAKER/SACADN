@@ -16,7 +16,7 @@ if (isset($_GET['anioSeleccionado'])) {
   exit(json_encode($secciones));
 }
 
-include __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 $añosEscolares = array_map(function (array $registro): string {
   return $registro['anio'];
@@ -170,4 +170,9 @@ $materias = $result->fetch_all(MYSQLI_ASSOC);
       })
   })
 </script>
+<<<<<<< HEAD
  
+=======
+
+<?php include __DIR__ . '/partials/footer.php' ?>
+>>>>>>> 9eb4aa044c6c570aba6ac708f44cb0a9dc53f618

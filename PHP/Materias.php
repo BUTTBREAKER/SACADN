@@ -4,7 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 /** @var mysqli */
 $db = require_once __DIR__ . '/conexion_be.php';
-include __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 $sql = 'SELECT ID_mater as id, codigo, nombre, fech_mater as fecha_registro FROM materias';
 
@@ -12,6 +12,7 @@ $result = $db->query($sql);
 
 ?>
 
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,6 +26,8 @@ $result = $db->query($sql);
 </head>
 
 <body>
+=======
+>>>>>>> 9eb4aa044c6c570aba6ac708f44cb0a9dc53f618
   <div style="overflow-x: auto;">
     <table id="tablaMaterias" class="datatable">
       <tr>
@@ -48,4 +51,5 @@ $result = $db->query($sql);
   <script>
     const tablaMaterias = new simpleDatatables.DataTable("#tablaMaterias");
   </script>
-  <?php include __DIR__ . '/partials/footer.php' ?>
+
+<?php include __DIR__ . '/partials/footer.php' ?>

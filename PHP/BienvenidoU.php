@@ -1,18 +1,23 @@
-<?php include('../Assets/Menu/Menu.php') ?>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <p>&nbsp;</p>
-    <div class="container">
-        <div class="row mt-3 justify-content-md-center">
-            <div class="col-md-6">
-            <h1>Bienvenido, <?php echo $usuario; ?> </h1>
-                <p>¡Gracias por iniciar sesión!</p>
-            </div>
-        </div>
-        <div class="row mt-3 justify-content-md-center">
-            <!-- Aquí puedes agregar más contenido si es necesario -->
-        </div>
+<?php
+
+declare(strict_types=1);
+
+include __DIR__ . '/partials/header.php';
+
+$user = auth()['Usuario'];
+
+?>
+
+<div class="container">
+  <div class="row mt-3 justify-content-md-center">
+    <div class="col-md-6">
+      <h1>Bienvenido, <?= $user ?></h1>
+      <p>¡Gracias por iniciar sesión!</p>
     </div>
-    <?php include('partials/footer.php') ?>
+  </div>
+  <div class="row mt-3 justify-content-md-center">
+    <!-- Aquí puedes agregar más contenido si es necesario -->
+  </div>
+</div>
+
+<?php include __DIR__ . '/partials/footer.php' ?>

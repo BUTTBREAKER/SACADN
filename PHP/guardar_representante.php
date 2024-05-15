@@ -24,7 +24,6 @@ if($_POST) {
 
 
  }
-?>
 echo <<<HTML
 <body>
   <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />

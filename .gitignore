@@ -2,3 +2,6 @@ vendor
 *.db
 *.sqlite
 .env.php
+*.sublime-*
+.idea
+*backup*

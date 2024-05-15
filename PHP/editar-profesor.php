@@ -1,7 +1,7 @@
 <?php
 
 $db = require_once __DIR__ . '/conexion_be.php';
-include_once __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 if ($_POST) {
   $sql = <<<SQL
@@ -60,17 +60,8 @@ $stmt->execute([$_GET['cedula']]);
 $profesor = $stmt->get_result()->fetch_assoc();
 
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registro del Profesor</title>
-  <link rel="icon" type="image/ico" href="../Sacadn.ico" />
-</head>
 
-<style type="text/css">
+<style>
   .contenedor {
     display: flex;
     justify-content: center;
@@ -249,7 +240,6 @@ $profesor = $stmt->get_result()->fetch_assoc();
   }
 </style>
 
-<body>
   <div class="pagina-content">
     <div class="contenedor">
       <form class="formulario" method="post" autocomplete="off">
@@ -348,6 +338,5 @@ $profesor = $stmt->get_result()->fetch_assoc();
     </div>
     </form>
   </div>
-</body>
 
-</html>
+<?php include __DIR__ . '/partials/footer.php' ?>

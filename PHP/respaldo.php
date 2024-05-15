@@ -3,6 +3,7 @@ require __DIR__."/middlewares/autorizacion.php";
 
 // Verifica si el directorio de respaldo existe, si no, créalo
 $backupDirectory = __DIR__ .'/backups';
+
 if (!is_dir($backupDirectory)) {
   if (!mkdir($backupDirectory, 0777, true)) {
     die("Error al crear el directorio de respaldo.");
@@ -63,4 +64,3 @@ echo <<<HTML
   HTML;
 
 $conexion->close();
-?>
