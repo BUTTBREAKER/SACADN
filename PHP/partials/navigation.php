@@ -26,7 +26,7 @@
           <li>
             <a href="Periodos.php" class="dropdown__link">
               <i class="ri-arrow-up-down-line"></i>
-              Consultar Notas
+              Registrar Notas
             </a>
           </li>
         </ul>
@@ -134,6 +134,12 @@
               <a href="restauracion.php" class="dropdown__link">
                 <i class="ri-arrow-up-down-line"></i>
                 Restauración
+              </a>
+            </li>
+            <li>
+              <a href="moduloA.php" class="dropdown__link">
+                <i class="ri-pie-chart-line"></i>
+                Modulo De Administrador
               </a>
             </li>
           </ul>
