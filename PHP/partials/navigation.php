@@ -1,7 +1,7 @@
 <header class="header">
   <nav class="nav">
     <div class="nav__data">
-      <a href="#" class="nav__logo">
+      <a href="./BienvenidoA.php" class="nav__logo">
         SACADN
         <img src="../favicon.ico" />
       </a>
