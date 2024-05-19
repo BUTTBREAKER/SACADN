@@ -27,6 +27,7 @@ try {
   <link rel="icon" href="../favicon.ico" />
   <link rel="stylesheet" href="../assets/fonts/remixicon.css" />
   <link rel="stylesheet" href="../assets/app.css" />
+  <link rel="stylesheet" href="../assets/simple-datatables/simple-datatables.css" />
 </head>
 
 <body>
