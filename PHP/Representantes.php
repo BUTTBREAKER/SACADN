@@ -70,7 +70,7 @@ $result = $db->query($sql);
 
 <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 <script>
-  const tablaRepresentantes = new simpleDatatables.DataTable("#tablaRepresentantes");
+  const tablaRepresentantes = new simpleDatatables.DataTable("#tablaRepresentantes",);
 </script>
 
 <?php include __DIR__ . '/partials/footer.php' ?>
