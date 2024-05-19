@@ -117,6 +117,17 @@
 	border-spacing: 0;
 	border-collapse: separate;
 }
+.datatable > thead {
+background: rgb(0, 0, 0,0.05);
+color: rgb(0, 0, 0,.7);
+}
+
+.datatable-table > thead > tr >th:nth-child(1) {
+border-radius: 10px 0 0 0px;
+}
+.datatable-table > thead > tr >th:nth-last-child(1) {
+border-radius: 0px 10px 0 0px;
+}
 
 .datatable-table > tbody > tr > td,
 .datatable-table > tbody > tr > th,
@@ -126,19 +137,50 @@
 .datatable-table > thead > tr > th {
 	vertical-align: top;
 	padding: 8px 10px;
-	border: 1px solid #d9d9d9; /* Añadido borde para mejorar apariencia */
+}
+
+.datatable-table > tbody > tr > td {
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.datatable-table > tbody > tr > td > .botones-tabla {
+display: flex;
+gap: 10px;
+}
+
+.datatable-table > tbody > tr > td > .botones-tabla > button i{
+display: block;
+  width: 40px;
+height: 40px;
+cursor: pointer;
+padding: 7px;
+}
+
+.datatable-table > tbody > tr > td > .botones-tabla > button.editar {
+background: rgb(58, 58, 255);
+outline: none;
+border: none;
+border-radius: 5px;
+}
+
+.datatable-table > tbody > tr > td > .botones-tabla > button.eliminar {
+background: rgb(255, 0, 0);
+outline: none;
+border: none;
+border-radius: 5px;
+
 }
 
 .datatable-table > thead > tr > th {
 	vertical-align: bottom;
 	text-align: left;
-	border-bottom: 1px solid #d9d9d9;
+
 }
 
 .datatable-table > tfoot > tr > th {
 	vertical-align: bottom;
 	text-align: left;
-	border-top: 1px solid #d9d9d9;
+
 }
 
 .datatable-table th {
