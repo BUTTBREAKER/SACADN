@@ -7,9 +7,9 @@ class Registro {
     $this->conexion = $conexion;
   }
 
-  public function registrarUsuario($usuario, $nombre_completo, $cedula, $contrasena, $rol) {
+  public function registrarUsuario($usuario, $nombre,$apellido, $cedula, $contrasena, $rol) {
     // Verificar si ya existe un usuario con el mismo nombre
-    $query_check = "SELECT Usuario FROM usuarios WHERE Usuario = ?";
+    $query_check = "SELECT usuario FROM usuarios WHERE usuario = ?";
     $stmt_check = mysqli_prepare($this->conexion, $query_check);
     mysqli_stmt_bind_param($stmt_check, "s", $usuario);
     mysqli_stmt_execute($stmt_check);
@@ -27,13 +27,13 @@ class Registro {
     // Insertar el nuevo usuario en la base de datos
     $contrasena_hash = password_hash($contrasena, PASSWORD_BCRYPT);
 
-    $query_insert = "INSERT INTO usuarios (Usuario, nombre_completo, Cedula, contrasena, rol)
-                         VALUES (?, ?, ?, ?, ?)";
+    $query_insert = "INSERT INTO usuarios (usuario, nombre, apellido, cedula, clave, rol)
+                         VALUES (?, ?, ?, ?, ?, ?)";
 
     $stmt_insert = mysqli_prepare($this->conexion, $query_insert);
 
     if ($stmt_insert) {
-      mysqli_stmt_bind_param($stmt_insert, "sssss", $usuario, $nombre_completo, $cedula, $contrasena_hash, $rol);
+      mysqli_stmt_bind_param($stmt_insert, "ssssss", $usuario, $nombre, $apellido, $cedula, $contrasena_hash, $rol);
       mysqli_stmt_execute($stmt_insert);
       mysqli_stmt_close($stmt_insert);
       mysqli_close($this->conexion);
@@ -85,12 +85,13 @@ include 'conexion_be.php'; // Asumiendo que la conexión se establece aquí
 
 $registro = new Registro($conexion);
 
-if (isset($_POST['usuario'], $_POST['nombre_completo'], $_POST['cedula'], $_POST['contrasena'],$_POST['rol'])) {
+if (isset($_POST['usuario'], $_POST['nombre'],$_POST['apellido'], $_POST['cedula'], $_POST['clave'],$_POST['rol'])) {
   $usuario = $_POST['usuario'];
-  $nombre_completo = $_POST['nombre_completo'];
+  $nombre = $_POST['nombre'];
+  $apellido = $_POST['apellido'];
   $cedula = $_POST['cedula'];
-  $contrasena = $_POST['contrasena'];
+  $contrasena = $_POST['clave'];
   $rol = $_POST['rol'];
 
-  $registro->registrarUsuario($usuario, $nombre_completo, $cedula, $contrasena, $rol);
+  $registro->registrarUsuario($usuario, $nombre,$apellido, $cedula, $contrasena, $rol);
 }
