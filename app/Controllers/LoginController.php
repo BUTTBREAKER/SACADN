@@ -25,7 +25,7 @@ final readonly class LoginController
 
   public function handleLogin(): never
   {
-    if (!key_exists('usuario', $_POST) || !key_exists('contrasena', $_POST)) {
+    if (!key_exists('usuario', $_POST) || !key_exists('clave', $_POST)) {
       // TODO: show 'Required credentials' error
       exit;
     }
@@ -54,7 +54,7 @@ final readonly class LoginController
       );
     }
 
-    if (!password_verify($_POST['contrasena'], $hash)) {
+    if (!password_verify($_POST['clave'], $hash)) {
       $this->showError(
         'Credenciales incorrectas.'
           . ' Por favor, verifique su usuario y contraseña.',
