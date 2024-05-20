@@ -42,12 +42,23 @@ $showAdministratorRegister ??= true;
             </div>
             <div class="form-control">
               <input
-                id="registerNombreCompleto"
-                minlength="7"
+                id="nombre"
+                minlength="3"
                 maxlength="80"
                 pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
-                placeholder="Nombre completo"
-                name="nombre_completo"
+                placeholder="Nombre"
+                name="nombre"
+                required
+              /> <small class="error-message"></small> <span></span>
+            </div>
+            <div class="form-control">
+              <input
+                id="apellido"
+                minlength="3"
+                maxlength="80"
+                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
+                placeholder="Apellido"
+                name="apellido"
                 required
               /> <small class="error-message"></small> <span></span>
             </div>
@@ -65,7 +76,7 @@ $showAdministratorRegister ??= true;
                 type="password"
                 id="registerContrasena"
                 placeholder="Contraseña"
-                name="contrasena"
+                name="clave"
                 required
                 minlength="4"
                 maxlength="20"
@@ -74,7 +85,7 @@ $showAdministratorRegister ??= true;
               /> <small class="error-message"></small> <span></span>
             </div>
             <input type="hidden" name="rol" id="rol" value="A">
-            <button>Registrar</button>
+            <button type='submit'>Registrar</button>
           </form>
           html;
         }
