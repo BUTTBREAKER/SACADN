@@ -93,7 +93,8 @@ function validateForm(formId, fields, numAdministradores) {
 // Definir campos y sus restricciones
 const registerFields = [
   { id: 'registerUsuario', minLength: 4, maxLength: 20 },
-  { id: 'registerNombreCompleto', minLength: 3, maxLength: 50 },
+  { id: 'nombre', minLength: 3, maxLength: 50 },
+  { id: 'apellido', minLength: 3, maxLength: 50 },
   { id: 'registerCedula', minLength: 7, maxLength: 11 },
   { id: 'registerContrasena', minLength: 4, maxLength: 20 }
 ]
