@@ -6,7 +6,7 @@ require __DIR__ . "/middlewares/autorizacion.php";
 require_once __DIR__ . '/conexion_be.php';
 
 // Consultar los datos de los usuarios
-$sql = "SELECT ID, nombre_completo, Cedula, Usuario, rol, estado FROM usuarios";
+$sql = "SELECT ID, nombre, apellido, Cedula, Usuario, rol, estado FROM usuarios";
 $resultado = $conexion->query($sql);
 
 ?>
@@ -63,20 +63,6 @@ $resultado = $conexion->query($sql);
   .create-user-form button:hover {
     background-color: #0056b3;
   }
-
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .table th,
-  .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-
   .table th {
     background-color: #f2f2f2;
   }
@@ -93,7 +79,8 @@ $resultado = $conexion->query($sql);
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre Completo</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
                 <th>Cédula</th>
                 <th>Usuario</th>
                 <th>Rol</th>
@@ -106,11 +93,12 @@ $resultado = $conexion->query($sql);
               // Iterar sobre los resultados de la consulta y mostrar los datos de los usuarios en la tabla
               while ($fila = $resultado->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $fila['ID'] . "</td>";
-                echo "<td>" . $fila['nombre_completo'] . "</td>";
-                echo "<td>" . $fila['Cedula'] . "</td>";
-                echo "<td>" . $fila['Usuario'] . "</td>";
-                echo "<td>" . $fila['rol'] . "</td>";
+                echo "<td>" . ucwords($fila['ID']) . "</td>";
+                echo "<td>" . ucwords($fila['nombre']) . "</td>";
+                echo "<td>" . ucwords($fila['apellido']) . "</td>";
+                echo "<td>" . $fila['Cedula']. "</td>";
+                echo "<td>" . ucwords($fila['Usuario']). "</td>";
+                echo "<td>" . ucwords($fila['rol']) . "</td>";
                 echo "<td>" . ucwords($fila['estado']) . "</td>";
                 echo "<td>";
                 echo "<a data-action='toggle-status' data-user-id='" . $fila['ID'] . "' data-new-state='" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado.php?toggle_estado=true&usuario_id=" . $fila['ID'] . "&nuevo_estado=" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>". ($fila['estado'] === 'activo' ? 'Desactivar' : 'Activar')  ."</a>";
@@ -137,8 +125,19 @@ $resultado = $conexion->query($sql);
         <div class="form-control">
         <input type="text"
        id="registerNombreCompleto"
-       placeholder="Nombre completo"
-       name="nombre_completo"
+       placeholder="Nombre"
+       name="nombre"
+       required
+       maxlength="50"
+       onkeypress="return soloLetrasYEspacios(event)"
+       title="El nombre solo puede contener letras y espacios, con un máximo de 50 caracteres."
+>
+        </div>
+        <div class="form-control">
+        <input type="text"
+       id="registerNombreCompleto"
+       placeholder="Apellido"
+       name="apellido"
        required
        maxlength="50"
        onkeypress="return soloLetrasYEspacios(event)"
@@ -151,7 +150,7 @@ $resultado = $conexion->query($sql);
           <span></span>
         </div>
         <div class="form-control">
-          <input type="password" id="registerContrasena" placeholder="Contraseña" name="contrasena" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
+          <input type="password" id="registerContrasena" placeholder="Contraseña" name="clave" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
           <small class="error-message"></small>
           <span></span>
         </div>

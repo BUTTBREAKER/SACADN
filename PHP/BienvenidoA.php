@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 include __DIR__ . '/partials/header.php';
 
-$user = auth()['Usuario'];
+$user = auth()['usuario'];
 
 ?>
 
