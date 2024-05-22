@@ -63,20 +63,6 @@ $resultado = $conexion->query($sql);
   .create-user-form button:hover {
     background-color: #0056b3;
   }
-
-
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-
-  .table th,
-  .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-
   .table th {
     background-color: #f2f2f2;
   }
@@ -139,8 +125,19 @@ $resultado = $conexion->query($sql);
         <div class="form-control">
         <input type="text"
        id="registerNombreCompleto"
-       placeholder="Nombre completo"
-       name="nombre_completo"
+       placeholder="Nombre"
+       name="nombre"
+       required
+       maxlength="50"
+       onkeypress="return soloLetrasYEspacios(event)"
+       title="El nombre solo puede contener letras y espacios, con un máximo de 50 caracteres."
+>
+        </div>
+        <div class="form-control">
+        <input type="text"
+       id="registerNombreCompleto"
+       placeholder="Apellido"
+       name="apellido"
        required
        maxlength="50"
        onkeypress="return soloLetrasYEspacios(event)"
@@ -153,7 +150,7 @@ $resultado = $conexion->query($sql);
           <span></span>
         </div>
         <div class="form-control">
-          <input type="password" id="registerContrasena" placeholder="Contraseña" name="contrasena" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
+          <input type="password" id="registerContrasena" placeholder="Contraseña" name="clave" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
           <small class="error-message"></small>
           <span></span>
         </div>
