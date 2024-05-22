@@ -24,7 +24,7 @@ $showAdministratorRegister ??= true;
           echo <<<html
           <form
             id="registerForm"
-            action="php/registro_usuario_be.php"
+            action="PHP/registro_usuario_be.php"
             method="post"
             class="formulario__register"
           >

@@ -67,7 +67,6 @@ final readonly class LoginController
     session_start();
     $_SESSION['usuario_id'] = $id;
 
-    exit(header("Location: php/Bienvenido$role.php"));
     exit(header("Location: PHP/Bienvenido$role.php"));
   }
 
@@ -91,7 +90,7 @@ final readonly class LoginController
           icon: 'error',
           showConfirmButton: false,
           timer: 5000
-        }).then(() => location.href = './php/salir.php')
+        }).then(() => location.href = './PHP/salir.php')
       </script>
     </body>
     html);
