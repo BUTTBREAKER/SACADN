@@ -6,7 +6,7 @@ require __DIR__ . "/middlewares/autorizacion.php";
 require_once __DIR__ . '/conexion_be.php';
 
 // Consultar los datos de los usuarios
-$sql = "SELECT ID, nombre_completo, Cedula, Usuario, rol, estado FROM usuarios";
+$sql = "SELECT ID, nombre, apellido, Cedula, Usuario, rol, estado FROM usuarios";
 $resultado = $conexion->query($sql);
 
 ?>
@@ -93,7 +93,8 @@ $resultado = $conexion->query($sql);
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Nombre Completo</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
                 <th>Cédula</th>
                 <th>Usuario</th>
                 <th>Rol</th>
@@ -106,11 +107,12 @@ $resultado = $conexion->query($sql);
               // Iterar sobre los resultados de la consulta y mostrar los datos de los usuarios en la tabla
               while ($fila = $resultado->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $fila['ID'] . "</td>";
-                echo "<td>" . $fila['nombre_completo'] . "</td>";
-                echo "<td>" . $fila['Cedula'] . "</td>";
-                echo "<td>" . $fila['Usuario'] . "</td>";
-                echo "<td>" . $fila['rol'] . "</td>";
+                echo "<td>" . ucwords($fila['ID']) . "</td>";
+                echo "<td>" . ucwords($fila['nombre']) . "</td>";
+                echo "<td>" . ucwords($fila['apellido']) . "</td>";
+                echo "<td>" . $fila['Cedula']. "</td>";
+                echo "<td>" . ucwords($fila['Usuario']). "</td>";
+                echo "<td>" . ucwords($fila['rol']) . "</td>";
                 echo "<td>" . ucwords($fila['estado']) . "</td>";
                 echo "<td>";
                 echo "<a data-action='toggle-status' data-user-id='" . $fila['ID'] . "' data-new-state='" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado.php?toggle_estado=true&usuario_id=" . $fila['ID'] . "&nuevo_estado=" . ($fila['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>". ($fila['estado'] === 'activo' ? 'Desactivar' : 'Activar')  ."</a>";
