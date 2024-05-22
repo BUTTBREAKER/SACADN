@@ -42,8 +42,10 @@ final readonly class LoginController
         'usuario_no_encontrado'
       );
     }
-
-    $stmt->bind_result($id, $fullName, $idCard, $user, $hash, $role, $state);
+    
+   
+    $stmt->bind_result($id, $name, $lastName, $idCard, $user, $hash, $role, $state, $createdAt);
+    
     $stmt->fetch();
 
     if ($state !== 'activo') {
