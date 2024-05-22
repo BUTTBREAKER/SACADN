@@ -81,11 +81,11 @@ CREATE TABLE estudiantes (
 
 CREATE TABLE secciones (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(20) NOT NULL UNIQUE,
+  nombre VARCHAR(20) NOT NULL,
   id_nivel_estudio INT NOT NULL,
   numero_matriculas INT NOT NULL,
-
-  FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio (id)
+  FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio(id),
+  UNIQUE(nombre, id_nivel_estudio)
 );
 
 CREATE TABLE momentos (
