@@ -110,7 +110,7 @@ $showAdministratorRegister ??= true;
               type="password"
               id="loginContrasena"
               placeholder="Contraseña"
-              name="contrasena"
+              name="clave"
             /> <small class="error-message"></small> <span></span>
           </div>
           <button value="submit">Iniciar sesión</button>
