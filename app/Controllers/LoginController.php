@@ -43,7 +43,7 @@ final readonly class LoginController
       );
     }
 
-    $stmt->bind_result($id, $fullName, $idCard, $user, $hash, $role, $state);
+    $stmt->bind_result($id, $Name,$LastName, $idCard, $user, $hash, $role, $state,$time);
     $stmt->fetch();
 
     if ($state !== 'activo') {
