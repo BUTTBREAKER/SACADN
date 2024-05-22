@@ -1,5 +1,5 @@
 <?php
-require __DIR__."/middlewares/autorizacion.php";
+require __DIR__."/Middlewares/autorizacion.php";
 
 // Verifica si el directorio de respaldo existe, si no, créalo
 $backupDirectory = __DIR__ .'/backups';

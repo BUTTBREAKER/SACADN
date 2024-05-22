@@ -1,5 +1,5 @@
 <?php
-require __DIR__."/middlewares/autorizacion.php";
+require __DIR__."/Middlewares/autorizacion.php";
 //leemos el archivo del backup 
 $consultas = file_get_contents(__DIR__ . "/backups/full_backup.mysql.sql");
 

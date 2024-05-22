@@ -1,7 +1,7 @@
 <?php
 //verfica que solo pueden entrar los Administradores
 include __DIR__ . '/partials/header.php';
-require __DIR__ . "/middlewares/autorizacion.php";
+require __DIR__ . "/Middlewares/autorizacion.php";
 // Incluir archivo de conexión a la base de datos
 require_once __DIR__ . '/conexion_be.php';
 
