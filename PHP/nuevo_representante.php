@@ -6,15 +6,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
-/* Selecciona campo ci_repr y cambiale el nombre a cedula, ..., de la tabla representantes */
-$sql = <<<SQL
-  SELECT ci_repr AS cedula, nombre_completo AS nombres, apellido AS apellidos,
-  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
-  genero AS sexo, telefono, direccion, fech_repr AS fecha_registro FROM representantes
-SQL;
-
-$result = $db->query($sql);
-
 ?>
 
 <style type="text/css">
@@ -184,6 +175,7 @@ $result = $db->query($sql);
   }
 </style>
 
+<div id="test"></div>
 <div class="pagina-content">
   <div class="contenedor">
     <form class="formulario" method="post" action="./guardar_representante.php" autocomplete="off">

@@ -6,12 +6,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = require_once __DIR__ . '/conexion_be.php';
 include_once __DIR__ . '/../Assets/Menu/Menu.php';
 
-$sql = <<<SQL
-  SELECT ID_per AS id, nombre AS periodo, fech_per AS fecha_registro FROM periodos
-SQL;
-
-$result = $db->query($sql);
-
 ?>
 
 <!DOCTYPE html>

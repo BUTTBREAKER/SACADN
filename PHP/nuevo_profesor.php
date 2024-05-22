@@ -6,15 +6,6 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
-/* Selecciona campo ci_prof y cambiale el nombre a cedula, ..., de la tabla proferoser */
-$sql = <<<SQL
-  SELECT ci_prof AS cedula, nombre_completo AS nombres, apellido AS apellidos,
-  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
-  genero AS sexo, telefono, direccion, fech_prof AS fecha_registro FROM profesores
-SQL;
-
-$result = $db->query($sql);
-
 ?>
 
 <style type="text/css">
