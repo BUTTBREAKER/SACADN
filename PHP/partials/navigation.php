@@ -24,7 +24,7 @@
             </a>
           </li>
           <li>
-            <a href="Periodos.php" class="dropdown__link">
+            <a href="Notas.php" class="dropdown__link">
               <i class="ri-arrow-up-down-line"></i>
               Registrar Notas
             </a>
@@ -40,7 +40,7 @@
           <li>
             <a href="#" class="dropdown__link">
               <i class="ri-pie-chart-line"></i>
-              Año Escolar-Semestre
+              Año Escolar-Lapso
             </a>
           </li>
           <li>
@@ -139,7 +139,7 @@
             <li>
               <a href="moduloA.php" class="dropdown__link">
                 <i class="ri-pie-chart-line"></i>
-                Modulo De Administrador
+                Control de Usuarios
               </a>
             </li>
           </ul>
