@@ -1,4 +1,4 @@
-<script src="../assets/app.js"></script>
+<script src="../Assets/app.js"></script>
 
 <footer class="footer">
   <div class="container">
