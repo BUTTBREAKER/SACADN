@@ -49,6 +49,18 @@
               Ver Periodo
             </a>
           </li>
+          <li>
+            <a href="nuevo_periodo.php" class="dropdown__link">
+              <i class="ri-arrow-up-down-line"></i>
+              Crear periodo
+            </a>
+          </li>
+          <li>
+            <a href="nuevo_momento.php" class="dropdown__link">
+              <i class="ri-arrow-up-down-line"></i>
+              Crear momento
+            </a>
+          </li>
         </ul>
       </li>
       <li class="dropdown__item">
