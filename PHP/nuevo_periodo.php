@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
   <div class="contenedor">
   <h2>Registrar Nuevo Periodo</h2>
-  <form method="post" action="nuevo_periodo.php">
+  <form method="post" action="./guardar_periodo.php">
     <label for="anio_inicio">Año de Inicio:</label>
     <input type="number" id="anio_inicio" name="anio_inicio" required>
     <button type="submit">Registrar</button>
