@@ -4,10 +4,10 @@ require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
 /** @var mysqli */
 $db = require_once __DIR__ . '/conexion_be.php';
-include_once __DIR__ . '/../Assets/Menu/Menu.php';
+include __DIR__ . '/partials/header.php';
 
 $sql = <<<SQL
-  SELECT ID_per AS id, nombre AS periodo, fech_per AS fecha_registro FROM periodos
+  SELECT id, anio_inicio AS periodo FROM periodos
 SQL;
 
 $result = $db->query($sql);
@@ -37,7 +37,6 @@ $result = $db->query($sql);
         <tr>
           <th>ID</th> 
           <th>Periodo</th>
-          <th>Fecha</th>
           <th>Opciones</th>
         </tr>
       </thead>
@@ -46,7 +45,6 @@ $result = $db->query($sql);
           <tr>
             <td><?= $mostrar['id'] ?></td>
             <td><?= $mostrar['periodo'] ?></td>
-            <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
             <td>
               <form method="post">
                 <button formaction="´periodos.php?=<?= $mostrar['id'] ?>">
