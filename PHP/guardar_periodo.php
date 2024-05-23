@@ -1,19 +1,17 @@
-<?php 
+<?php
 
-require __DIR__."/conexion2.php";
+require __DIR__ . "/conexion_be.php";
 
 $resultado = null;
 
 if($_POST) {
 
- $ID_per= $_POST['ID_per'];
- $nombre= $_POST['nombre'];
- $fech_per = date("d/m/y");  
+ $anio_inicio = $_POST['anio_inicio'];
 
- $sql= "INSERT INTO `periodos`( `ID_per`, `nombre`,`fech_per`)
- VALUES ( '$ID_per','$nombre','$fech_per')";
+
+ $sql= "INSERT INTO `periodos`(`anio_inicio`) VALUES ('$anio_inicio')";
    
- $resultado = mysqli_query($conn,$sql);
+ $resultado = mysqli_query($conexion,$sql);
 }
 ?>
 
@@ -27,7 +25,7 @@ echo <<<HTML
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
-    }).then(() => location.href = './Periodos.php')
+    }).then(() => location.href = '../')
   </script>
 </body>
  HTML;
