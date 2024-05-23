@@ -5,26 +5,26 @@ include __DIR__ . '/partials/header.php';
 
 if ($_POST) {
   $sql = <<<SQL
-  UPDATE profesores SET ci_prof = ?,
-  nombre_completo = ?,
+  UPDATE profesores SET cedula = ?,
+  nombre = ?,
   apellido = ?,
-  fecha_nac = ?,
-  estado = ?,
-  lugar = ?,
+  fecha_nacimiento = ?,
+  estado_nacimiento = ?,
+  lugar_nacimiento = ?,
   genero = ?,
   telefono = ?,
   direccion = ?
-  WHERE ci_prof = ?
+  WHERE cedula = ?
   SQL;
 
   $db->prepare($sql)
     ->execute([
-      $_POST['ci_prof'],
-      $_POST['nombre_completo'],
+      $_POST['cedula'],
+      $_POST['nombre'],
       $_POST['apellido'],
-      $_POST['fecha_nac'],
-      $_POST['estado'],
-      $_POST['lugar'],
+      $_POST['fecha_nacimiento'],
+      $_POST['estado_nacimiento'],
+      $_POST['lugar_nacimiento'],
       $_POST['genero'],
       $_POST['telefono'],
       $_POST['direccion'],
@@ -48,9 +48,8 @@ if ($_POST) {
 }
 
 $sql = <<<SQL
-  SELECT ci_prof AS cedula, nombre_completo AS nombres, apellido AS apellidos,
-  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
-  genero AS sexo, telefono, direccion, fech_prof AS fecha_registro FROM profesores
+  SELECT cedula, nombre, apellido , fecha_nacimiento,  estado_nacimiento,  lugar_nacimiento,
+  genero , telefono, direccion, fecha_registro FROM profesores
   WHERE ci_prof = ?
 SQL;
 

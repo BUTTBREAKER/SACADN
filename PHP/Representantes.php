@@ -6,11 +6,10 @@ require __DIR__ . '/../vendor/autoload.php';
 $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
-/* Selecciona campo ci_repr y cambiale el nombre a cedula, ..., de la tabla representantes */
+
 $sql = <<<SQL
-  SELECT ci_repr AS cedula, nombre_completo AS nombres, apellido AS apellidos,
-  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
-  genero AS sexo, telefono, direccion, fech_repr AS fecha_registro FROM representantes
+  SELECT id, cedula, nombre, apellido, fecha_nacimiento, lugar_nacimiento,
+  genero, telefono, direccion, fecha_registro FROM representantes
 SQL;
 
 $result = $db->query($sql);
@@ -27,7 +26,6 @@ $result = $db->query($sql);
         <th>Apellidos</th>
         <th>Fecha de nacimiento</th>
         <th>Edad</th>
-        <th>Estado de nacimiento</th>
         <th>Lugar de nacimiento</th>
         <th>Sexo</th>
         <th>Teléfono</th>
@@ -40,13 +38,12 @@ $result = $db->query($sql);
       <?php while ($mostrar = $result->fetch_assoc()) { ?>
         <tr>
           <td><?= $mostrar['cedula'] ?></td>
-          <td><?= $mostrar['nombres'] ?></td>
-          <td><?= $mostrar['apellidos'] ?></td>
+          <td><?= $mostrar['nombre'] ?></td>
+          <td><?= $mostrar['apellido'] ?></td>
           <td><?= formatearFecha($mostrar['fecha_nacimiento']) ?></td>
           <td><?= calcularEdad($mostrar['fecha_nacimiento']) ?></td>
-          <td><?= $mostrar['estado_nacimiento'] ?></td>
           <td><?= $mostrar['lugar_nacimiento'] ?></td>
-          <td><?= $mostrar['sexo'] ?></td>
+          <td><?= $mostrar['genero'] ?></td>
           <td><?= $mostrar['telefono'] ?></td>
           <td><?= $mostrar['direccion'] ?></td>
           <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>

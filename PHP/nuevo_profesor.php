@@ -8,9 +8,8 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_prof y cambiale el nombre a cedula, ..., de la tabla proferoser */
 $sql = <<<SQL
-  SELECT ci_prof AS cedula, nombre_completo AS nombres, apellido AS apellidos,
-  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
-  genero AS sexo, telefono, direccion, fech_prof AS fecha_registro FROM profesores
+  SELECT  cedula, nombre, apellido , fecha_nacimiento,  estado_nacimiento,  lugar_nacimiento,
+  genero , telefono, direccion,  fecha_registro FROM profesores
 SQL;
 
 $result = $db->query($sql);
@@ -207,14 +206,14 @@ $result = $db->query($sql);
 
            <div class="contenedor1">
               <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 256 256"><path fill="#000000" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h13.39a8 8 0 0 0 7.23-4.57a48 48 0 0 1 86.76 0a8 8 0 0 0 7.23 4.57H216a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16M104 168a32 32 0 1 1 32-32a32 32 0 0 1-32 32m112 32h-56.57a63.93 63.93 0 0 0-13.16-16H192a8 8 0 0 0 8-8V80a8 8 0 0 0-8-8H64a8 8 0 0 0-8 8v96a8 8 0 0 0 6 7.75A63.72 63.72 0 0 0 48.57 200H40V56h176Z"/></svg></i>
-              <label for="ci_prof">C.I</label>
-          <input type="number-tlf" id="profesor" placeholder="Cédula" name="ci_prof" required>
+              <label for="cedula">C.I</label>
+          <input type="number-tlf" id="profesor" placeholder="Cédula" name="cedula" required>
                </div>
                
         <div class="contenedor1">
               <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 256 256"><path fill="#000000" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h13.39a8 8 0 0 0 7.23-4.57a48 48 0 0 1 86.76 0a8 8 0 0 0 7.23 4.57H216a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16M104 168a32 32 0 1 1 32-32a32 32 0 0 1-32 32m112 32h-56.57a63.93 63.93 0 0 0-13.16-16H192a8 8 0 0 0 8-8V80a8 8 0 0 0-8-8H64a8 8 0 0 0-8 8v96a8 8 0 0 0 6 7.75A63.72 63.72 0 0 0 48.57 200H40V56h176Z"/></svg></i>
-              <label for="nombre_completo">Nombres</label>
-          <input type="text" id="profesor" placeholder="Nombres" name="nombre_completo" required>
+              <label for="nombre">Nombres</label>
+          <input type="text" id="profesor" placeholder="Nombres" name="nombre" required>
                </div>
                
 
@@ -227,22 +226,22 @@ $result = $db->query($sql);
 
                <div class="contenedor1">
                 <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 2048 2048"><path fill="#000000" d="M1664 512h256v1536H256V512h256V384h128v128h896V384h128zm128 128h-128v128h128zm-256 0H640v128h896zm-1024 0H384v128h128zM384 1920h1408V896H384zM256 384V256H128v1408H0V128h256V0h128v128h896V0h128v128h256v128h-256v128h-128V256H384v128zm384 1024v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128zm-768 256v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128zm-256-512v-128h128v128zm256 0v-128h128v128zm256 0v-128h128v128z"/></svg></i>
-           <label for="fecha_nac">Fecha de nacimiento</label>
-          <input type="date" id="profesor" placeholder="dia/mes/año" name="fecha_nac" required>
+           <label for="fecha_nacimiento">Fecha de nacimiento</label>
+          <input type="date" id="profesor" placeholder="dia/mes/año" name="fecha_nacimiento" required>
         </div>
       
           
                <div class="contenedor1">
                 <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#000000" d="M12 19.35q3.05-2.8 4.525-5.087T18 10.2q0-2.725-1.737-4.462T12 4Q9.475 4 7.738 5.738T6 10.2q0 1.775 1.475 4.063T12 19.35m0 1.975q-.35 0-.7-.125t-.625-.375Q9.05 19.325 7.8 17.9t-2.087-2.762q-.838-1.338-1.275-2.575T4 10.2q0-3.75 2.413-5.975T12 2q3.175 0 5.588 2.225T20 10.2q0 1.125-.437 2.363t-1.275 2.575Q17.45 16.475 16.2 17.9t-2.875 2.925q-.275.25-.625.375t-.7.125M12 12q.825 0 1.413-.587T14 10q0-.825-.587-1.412T12 8q-.825 0-1.412.588T10 10q0 .825.588 1.413T12 12"/></svg></i>
-                 <label for="estado">Estado de nacimiento</label>
-          <input type="text" id="profesor" placeholder="Estado de nacimiento" name="estado" required>
+                 <label for="estado_nacimiento">Estado de nacimiento</label>
+          <input type="text" id="profesor" placeholder="Estado de nacimiento" name="estado_nacimiento" required>
                </div>
               
 
                <div class="contenedor1">
                 <i><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="#000000" d="M12 21.325q-.35 0-.7-.125t-.625-.375Q9.05 19.325 7.8 17.9t-2.087-2.762q-.838-1.338-1.275-2.575T4 10.2q0-3.75 2.413-5.975T12 2q3.175 0 5.588 2.225T20 10.2q0 1.125-.437 2.363t-1.275 2.575Q17.45 16.475 16.2 17.9t-2.875 2.925q-.275.25-.625.375t-.7.125M12 12q.825 0 1.413-.587T14 10q0-.825-.587-1.412T12 8q-.825 0-1.412.588T10 10q0 .825.588 1.413T12 12"/></svg></i>
-                <label for="lugar">Lugar de nacimiento</label>
-          <input type="text" id="profesor" placeholder="Lugar de nacimiento" name="lugar" required>
+                <label for="lugar_nacimiento">Lugar de nacimiento</label>
+          <input type="text" id="profesor" placeholder="Lugar de nacimiento" name="lugar_nacimiento" required>
                </div>
               
                <div class="contenedor1">

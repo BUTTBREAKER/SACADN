@@ -6,19 +6,19 @@ $resultado = null;
 
 if($_POST) {
 
- $ci_prof = $_POST['ci_prof'];
- $nombre_completo = $_POST['nombre_completo'];
+ $cedula = $_POST['cedula'];
+ $nombre = $_POST['nombre'];
  $apellido = $_POST['apellido'];
- $fecha_nac = $_POST['fecha_nac'];
- $estado = $_POST['estado'];
- $lugar = $_POST['lugar'];
+ $fecha_nacimiento = $_POST['fecha_nacimiento'];
+ $estado_nacimiento = $_POST['estado_nacimiento'];
+ $lugar_nacimiento = $_POST['lugar_nacimiento'];
  $genero = $_POST['genero'];
  $telefono = $_POST['telefono'];
  $direccion = $_POST['direccion'];
- $fech_prof = date("d/m/y");  
+ $fecha_registro = date("d/m/y");  
 
- $sql= "INSERT INTO `profesores`(`ci_prof`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_prof`)
- VALUES ('$ci_prof','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_prof')";
+ $sql= "INSERT INTO `profesores`(`cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `estado_nacimiento`, `lugar_nacimiento`, `genero`, `telefono`, `direccion`, `fecha_registro`)
+ VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento','$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
    
  $resultado = mysqli_query($conexion,$sql);
 

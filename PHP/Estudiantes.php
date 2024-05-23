@@ -8,9 +8,8 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_est y cambiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
-  SELECT ci_est AS cedula, nombre_completo AS nombres, apellido AS apellidos,
-  fecha_nac AS fecha_nacimiento, estado as estado_nacimiento, lugar AS lugar_nacimiento,
-  genero AS sexo, fech_est AS fecha_registro FROM estudiantes
+  SELECT id, cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento, lugar_nacimiento,
+  genero, fecha_registro id_representante FROM estudiantes
 SQL;
 
 $result = $db->query($sql);
@@ -31,6 +30,7 @@ $result = $db->query($sql);
         <th>Lugar de nacimiento</th>
         <th>Sexo</th>
         <th>Fecha</th>
+        <th>Representante</th>
         <th>Opciones</th>
       </tr>
     </thead>
@@ -38,14 +38,15 @@ $result = $db->query($sql);
       <?php while ($mostrar = $result->fetch_assoc()) { ?>
         <tr>
           <td><?= $mostrar['cedula'] ?></td>
-          <td><?= $mostrar['nombres'] ?></td>
-          <td><?= $mostrar['apellidos'] ?></td>
+          <td><?= $mostrar['nombre'] ?></td>
+          <td><?= $mostrar['apellido'] ?></td>
           <td><?= formatearFecha($mostrar['fecha_nacimiento']) ?></td>
           <td><?= calcularEdad($mostrar['fecha_nacimiento']) ?></td>
           <td><?= $mostrar['estado_nacimiento'] ?></td>
           <td><?= $mostrar['lugar_nacimiento'] ?></td>
-          <td><?= $mostrar['sexo'] ?></td>
+          <td><?= $mostrar['genero'] ?></td>
           <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
+          <td><?= $mostrar['id_representante'] ?></td>
           <td>
             <form method="post">
               <button formaction="eliminar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">

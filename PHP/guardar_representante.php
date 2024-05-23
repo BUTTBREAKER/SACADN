@@ -5,25 +5,25 @@ require __DIR__."/conexion_be.php";
 $resultado = null;
 
 if($_POST) {
-
- $ci_repr = $_POST['ci_repr'];
- $nombre_completo = $_POST['nombre_completo'];
+ 
+ $cedula = $_POST['cedula'];
+ $nombre = $_POST['nombre'];
  $apellido = $_POST['apellido'];
- $fecha_nac = $_POST['fecha_nac'];
- $estado = $_POST['estado'];
- $lugar = $_POST['lugar'];
+ $fecha_nacimiento = $_POST['fecha_nacimiento'];
+ $lugar_nacimiento = $_POST['lugar_nacimiento'];
  $genero = $_POST['genero'];
  $telefono = $_POST['telefono'];
  $direccion = $_POST['direccion'];
- $fech_repr = date("d/m/y");  
+ $fechaa_registro = date("d/m/y");  
 
- $sql= "INSERT INTO `representantes`(`ci_repr`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_repr`)
- VALUES ('$ci_repr','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_repr')";
+ $sql= "INSERT INTO `representantes`( `cedula`, `nombre`, `apellido`, `fecha_nacimiento`,  `lugar_nacimiento`, `genero`, `telefono`, `direccion`, `fecha_registro`)
+  VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
    
  $resultado = mysqli_query($conexion,$sql);
 
 
  }
+
 echo <<<HTML
 <body>
   <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
