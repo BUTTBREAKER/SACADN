@@ -202,7 +202,7 @@ $result = $db->query($sql);
               </svg></i>
             <label class='texto' for="nom_repr">C.I</label>
           </div>
-          <input type="number-tlf" id="registrarCedula" placeholder="Cédula" name="ci_repr" maxlength="    ttern=" [0-9]+" title="Número de cédula invalido, mínimo tener 8 carácteres" required>
+          <input type="number-tlf" id="registrarCedula" placeholder="Cédula" name="ci_repr" maxlength=""    pattern="[0-9]+" title="Número de cédula invalido, mínimo tener 8 carácteres" required>
         </div>
 
         <div class="contenedor-input">
