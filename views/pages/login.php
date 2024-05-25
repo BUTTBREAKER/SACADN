@@ -5,6 +5,7 @@ declare(strict_types=1);
 $showAdministratorRegister ??= true;
 
 ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -46,9 +47,10 @@ $showAdministratorRegister ??= true;
                 minlength="3"
                 maxlength="80"
                 pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
-                placeholder="Nombre"
+                placeholder="Nombres"
                 name="nombre"
                 required
+                title="Mínimo 2 palabras de al menos 3 caracteres"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -57,9 +59,10 @@ $showAdministratorRegister ??= true;
                 minlength="3"
                 maxlength="80"
                 pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
-                placeholder="Apellido"
+                placeholder="Apellidos"
                 name="apellido"
                 required
+                title="Mínimo 2 palabras de al menos 3 caracteres"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -80,12 +83,13 @@ $showAdministratorRegister ??= true;
                 required
                 minlength="4"
                 maxlength="20"
-                pattern=".{4,20}"
-                title="La contraseña debe tener entre 4 y 20 caracteres."
+                pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,}"
+                title="La contraseña debe tener al menos 1 mayúscula,
+                1 número y un símbolo"
               /> <small class="error-message"></small> <span></span>
             </div>
-            <input type="hidden" name="rol" id="rol" value="A">
-            <button type='submit'>Registrar</button>
+            <input type="hidden" name="rol" value="A" />
+            <button>Registrar</button>
           </form>
           html;
         }

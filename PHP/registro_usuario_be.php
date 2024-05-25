@@ -56,7 +56,7 @@ class Registro {
               icon: 'success',
               showConfirmButton: false,
               timer: 3000
-            }).then(() => location.href = '../index.php')
+            }).then(() => location.href = '../')
             </script>
         </body>
         HTML;
@@ -73,7 +73,7 @@ class Registro {
               icon: 'error',
               showConfirmButton: false,
               timer: 3000
-            }).then(() => location.href = '../index.php')
+            }).then(() => location.href = '../')
           </script>
         </body>
         HTML;
