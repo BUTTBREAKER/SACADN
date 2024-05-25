@@ -6,7 +6,8 @@
     "ext-pdo_sqlite": "*",
     "ext-mysqli": "*",
     "eyra/fecha_utils": "^1.0",
-    "illuminate/container": "^11.7"
+    "illuminate/container": "^11.7",
+    "thomaspark/bootswatch": "^5.3"
   },
   "scripts": {
     "dev:win": "start php -S localhost:8080",

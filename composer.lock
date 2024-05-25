@@ -4,7 +4,7 @@
     "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
     "This file is @generated automatically"
   ],
-  "content-hash": "a1bf24bf00056793a6498340243154a1",
+  "content-hash": "f7be71f58c2cd9a8cf84a35480d5043c",
   "packages": [
     {
       "name": "eyra/fecha_utils",
@@ -241,6 +241,51 @@
         "source": "https://github.com/php-fig/simple-cache/tree/3.0.0"
       },
       "time": "2021-10-29T13:26:27+00:00"
+    },
+    {
+      "name": "thomaspark/bootswatch",
+      "version": "v5.3.3",
+      "source": {
+        "type": "git",
+        "url": "https://github.com/thomaspark/bootswatch.git",
+        "reference": "646c94da2c262473c6f73664f4547c046f3a28dd"
+      },
+      "dist": {
+        "type": "zip",
+        "url": "https://api.github.com/repos/thomaspark/bootswatch/zipball/646c94da2c262473c6f73664f4547c046f3a28dd",
+        "reference": "646c94da2c262473c6f73664f4547c046f3a28dd",
+        "shasum": ""
+      },
+      "suggest": {
+        "robloach/component-installer": "Allows installation of Components via Composer"
+      },
+      "type": "component",
+      "extra": {
+        "component": {
+          "name": "bootswatch",
+          "files": [
+            "README.md",
+            "LICENSE",
+            "dist/**/*"
+          ]
+        }
+      },
+      "notification-url": "https://packagist.org/downloads/",
+      "license": [
+        "MIT"
+      ],
+      "authors": [
+        {
+          "name": "thomaspark",
+          "email": "thomas@bootswatch.com"
+        }
+      ],
+      "description": "Themes for Bootstrap",
+      "support": {
+        "issues": "https://github.com/thomaspark/bootswatch/issues",
+        "source": "https://github.com/thomaspark/bootswatch/tree/v5.3.3"
+      },
+      "time": "2024-02-28T15:00:55+00:00"
     }
   ],
   "packages-dev": [
