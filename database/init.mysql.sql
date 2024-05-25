@@ -156,7 +156,7 @@ CREATE TABLE asignaciones_profesores (
   FOREIGN KEY (id_materia) REFERENCES materias (id),
   FOREIGN KEY (id_periodo) REFERENCES periodos (id),
   FOREIGN KEY (id_seccion) REFERENCES secciones (id)
-)
+);
 
 INSERT INTO niveles_estudio (nombre) VALUES ('Primer Año'),
 ('Segundo Año'), ('Tercer Año'), ('Cuarto Año'), ('Quinto Año');
