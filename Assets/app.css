@@ -134,6 +134,10 @@ a {
   background: linear-gradient(to bottom, var(--black-color), transparent);
   box-shadow: 0 2px 16px hsla(220, 32%, 8%, .3);
   z-index: var(--z-fixed);
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
 }
 
 /*=============== NAV ===============*/
