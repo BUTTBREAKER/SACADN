@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg py-0">
+<nav class="navbar navbar-expand-lg py-0" data-bs-theme="dark">
   <div class="container-fluid px-md-5">
     <a class="navbar-brand" href="./BienvenidoA.php">
       <img src="../favicon.ico" width="75" />
@@ -9,6 +9,28 @@
     </button>
     <div class="collapse navbar-collapse" id="navigationMenu">
       <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width: 1em; height: 1em" fill="currentColor" viewBox="0 0 512 512">
+              <path d="M448 256c0-106-86-192-192-192V448c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
+            </svg>
+            <span class="d-lg-none ms-2">Alternar tema</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="light">
+                <i class="ri-sun-fill"></i>
+                <span class="ms-2">Claro</span>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item d-flex align-items-center" data-bs-theme-value="dark">
+                <i class="ri-moon-clear-fill"></i>
+                <span class="ms-2">Oscuro</span>
+              </button>
+            </li>
+          </ul>
+        </li>
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
             Notas
@@ -41,7 +63,6 @@
             <?php endif ?>
           </ul>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" href="./salir.php">Salir</a>
         </li>

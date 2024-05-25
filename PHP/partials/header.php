@@ -18,7 +18,7 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html>
 
 <head>
   <meta charset="utf-8" />
