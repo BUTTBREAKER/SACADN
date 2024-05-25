@@ -18,7 +18,7 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="dark">
 
 <head>
   <meta charset="utf-8" />
@@ -28,6 +28,7 @@ try {
   <link rel="stylesheet" href="../Assets/fonts/remixicon.css" />
   <link rel="stylesheet" href="../Assets/app.css" />
   <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css" />
+  <link rel="stylesheet" href="../vendor/thomaspark/bootswatch/dist/sandstone/bootstrap.min.css" />
 </head>
 
 <body>

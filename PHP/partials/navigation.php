@@ -1,36 +1,64 @@
-<header class="header">
+<nav class="navbar navbar-expand-lg py-0">
+  <div class="container-fluid px-md-5">
+    <a class="navbar-brand" href="./BienvenidoA.php">
+      <img src="../favicon.ico" width="75" />
+      SACADN
+    </a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navigationMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navigationMenu">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            Notas
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="notas.php">Ver notas</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="notas.php">Cargar notas</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            Representantes
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="representantes.php">
+                Ver representantes
+              </a>
+            </li>
+            <?php if ($role === 'A') : ?>
+              <li>
+                <a class="dropdown-item" href="nuevo_representante.php">
+                  Registrar representante
+                </a>
+              </li>
+            <?php endif ?>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="./salir.php">Salir</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- <header class="header">
   <nav class="nav">
     <div class="nav__data">
-      <a href="./BienvenidoA.php" class="nav__logo">
-        SACADN
-        <img src="../favicon.ico" />
-      </a>
       <div class="nav__toggle" id="nav-toggle">
         <i class="ri-menu-line nav__burger"></i>
         <i class="ri-close-line nav__close"></i>
       </div>
     </div>
     <ul class="nav__list">
-      <li class="dropdown__item">
-        <div class="nav__link">
-          Notas
-          <i class="ri-arrow-down-s-line dropdown__arrow"></i>
-        </div>
-        <ul class="dropdown__menu">
-          <li>
-            <a href="Notas.php" class="dropdown__link">
-              <i class="ri-pie-chart-line"></i>
-              Ver Notas
-            </a>
-          </li>
-          <li>
-            <a href="Notas.php" class="dropdown__link">
-              <i class="ri-arrow-up-down-line"></i>
-              Registrar Notas
-            </a>
-          </li>
-        </ul>
-      </li>
       <li class="dropdown__item">
         <div class="nav__link">
           Años Escolares
@@ -177,9 +205,6 @@
           </li>
         </ul>
       </li>
-      <li>
-        <a href="salir.php" class="nav__link">Salir</a>
-      </li>
     </ul>
   </nav>
-</header>
+</header> -->
