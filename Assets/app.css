@@ -41,6 +41,7 @@ body {
   background-position: top center;
   background-size: cover;
   background-repeat: no-repeat;
+  min-height: 100vh;
 
   --black-shadow: 0 0 10px black;
   --primary: #4bb6b7;
@@ -73,6 +74,13 @@ svg {
 
 .navbar {
   background: linear-gradient(to bottom, black, var(--backdrop), transparent);
+  position: sticky !important;
+  top: 0;
+  backdrop-filter: blur(10px);
+}
+
+.navbar ~ * {
+  z-index: -1;
 }
 
 .navbar .dropdown-item {
