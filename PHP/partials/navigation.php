@@ -63,6 +63,26 @@
             <?php endif ?>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            Profesores
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="profesores.php">
+                Ver profesores
+              </a>
+            </li>
+            <?php if ($role === 'A') : ?>
+              <li>
+                <a class="dropdown-item" href="nuevo_profesor.php">
+                  Registrar profesor
+                </a>
+              </li>
+            <?php endif ?>
+          </ul>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="./salir.php">Salir</a>
         </li>

@@ -1,26 +1,24 @@
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
-// Incluir el archivo de conexión a la base de datos
+
 /** @var mysqli */
 $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
-/* Selecciona campo ci_prof y cambiale el nombre a cedula, ..., de la tabla profesores */
 $sql = <<<SQL
-  SELECT  cedula, nombre, apellido ,  fecha_nacimiento,  estado_nacimiento,  lugar_nacimiento,
-  genero , telefono, direccion,  fecha_registro FROM profesores
+  SELECT cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento,
+  lugar_nacimiento, genero, telefono, direccion, fecha_registro FROM profesores
  SQL;
 
 $result = $db->query($sql);
 
 ?>
 
-<div class="container" style="overflow-x: auto;">
-  <table id="tablaProfesores" class="datatable">
+<div class="container card card-body table-responsive">
+  <table id="tablaProfesores" class="table datatable">
     <thead>
       <tr>
-        <!-- <td>ID</td> -->
         <th>Cédula</th>
         <th>Nombres</th>
         <th>Apellidos</th>
@@ -31,12 +29,11 @@ $result = $db->query($sql);
         <th>Sexo</th>
         <th>Teléfono</th>
         <th>Dirección</th>
-        <th>Fecha</th>
         <th>Opciones</th>
       </tr>
     </thead>
     <tbody>
-      <?php while ($mostrar = $result->fetch_assoc()) { ?>
+      <?php while ($mostrar = $result->fetch_assoc()) : ?>
         <tr>
           <td><?= $mostrar['cedula'] ?></td>
           <td><?= $mostrar['nombre'] ?></td>
@@ -48,7 +45,6 @@ $result = $db->query($sql);
           <td><?= $mostrar['genero'] ?></td>
           <td><?= $mostrar['telefono'] ?></td>
           <td><?= $mostrar['direccion'] ?></td>
-          <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
           <td>
             <form method="post">
               <button formaction="eliminar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
@@ -60,7 +56,7 @@ $result = $db->query($sql);
             </form>
           </td>
         </tr>
-      <?php } ?>
+      <?php endwhile ?>
     </tbody>
   </table>
 </div>
