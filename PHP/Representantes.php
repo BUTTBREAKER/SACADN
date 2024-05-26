@@ -45,10 +45,10 @@ $result = $db->query($sql);
           <td><?= $mostrar['direccion'] ?></td>
           <td>
             <form method="post">
-              <button class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
+              <button class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-delete-bin-line"></i>
               </button>
-              <button class="btn btn-outline-dark fs-4 p-1" formaction="editar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
+              <button class="btn btn-outline-dark fs-4 p-1" formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-edit-box-line "></i>
               </button>
             </form>
