@@ -97,7 +97,7 @@ $result = $db->query($sql);
         </label>
       </div>
     </div>
-    <div class="btn-group mx-3">
+    <div class="btn-group btn-group-lg mx-3">
       <button class="btn btn-success w-75">Guardar</button>
       <a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a>
     </div>

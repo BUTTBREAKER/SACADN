@@ -15,7 +15,7 @@ final readonly class LoginController
 
   public function renderPage(): void
   {
-    $sql = "SELECT COUNT(*) FROM usuarios WHERE rol = 'A'";
+    $sql = "SELECT COUNT(*) FROM usuarios WHERE rol = 'A' AND estado = 'activo'";
     $administratorsNumber = (int) $this->db->query($sql)->fetch_column();
 
     $this->view->render('pages/login', [
@@ -42,10 +42,10 @@ final readonly class LoginController
         'usuario_no_encontrado'
       );
     }
-    
-   
+
+
     $stmt->bind_result($id, $name, $lastName, $idCard, $user, $hash, $role, $state, $createdAt);
-    
+
     $stmt->fetch();
 
     if ($state !== 'activo') {

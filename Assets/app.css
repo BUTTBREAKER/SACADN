@@ -58,6 +58,7 @@ body::before {
 
 th, td {
   white-space: nowrap;
+  vertical-align: middle !important;
 }
 
 input[type="number"] {

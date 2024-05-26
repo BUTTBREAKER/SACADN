@@ -16,8 +16,8 @@ $result = $db->query($sql);
 
 ?>
 
-<div class="container" style="overflow-x: auto;">
-  <table id="tablaEstudiantes" class="datatable">
+<div class="container card card-body table-responsive">
+  <table id="tablaEstudiantes" class="table table-striped datatable">
     <thead>
       <tr>
         <!-- <td>ID</td> -->
