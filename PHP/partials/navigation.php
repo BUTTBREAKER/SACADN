@@ -11,17 +11,20 @@
       <ul class="navbar-nav ms-auto flex-wrap">
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="ri-parent-line"></i>
             Representantes
           </button>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="representantes.php">
+                <i class="ri-table-line"></i>
                 Ver representantes
               </a>
             </li>
             <?php if ($role === 'A') : ?>
               <li>
                 <a class="dropdown-item" href="nuevo_representante.php">
+                  <i class="ri-user-add-line"></i>
                   Registrar representante
                 </a>
               </li>
@@ -30,42 +33,54 @@
         </li>
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="ri-group-line"></i>
             Estudiantes
           </button>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="estudiantes.php">
+                <i class="ri-table-line"></i>
                 Ver estudiantes
               </a>
             </li>
             <?php if ($role === 'A') : ?>
               <li>
                 <a class="dropdown-item" href="nuevo_estudiante.php">
+                  <i class="ri-user-add-line"></i>
                   Registrar estudiante
                 </a>
               </li>
             <?php endif ?>
             <li>
-              <a class="dropdown-item" href="notas.php">Ver notas</a>
+              <a class="dropdown-item" href="notas.php">
+                <i class="ri-sticky-note-line"></i>
+                Ver notas
+              </a>
             </li>
             <li>
-              <a class="dropdown-item" href="notas.php">Cargar notas</a>
+              <a class="dropdown-item" href="notas.php">
+                <i class="ri-git-repository-commits-line"></i>
+                Cargar notas
+              </a>
             </li>
           </ul>
         </li>
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="ri-team-line"></i>
             Profesores
           </button>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="profesores.php">
+                <i class="ri-table-line"></i>
                 Ver profesores
               </a>
             </li>
             <?php if ($role === 'A') : ?>
               <li>
                 <a class="dropdown-item" href="nuevo_profesor.php">
+                  <i class="ri-user-add-line"></i>
                   Registrar profesor
                 </a>
               </li>
@@ -74,46 +89,26 @@
         </li>
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-            Años y Secciones
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="javascript:">
-                Ver años y secciones
-              </a>
-            </li>
-            <?php if ($role === 'A') : ?>
-              <li>
-                <a class="dropdown-item" href="javascript:">
-                  Aperturar sección
-                </a>
-              </li>
-            <?php endif ?>
-          </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="ri-booklet-line"></i>
             Materias
           </button>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="materias.php">
+                <i class="ri-table-line"></i>
                 Ver materias
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="secciones.php">
-                Ver secciones
               </a>
             </li>
             <?php if ($role === 'A') : ?>
               <li>
                 <a class="dropdown-item" href="nueva_materia.php">
+                  <i class="ri-add-large-line"></i>
                   Aperturar materia
                 </a>
               </li>
               <li>
                 <a class="dropdown-item" href="asignar-materias.php">
+                  <i class="ri-guide-line"></i>
                   Asignar materia a años
                 </a>
               </li>
@@ -122,21 +117,47 @@
         </li>
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="ri-barricade-line"></i>
+            Años y Secciones
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="javascript:">
+                <i class="ri-table-line"></i>
+                Ver años y secciones
+              </a>
+            </li>
+            <?php if ($role === 'A') : ?>
+              <li>
+                <a class="dropdown-item" href="javascript:">
+                  <i class="ri-database-line"></i>
+                  Aperturar sección
+                </a>
+              </li>
+            <?php endif ?>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="ri-calendar-line"></i>
             Períodos
           </button>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" href="periodos.php">
+                <i class="ri-calendar-view"></i>
                 Ver períodos
               </a>
             </li>
             <li>
               <a class="dropdown-item" href="nuevo_periodo.php">
+                <i class="ri-add-large-line"></i>
                 Aperturar período
               </a>
             </li>
             <li>
               <a class="dropdown-item" href="nuevo_momento.php">
+                <i class="ri-guide-line"></i>
                 Asignar momentos<br />por período
               </a>
             </li>
@@ -145,29 +166,34 @@
         <?php if ($role === 'A') : ?>
           <li class="nav-item dropdown">
             <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              <i class="ri-lock-line"></i>
               Seguridad
             </button>
             <ul class="dropdown-menu">
               <li>
                 <a class="dropdown-item" href="respaldo.php">
+                  <i class="ri-upload-line"></i>
                   Respaldar
                 </a>
               </li>
               <?php if (file_exists(__DIR__ . '/../backups/full_backup.mysql.sql')) : ?>
                 <li>
                   <a class="dropdown-item" href="restauracion.php">
+                    <i class="ri-download-line"></i>
                     Restaurar
                   </a>
                 </li>
               <?php else : ?>
                 <li>
                   <a class="dropdown-item disabled">
+                    <i class="ri-download-line"></i>
                     Restaurar
                   </a>
                 </li>
               <?php endif ?>
               <li>
                 <a class="dropdown-item" href="moduloa.php">
+                  <i class="ri-team-line"></i>
                   Control de usuarios
                 </a>
               </li>
@@ -178,9 +204,7 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown me-md-3">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-            <svg xmlns="http://www.w3.org/2000/svg" style="width: 1em; height: 1em" fill="currentColor" viewBox="0 0 512 512">
-              <path d="M448 256c0-106-86-192-192-192V448c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z" />
-            </svg>
+            <i class="ri-contrast-line"></i>
             <span class="d-lg-none ms-2">Alternar tema</span>
           </a>
           <ul class="dropdown-menu">
@@ -199,7 +223,10 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./salir.php">Salir</a>
+          <a class="nav-link d-flex" href="./salir.php">
+            <i class="ri-logout-circle-line me-2"></i>
+            Salir
+          </a>
         </li>
       </ul>
     </div>
