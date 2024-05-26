@@ -10,6 +10,7 @@
   $result = $db->query($sql);
 ?>
 
+<div class="container card card-body table-responsive">
 <div class="container" style="overflow-x: auto;">
   <!-- Botón para registrar nueva materia -->
   <a href="nueva_materia.php" class="btn btn-primary">Registrar Nueva Materia</a>
@@ -30,7 +31,7 @@
     <?php } ?>
   </table>
 </div>
-
+</div>
 <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 <script>
   const tablaMaterias = new simpleDatatables.DataTable("#tablaMaterias");

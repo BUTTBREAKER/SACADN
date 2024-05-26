@@ -60,7 +60,7 @@ $representante = $stmt->get_result()->fetch_assoc();
 
 <div class="row mx-0 justify-content-center pb-5">
   <form class="card col-md-6 py-4" method="post" action="./guardar_representante.php" autocomplete="off">
-    <h1 class="card-title h3 text-center">Nuevo Registro de Representante</h1>
+    <h1 class="card-title h3 text-center">Editar representante</h1>
     <div class="card-body row">
       <div class="col-md-12 form-floating mb-3">
         <input class="form-control" type="number" min="4000000" max="31000000" value="<?= $representante['cedula'] ?>" id="registrarCedula"placeholder=" " name="cedula" required />

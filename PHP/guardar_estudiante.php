@@ -1,11 +1,10 @@
-<?php 
+<?php
 
 require __DIR__."/conexion_be.php";
 
 $resultado = null;
 
 if($_POST) {
-
  $cedula = $_POST['cedula'];
  $nombre = $_POST['nombre'];
  $apellido = $_POST['apellido'];
@@ -13,12 +12,14 @@ if($_POST) {
  $estado_nacimiento = $_POST['estado_nacimiento'];
  $lugar_nacimiento = $_POST['lugar_nacimiento'];
  $genero = $_POST['genero'];
- $fecha_registro = date("d/m/y"); 
- $id_representante= $_POST['id_representante']; 
+ $fecha_registro = date("d/m/y");
+ $id_representante= $_POST['id_representante'];
 
- $sql= "INSERT INTO `estudiantes`(`cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `estado_nacimiento`, `lugar_nacimiento`, `genero`, `fecha_registro`, `id_representante`) `
- VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento','$lugar_nacimiento','$genero','$fecha_registro', '$id_representante')";
-   
+ $sql= "INSERT INTO estudiantes(cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento,
+ lugar_nacimiento, genero, id_representante)
+ VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento','$lugar_nacimiento',
+ '$genero', '$id_representante')";
+
  $resultado = mysqli_query($conexion,$sql);
 
 

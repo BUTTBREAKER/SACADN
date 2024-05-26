@@ -47,7 +47,7 @@
               <li>
                 <a class="dropdown-item" href="nuevo_estudiante.php">
                   <i class="ri-user-add-line"></i>
-                  Registrar estudiante
+                  Inscribir estudiante
                 </a>
               </li>
             <?php endif ?>

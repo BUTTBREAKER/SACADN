@@ -8,8 +8,10 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_est y cambiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
-  SELECT id, cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento, lugar_nacimiento,
-  genero, fecha_registro id_representante FROM estudiantes
+  SELECT e.id, e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, e.estado_nacimiento, e.lugar_nacimiento,
+  e.genero, e.fecha_registro, r.nombre as nombresRepresentante,
+  r.apellido as apellidosRepresentante FROM estudiantes e
+  JOIN representantes r ON r.id = e.id_representante
 SQL;
 
 $result = $db->query($sql);
@@ -20,7 +22,6 @@ $result = $db->query($sql);
   <table id="tablaEstudiantes" class="table table-striped datatable">
     <thead>
       <tr>
-        <!-- <td>ID</td> -->
         <th>Cédula</th>
         <th>Nombres</th>
         <th>Apellidos</th>
@@ -29,7 +30,6 @@ $result = $db->query($sql);
         <th>Estado de nacimiento</th>
         <th>Lugar de nacimiento</th>
         <th>Sexo</th>
-        <th>Fecha</th>
         <th>Representante</th>
         <th>Opciones</th>
       </tr>
@@ -45,15 +45,14 @@ $result = $db->query($sql);
           <td><?= $mostrar['estado_nacimiento'] ?></td>
           <td><?= $mostrar['lugar_nacimiento'] ?></td>
           <td><?= $mostrar['genero'] ?></td>
-          <td><?= formatearFecha($mostrar['fecha_registro']) ?></td>
-          <td><?= $mostrar['id_representante'] ?></td>
+          <td><?= $mostrar['nombresRepresentante'] . ' ' . $mostrar['apellidosRepresentante'] ?></td>
           <td>
             <form method="post">
-              <button formaction="eliminar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
-                Eliminar
+              <button class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
+                <i class="ri-delete-bin-line"></i>
               </button>
-              <button formaction="editar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
-                Editar
+              <button class="btn btn-outline-dark fs-4 p-1" formaction="editar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
+                <i class="ri-edit-box-line "></i>
               </button>
             </form>
           </td>
