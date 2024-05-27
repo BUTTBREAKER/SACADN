@@ -5,3 +5,4 @@ vendor
 *.sublime-*
 .idea
 *backup*
+.htaccess
