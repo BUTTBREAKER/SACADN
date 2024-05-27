@@ -54,31 +54,31 @@ $resultado = $conexion->query($sql);
 
   </html>
 
-  <div class="row mx-0 justify-content-center pb-5">
-    <form class="card col-md-6 py-4 mt-3" action="registro_usuario_be.php" method="POST">
+  <div class=" row mx-0 justify-content-center pb-5">
+    <form class="card col-md-7 py-4 mt-3" action="registro_usuario_be.php" method="POST">
       <h2 class="card-title h3 text-center">Crear Nuevo Usuario</h2>
       <div class="card-body row">
-        <div class="form-floating mb-2 col-12">
+        <div class="form-floating mb-2 col-6">
           <input type="text" class="form-control form-control-sm" id="registerUsuario" placeholder="Usuario" name="usuario" required pattern="[A-Za-z0-9]+" maxlength="20" title="El usuario solo puede contener letras y números, con un máximo de 20 caracteres." />
           <label class="ms-2" for="registerUsuario">Usuario</label>
         </div>
-        <div class="form-floating mb-2 col-12">
+        <div class="form-floating mb-2 col-6">
           <input type="text" class="form-control form-control-sm" id="registerNombreCompleto" placeholder="Nombre" name="nombre" required maxlength="50" onkeypress="return soloLetrasYEspacios(event)" title="El nombre solo puede contener letras y espacios, con un máximo de 50 caracteres." />
           <label class="ms-2" for="registerNombreCompleto">Nombres</label>
         </div>
-        <div class="form-floating mb-2 col-12">
+        <div class="form-floating mb-2 col-6">
           <input type="text" class="form-control form-control-sm" id="registerApellidoCompleto" placeholder="Apellido" name="apellido" required maxlength="50" onkeypress="return soloLetrasYEspacios(event)" title="El apellido solo puede contener letras y espacios, con un máximo de 50 caracteres." />
           <label class="ms-2" for="registerApellidoCompleto">Apellidos</label>
         </div>
-        <div class="form-floating mb-2 col-12">
+        <div class="form-floating mb-2 col-6">
           <input type="number" class="form-control form-control-sm" id="registerCedula" placeholder="Cédula" name="cedula" required min="0" pattern="[0-9]{11}" title="La cédula debe contener 11 dígitos numéricos." />
           <label class="ms-2" for="registerCedula">Cédula</label>
         </div>
-        <div class="form-floating mb-2 col-12">
+        <div class="form-floating mb-2 col-6">
           <input type="password" class="form-control form-control-sm" id="registerContrasena" placeholder="Contraseña" name="clave" required minlength="4" maxlength="20" pattern=".{4,20}" title="La contraseña debe tener entre 4 y 20 caracteres." />
           <label class="ms-2" for="registerContrasena">Contraseña</label>
         </div>
-        <div class="form-floating mb-2 col-12">
+        <div class="form-floating mb-2 col-6">
           <select class="form-control form-control-sm" id="rol" name="rol" required>
             <option value="A">Administrador</option>
             <option value="U">Usuario</option>
