@@ -15,7 +15,7 @@ $result = $db->query($sql);
 
 ?>
 
-<div class="container card card-body table-responsive">
+<div class="container card card-body table-responsive" >
   <table id="tablaRepresentantes" class="table datatable">
     <thead>
       <tr>
@@ -45,10 +45,10 @@ $result = $db->query($sql);
           <td><?= $mostrar['direccion'] ?></td>
           <td>
             <form method="post">
-              <button class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+              <button data-bs-toggle= "tooltip" title="Eliminar" class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-delete-bin-line"></i>
               </button>
-              <button class="btn btn-outline-dark fs-4 p-1" formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+              <button data-bs-toggle= "tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-edit-box-line "></i>
               </button>
             </form>

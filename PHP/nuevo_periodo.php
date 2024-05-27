@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $conexion->close();
 }
 ?>
-<div class="container row mx-0 justify-content-center pb-4">
+<div class=" row mx-0 justify-content-center pb-4">
   <form class="card col-md-5 py-3" method="post" action="./guardar_periodo.php" autocomplete="off">
     <h1 class="card-title h3 text-center">Registrar Nuevo Periodo</h1>
     <div class="card-body row">

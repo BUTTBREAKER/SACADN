@@ -7,4 +7,7 @@
   $('.select2').select2({
     theme: 'bootstrap-5'
   })
+
+  // enable bootstrap tooltips
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(trigger => new bootstrap.Tooltip(trigger))
 </script>

@@ -18,7 +18,7 @@ $estados = array_map(static fn (object $info): string => $info->estado, $venezue
 
 ?>
 
-<div class="container row mx-0 justify-content-center pb-5">
+<div class="row mx-0 justify-content-center pb-5">
   <form class="card col-md-8 py-4" method="post" action="./guardar_profesor.php">
     <h1 class="card-title h3 text-center">Nuevo registro de Profesor</h1>
     <div class="card-body row">

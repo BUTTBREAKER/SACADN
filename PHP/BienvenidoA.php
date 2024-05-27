@@ -5,27 +5,45 @@ declare(strict_types=1);
 include __DIR__ . '/partials/header.php';
 
 $user = auth()['usuario'];
+$conn = require_once __DIR__ . '/conexion_be.php';
 
+$query_estudiantes = "SELECT COUNT(*) AS count FROM estudiantes";
+$query_materias = "SELECT COUNT(*) AS count FROM materias";
+$query_profesores = "SELECT COUNT(*) AS count FROM profesores";
+
+$result_estudiantes = $conn->query($query_estudiantes);
+$result_materias = $conn->query($query_materias);
+$result_profesores = $conn->query($query_profesores);
+
+$count_estudiantes = $result_estudiantes->fetch_assoc()['count'];
+$count_materias = $result_materias->fetch_assoc()['count'];
+$count_profesores = $result_profesores->fetch_assoc()['count'];
+
+$conn->close();
 ?>
 
 <div class="container card card-body">
   <h1>Bienvenido, <?= $user ?></h1>
   <p>¡Gracias por iniciar sesión!</p>
-  <canvas id="myChart" style="width: 100%"></canvas>
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
 </div>
 
 <script>
-  const ctx = document.getElementById('myChart')
+  const ctx = document.getElementById('myChart').getContext('2d');
 
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: ['Estudiantes', 'Materias', 'Profesores'],
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        label: 'Cantidad de Registros',
+        data: [<?= $count_estudiantes ?>, <?= $count_materias ?>, <?= $count_profesores ?>],
         borderWidth: 1,
-        backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange']
+        backgroundColor: ['#C2EFB3', '#C4B0B3', '#4C56D8']
       }]
     },
     options: {
@@ -33,9 +51,11 @@ $user = auth()['usuario'];
         y: {
           beginAtZero: true
         }
-      }
+      },
+      responsive: true,
+      maintainAspectRatio: false
     }
-  })
+  });
 </script>
 
 <?php include __DIR__ . '/partials/footer.php' ?>
