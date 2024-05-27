@@ -31,6 +31,8 @@ try {
   <link rel="stylesheet" href="../vendor/thomaspark/bootswatch/dist/sandstone/bootstrap.min.css" />
   <link rel="stylesheet" href="../vendor/select2/select2/dist/css/select2.min.css" />
   <link rel="stylesheet" href="../vendor/apalfrey/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css" />
+  <script src="../Assets/ResizeObserver.global.js"></script>
+  <script src="../Assets/chart.js"></script>
 </head>
 
 <body>
