@@ -2,7 +2,7 @@
 
 $db = require __DIR__ . '/conexion_be.php';
 
-$db->prepare('DELETE FROM profesores WHERE ci_prof=?')
+$db->prepare('DELETE FROM profesores WHERE cedula=?')
 	->execute([$_GET['cedula']]);
 
 echo <<<HTML

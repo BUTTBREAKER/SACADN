@@ -7,7 +7,7 @@ $db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
 $sql = <<<SQL
-  SELECT id, cedula, nombre, apellido, fecha_nacimiento, lugar_nacimiento,
+  SELECT cedula, nombre, apellido, fecha_nacimiento, lugar_nacimiento,
   genero, telefono, direccion, fecha_registro FROM representantes
 SQL;
 

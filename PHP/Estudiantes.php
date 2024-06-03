@@ -8,13 +8,14 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_est y cambiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
-  SELECT e.id, e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, e.estado_nacimiento, e.lugar_nacimiento,
+  SELECT  e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, e.estado_nacimiento, e.lugar_nacimiento,
   e.genero, e.fecha_registro, r.nombre as nombresRepresentante,
   r.apellido as apellidosRepresentante FROM estudiantes e
   JOIN representantes r ON r.id = e.id_representante
 SQL;
 
 $result = $db->query($sql);
+
 
 ?>
 

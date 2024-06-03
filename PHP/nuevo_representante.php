@@ -8,7 +8,7 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_repr y cambiale el nombre a cedula, ..., de la tabla representantes */
 $sql = <<<SQL
-  SELECT id, cedula, nombre, apellido,  fecha_nacimiento, lugar_nacimiento,
+  SELECT  cedula, nombre, apellido,  fecha_nacimiento, lugar_nacimiento,
   genero, telefono, direccion, fecha_registro FROM representantes
 SQL;
 

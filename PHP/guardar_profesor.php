@@ -17,24 +17,27 @@ if($_POST) {
  $direccion = $_POST['direccion'];
  $fecha_registro = date("d/m/y");  
 
- $sql= "INSERT INTO `profesores`(`cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `estado_nacimiento`, `lugar_nacimiento`, `genero`, `telefono`, `direccion`, `fecha_registro`)
- VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento','$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
+ $sql= "INSERT INTO profesores( cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento, 
+  lugar_nacimiento, genero , telefono , direccion, fecha_registro)
+ VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento',
+  '$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
    
- $resultado = mysqli_query($conexion,$sql);
+ $conexion->query($sql);
 
 
  }
+
 echo <<<HTML
 <body>
   <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
   <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
   <script>
     Swal.fire({
-      title: 'Profesor Almacenado correctamente',
+      title: 'Profesor almacenado correctamente',
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
-    }).then(() => location.href = './Profesores.php')
+    }).then(() => location.href = './Representantes.php')
   </script>
 </body>
 HTML;

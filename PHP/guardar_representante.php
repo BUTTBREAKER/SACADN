@@ -1,28 +1,30 @@
-<?php
+<?php 
 
-require __DIR__ . '/conexion_be.php';
+require __DIR__."/conexion_be.php";
 
 $resultado = null;
 
-if ($_POST) {
-  $cedula = $_POST['cedula'];
-  $nombre = $_POST['nombre'];
-  $apellido = $_POST['apellido'];
-  $fecha_nacimiento = $_POST['fecha_nacimiento'];
-  $lugar_nacimiento = $_POST['lugar_nacimiento'];
-  $genero = $_POST['genero'];
-  $telefono = $_POST['telefono'];
-  $direccion = $_POST['direccion'];
+if($_POST) {
 
-  $sql = "
-    INSERT INTO representantes (cedula, nombre, apellido, fecha_nacimiento,
-    lugar_nacimiento, genero, telefono, direccion) VALUES ('$cedula', '$nombre',
-    '$apellido', '$fecha_nacimiento', '$lugar_nacimiento', '$genero',
-    '$telefono','$direccion')
-  ";
+ $cedula = $_POST['cedula'];
+ $nombre = $_POST['nombre'];
+ $apellido = $_POST['apellido'];
+ $fecha_nacimiento = $_POST['fecha_nacimiento'];
+ $lugar_nacimiento = $_POST['lugar_nacimiento'];
+ $genero = $_POST['genero'];
+ $telefono = $_POST['telefono'];
+ $direccion = $_POST['direccion'];
+ $fecha_registro = date("d/m/y");  
 
-  $conexion->query($sql);
-}
+ $sql= "INSERT INTO representantes ( cedula, nombre, apellido, fecha_nacimiento,  
+  lugar_nacimiento, genero , telefono , direccion, fecha_registro)
+ VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento',
+  '$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
+   
+ $conexion->query($sql);
+$resultado = mysqli_query($conexion,$sql);
+
+ }
 
 echo <<<HTML
 <body>
@@ -34,7 +36,7 @@ echo <<<HTML
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
-    }).then(() => location.href = './representantes.php')
+    }).then(() => location.href = './Representantes.php')
   </script>
 </body>
 HTML;
