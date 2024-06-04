@@ -14,6 +14,7 @@ $sql = <<<SQL
   JOIN representantes r ON r.id = e.id_representante
 SQL;
 
+
 $result = $db->query($sql);
 
 
@@ -29,7 +30,7 @@ $result = $db->query($sql);
         <th>Fecha de nacimiento</th>
         <th>Edad</th>
         <th>Estado de nacimiento</th>
-        <th>Lugar de nacimiento</th>
+        <th>Municipio de nacimiento</th>
         <th>Sexo</th>
         <th>Representante</th>
         <th>Opciones</th>
@@ -49,10 +50,10 @@ $result = $db->query($sql);
           <td><?= $mostrar['nombresRepresentante'] . ' ' . $mostrar['apellidosRepresentante'] ?></td>
           <td>
             <form method="post">
-              <button class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
+              <button data-bs-toggle= "tooltip" title="Eliminar" class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-delete-bin-line"></i>
               </button>
-              <button class="btn btn-outline-dark fs-4 p-1" formaction="editar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
+              <button data-bs-toggle= "tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-estudiante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-edit-box-line "></i>
               </button>
             </form>

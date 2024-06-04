@@ -58,7 +58,7 @@
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="notas.php">
+              <a class="dropdown-item" href="#">
                 <i class="ri-git-repository-commits-line"></i>
                 Cargar notas
               </a>

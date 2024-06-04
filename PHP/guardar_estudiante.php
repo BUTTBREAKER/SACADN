@@ -13,7 +13,7 @@ if($_POST) {
  $lugar_nacimiento = $_POST['lugar_nacimiento'];
  $genero = $_POST['genero'];
  $fecha_registro = date("d/m/y");
- $id_representante = ['id_representante'];
+ $id_representante = $_POST['id_representante'];
 
  $sql = "INSERT INTO estudiantes ( cedula, nombre,  apellido ,  fecha_nacimiento,  estado_nacimiento,
   lugar_nacimiento,  genero, fecha_registro, id_representante)

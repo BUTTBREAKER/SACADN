@@ -47,11 +47,11 @@ $result = $db->query($sql);
           <td><?= $mostrar['direccion'] ?></td>
           <td>
             <form method="post">
-              <button class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
-              <i class="ri-delete-bin-line"></i>
+              <button data-bs-toggle= "tooltip" title="Eliminar" class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
+                <i class="ri-delete-bin-line"></i>
               </button>
-              <button class="btn btn-outline-dark fs-4 p-1" formaction="editar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
-              <i class="ri-edit-box-line "></i>
+              <button data-bs-toggle= "tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
+                <i class="ri-edit-box-line "></i>
               </button>
             </form>
           </td>
