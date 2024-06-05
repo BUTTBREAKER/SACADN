@@ -29,10 +29,6 @@ if ($_POST) {
     </script>
   </body>
   HTML);
-
-
-
-
 }
 
 ?>
@@ -44,76 +40,27 @@ if ($_POST) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registrar Nueva Materia</title>
-  <style>
-    /* Estilos CSS */
-    .contenedor {
-      max-width: 500px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: aliceblue;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-
-    }
-
-    form {
-      max-width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-    }
-
-    input[type="text"],
-    select {
-      width: 100%;
-      padding: 10px;
-      margin: 5px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      font-size: 16px;
-    }
-
-    button[type="submit"] {
-      padding: 0.7em 1.7em;
-      font-size: 15px;
-      border-radius: 0.5em;
-      cursor: pointer;
-      border: 1px solid #e8e8e8;
-      transition: all 0.3s;
-      box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-      color: white;
-      font-weight: 700;
-      background: rgb(0, 255, 0, .7);
-    }
-
-    button[type="submit"]:hover {
-      border: 1px solid rgb(0, 255, 0);
-      ;
-    }
-  </style>
 </head>
 
 <body>
-  <div class="contenedor">
-    <h1>Registrar Nueva Materia</h1>
+  <div class="row mx-0 justify-content-center pb-5">
+    <form class="card col-md-4 py-4" action="nueva_materia.php" method="POST">
+      <h1 class="card-title h3 text-center">Registrar Nueva Materia</h1>
+      <!-- Aquí va tu formulario para registrar la nueva materia -->
+      <div class="card-body row">
+        <!-- Campos del formulario -->
+        <div class="col-md-10 form-floating mb-3">
+          <input class="form-control" type="text" id="nombre" name="nombre" placeholder=" " required>
+          <label class="ms-2" for="nombre">Nombre de la Materia:</label>
+        </div>
+        <!-- Otros campos del formulario según tus requisitos -->
 
-    <!-- Aquí va tu formulario para registrar la nueva materia -->
-
-    <form action="nueva_materia.php" method="POST">
-      <!-- Campos del formulario -->
-      <label for="nombre">Nombre de la Materia:</label>
-      <input type="text" id="nombre" name="nombre" required>
-      <!-- Otros campos del formulario según tus requisitos -->
-
-      <!-- Botón para enviar el formulario -->
-      <button type="submit">Registrar Materia</button>
+        <!-- Botón para enviar el formulario -->
+        <button class="btn btn-success w-35" type="submit">Registrar Materia</button>
     </form>
+  </div>
   </div>
 </body>
 
 </html>
+<?php include __DIR__ . '/partials/footer.php' ?>

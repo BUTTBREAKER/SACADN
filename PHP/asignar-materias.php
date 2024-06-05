@@ -1,118 +1,177 @@
 <?php
-
-require __DIR__ . '/../vendor/autoload.php';
+// verifica que solo pueden entrar los Administradores
+include __DIR__ . '/partials/header.php';
+require __DIR__ . "/Middlewares/autorizacion.php";
+require_once __DIR__ . '/../vendor/autoload.php';
 
 /** @var mysqli */
-$db = require_once __DIR__ . '/conexion_be.php';
+require_once __DIR__ . '/conexion_be.php';
 
-if (isset($_GET['nivel_estudio'])) {
-  $sentencia = $db->prepare('SELECT nombre FROM secciones WHERE id_nivel_estudio = ?');
-  $sentencia->execute([$_GET['nivel_estudio']]);
-
-  $secciones = array_map(function (array $info): string {
-    return $info['nombre'];
-  }, $sentencia->get_result()->fetch_all(MYSQLI_ASSOC));
-
-  exit(json_encode($secciones));
+if ($conexion === false) {
+    die("Error al conectar con la base de datos.");
 }
 
-include __DIR__ . '/partials/header.php';
+// Obtener los datos necesarios
+$profesores_result = $conexion->query('SELECT id, nombre, apellido FROM profesores');
+$profesores = $profesores_result->fetch_all(MYSQLI_ASSOC);
 
-$stmt_niveles = $conexion->prepare("SELECT id, nombre FROM niveles_estudio");
-$stmt_niveles->execute();
-$result_niveles = $stmt_niveles->get_result();
-$stmt_niveles->close();
+$materias_result = $conexion->query('SELECT id, nombre FROM materias');
+$materias = $materias_result->fetch_all(MYSQLI_ASSOC);
 
+$periodos_result = $conexion->query('SELECT id, anio_inicio FROM periodos');
+$periodos = $periodos_result->fetch_all(MYSQLI_ASSOC);
 
-$sql = 'SELECT id, nombre FROM materias';
-$result = $db->query($sql);
-$materias = $result->fetch_all(MYSQLI_ASSOC);
+$niveles_result = $conexion->query('SELECT id, nombre FROM niveles_estudio');
+$niveles = $niveles_result->fetch_all(MYSQLI_ASSOC);
 
+$secciones_result = $conexion->query('SELECT id, nombre FROM secciones');
+$secciones = $secciones_result->fetch_all(MYSQLI_ASSOC);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_profesor = $_POST['id_profesor'];
+    $id_materia = $_POST['id_materia'];
+    $id_periodo = $_POST['id_periodo'];
+    $id_nivel_estudio = $_POST['id_nivel_estudio'];
+    $id_seccion = $_POST['id_seccion'];
+
+    $stmt_asignacion = $conexion->prepare("INSERT INTO asignaciones (id_profesor, id_materia, id_periodo, id_nivel_estudio, id_seccion) VALUES (?, ?, ?, ?, ?)");
+    $stmt_asignacion->bind_param("iiiii", $id_profesor, $id_materia, $id_periodo, $id_nivel_estudio, $id_seccion);
+
+    try {
+        $stmt_asignacion->execute();
+        $mensaje = "Asignación creada correctamente.";
+    } catch (mysqli_sql_exception $e) {
+        $mensaje = "Error: " . $e->getMessage();
+    }
+
+    $stmt_asignacion->close();
+}
 ?>
 
-<style>
-  /* Estilos CSS */
-  .container_asignacion {
-    margin: 0 auto;
-    padding: 20px;
-    background-color: aliceblue;
-  }
+<!DOCTYPE html>
+<html lang="es">
 
-  body {
-    font-family: Arial, sans-serif;
-  }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asignar Materias a Profesores</title>
+    <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-  form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
+        .contenedor {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: aliceblue;
+            border-radius: 8px;
+        }
 
-  input[type="text"],
-  select {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
-  }
+        form {
+            margin-top: 20px;
+        }
 
-  input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-</style>
+        select,
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
 
-<form class="container_asignacion" action="./Procesophp/procesar-asignacion.php" method="post">
-  <select class="anio" name="anio" required>
-    <option value="" selected disabled>Seleccione un nivel de estudio</option>
-    <?php while ($row = $result_niveles->fetch_assoc()) : ?>
-      <option value="<?= $row['id'] ?>"><?= $row['nombre'] ?></option>
-    <?php endwhile; ?>
-  </select>
-  <div class="seccion1" id="seleccionador-de-secciones"></div>
-  <select class="materias" name="materias[]" required multiple>
-    <?php foreach ($materias as $materia) : ?>
-      <option value="<?= $materia['id'] ?>"><?= $materia['nombre'] ?></option>
-    <?php endforeach ?>
-  </select>
-  <div id="contenedor-boton"></div>
-</form>
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
 
-<script>
-  const nivel_estudio = document.querySelector('[name="anio"]')
-  const seleccionadorDeSecciones = document.getElementById('seleccionador-de-secciones')
-  const contenedorBoton = document.getElementById('contenedor-boton')
+<body>
+    <div class="contenedor">
+        <h2>Asignar Materias a Profesores</h2>
 
-  nivel_estudio.addEventListener('change', () => {
-    const opcionSeleccionada = nivel_estudio.value
+        <?php if (isset($mensaje)) : ?>
+            <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
+            <script>
+                Swal.fire({
+                    title: 'Resultado',
+                    text: '<?= $mensaje ?>',
+                    icon: '<?= strpos($mensaje, "Error") === false ? "success" : "error" ?>',
+                    confirmButtonText: 'OK'
+                });
+            </script>
+        <?php endif; ?>
 
-    fetch(`${location.href}?nivel_estudio=${opcionSeleccionada}`)
-      .then(respuesta => respuesta.json())
-      .then(secciones => {
-        seleccionadorDeSecciones.innerHTML = `
-          <select class="seccion" name="seccion" required>
-            <option class="seleccionador" disabled selected >Seleccione una sección</option>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <label for="id_profesor">Profesor:</label>
+            <select name="id_profesor" id="id_profesor" required>
+                <option value="" selected disabled>Seleccione un profesor</option>
+                <?php foreach ($profesores as $profesor) : ?>
+                    <option value="<?= $profesor['id'] ?>"><?= $profesor['nombre'] . " " . $profesor['apellido'] ?></option>
+                <?php endforeach; ?>
+            </select>
 
-            ${secciones.map(seccion => `<option>${seccion}</option>`).join('')}
-          </select>
-        `
+            <label for="id_materia">Materia:</label>
+            <select name="id_materia" id="id_materia" required>
+                <option value="" selected disabled>Seleccione una materia</option>
+                <?php foreach ($materias as $materia) : ?>
+                    <option value="<?= $materia['id'] ?>"><?= $materia['nombre'] ?></option>
+                <?php endforeach; ?>
+            </select>
 
-        contenedorBoton.innerHTML = `<button type="submit">Asignar</button>`
-      })
-  })
-</script>
+            <label for="id_periodo">Periodo:</label>
+            <select name="id_periodo" id="id_periodo" required>
+                <option value="" selected disabled>Seleccione un periodo</option>
+                <?php foreach ($periodos as $periodo) : ?>
+                    <option value="<?= $periodo['id'] ?>"><?= $periodo['anio_inicio'] ?></option>
+                <?php endforeach; ?>
+            </select>
 
-<?php include __DIR__ . '/partials/footer.php' ?>
+            <label for="id_nivel_estudio">Nivel de Estudio:</label>
+            <select name="id_nivel_estudio" id="id_nivel_estudio" required>
+                <option value="" selected disabled>Seleccione un nivel de estudio</option>
+                <?php foreach ($niveles as $nivel) : ?>
+                    <option value="<?= $nivel['id'] ?>"><?= $nivel['nombre'] ?></option>
+                <?php endforeach; ?>
+            </select>
+
+            <label for="id_seccion">Sección:</label>
+            <select name="id_seccion" id="id_seccion" required>
+                <option value="" selected disabled>Seleccione una sección</option>
+            </select>
+
+            <input type="submit" value="Asignar Materia">
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('id_nivel_estudio').addEventListener('change', cargarSecciones);
+
+        function cargarSecciones() {
+            const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
+
+            if (idNivelEstudio) {
+                fetch(`./Procesophp/cargar_secciones.php?id_nivel_estudio=${idNivelEstudio}`)
+                    .then(response => response.json())
+                    .then(secciones => {
+                        const seccionSelect = document.getElementById('id_seccion');
+                        seccionSelect.innerHTML = '<option value="" selected disabled>Seleccione una sección</option>';
+                        secciones.forEach(seccion => {
+                            seccionSelect.innerHTML += `<option value="${seccion.id}">${seccion.nombre}</option>`;
+                        });
+                    })
+                    .catch(error => console.error('Error al cargar secciones:', error));
+            }
+        }
+    </script>
+
+    <?php include __DIR__ . '/partials/footer.php' ?>
+</body>
+
+</html>
