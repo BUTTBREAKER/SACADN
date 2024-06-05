@@ -129,7 +129,7 @@
             </li>
             <?php if ($role === 'A') : ?>
               <li>
-                <a class="dropdown-item" href="javascript:">
+                <a class="dropdown-item" href="nuevo_curso.php">
                   <i class="ri-database-line"></i>
                   Aperturar sección
                 </a>
