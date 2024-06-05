@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require __DIR__."/conexion_be.php";
 
@@ -15,13 +15,13 @@ if($_POST) {
  $genero = $_POST['genero'];
  $telefono = $_POST['telefono'];
  $direccion = $_POST['direccion'];
- $fecha_registro = date("d/m/y");  
+ $fecha_registro = date("d/m/y");
 
- $sql= "INSERT INTO profesores( cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento, 
+ $sql= "INSERT INTO profesores( cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento,
   lugar_nacimiento, genero , telefono , direccion, fecha_registro)
  VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento',
   '$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
-   
+
  $conexion->query($sql);
 
 
@@ -37,7 +37,7 @@ echo <<<HTML
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
-    }).then(() => location.href = './Representantes.php')
+    }).then(() => location.href = './Profesores.php')
   </script>
 </body>
 HTML;
