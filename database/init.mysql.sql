@@ -134,29 +134,33 @@ CREATE TABLE calificaciones (
   FOREIGN KEY (id_boletin) REFERENCES boletines (id)
 );
 
-CREATE TABLE asignaciones_materias (
-  id INT PRIMARY KEY AUTO_INCREMENT,
-  id_periodo INT NOT NULL,
-  id_materia INT NOT NULL,
-  id_nivel_estudio INT NOT NULL,
-
-  FOREIGN KEY (id_periodo) REFERENCES periodos (id),
-  FOREIGN KEY (id_materia) REFERENCES materias (id),
-  FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio (id)
+CREATE TABLE asignaciones_estudiantes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_estudiante INT NOT NULL,
+    id_nivel_estudio INT NOT NULL,
+    id_seccion INT NOT NULL,
+    FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id),
+    FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio(id),
+    FOREIGN KEY (id_seccion) REFERENCES secciones(id),
+    UNIQUE(id_estudiante, id_nivel_estudio, id_seccion)
 );
 
-CREATE TABLE asignaciones_profesores (
+CREATE TABLE asignaciones (
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_profesor INT NOT NULL,
   id_materia INT NOT NULL,
   id_periodo INT NOT NULL,
+  id_nivel_estudio INT NOT NULL,
   id_seccion INT NOT NULL,
 
   FOREIGN KEY (id_profesor) REFERENCES profesores (id),
   FOREIGN KEY (id_materia) REFERENCES materias (id),
   FOREIGN KEY (id_periodo) REFERENCES periodos (id),
-  FOREIGN KEY (id_seccion) REFERENCES secciones (id)
+  FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio (id),
+  FOREIGN KEY (id_seccion) REFERENCES secciones (id),
+  UNIQUE(id_profesor, id_materia, id_periodo, id_nivel_estudio, id_seccion)
 );
+
 
 INSERT INTO niveles_estudio (nombre) VALUES ('Primer Año'),
 ('Segundo Año'), ('Tercer Año'), ('Cuarto Año'), ('Quinto Año');
