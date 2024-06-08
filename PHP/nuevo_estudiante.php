@@ -26,6 +26,7 @@ $estados = array_map(static fn (object $info): string => $info->estado, $venezue
   <form class="card col-md-6 py-4" method="post" action="./guardar_estudiante.php" autocomplete="off">
     <h1 class="card-title h3 text-center">Inscripción de Estudiante</h1>
     <div class="card-body row">
+      
       <div class="col-md-12 form-floating mb-3">
         <input class="form-control" type="number" min="4000000" max="50000000" placeholder=" " name="cedula" required />
         <label class="ms-2">

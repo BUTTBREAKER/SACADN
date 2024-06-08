@@ -158,7 +158,7 @@
             <li>
               <a class="dropdown-item" href="nuevo_momento.php">
                 <i class="ri-guide-line"></i>
-                Asignar momentos<br />por período
+                Asignar Lapsos<br />por período
               </a>
             </li>
           </ul>
