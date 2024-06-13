@@ -9,7 +9,9 @@ $id_periodo = $_GET['id_periodo'] ?? null;
 $id_nivel_estudio = $_GET['id_nivel_estudio'] ?? null;
 $id_seccion = $_GET['id_seccion'] ?? null;
 
-if ($id_periodo && $id_nivel_estudio && $id_seccion) {
+// Verificar si todas las variables tienen valores
+if ($id_periodo !== null && $id_nivel_estudio !== null && $id_seccion !== null) {
+    // Ejecutar la consulta SQL
     $stmt = $conexion->prepare("SELECT a.id, m.nombre, p.nombre as profesor
                                 FROM asignaciones a
                                 JOIN materias m ON a.id_materia = m.id
@@ -21,6 +23,8 @@ if ($id_periodo && $id_nivel_estudio && $id_seccion) {
     $materias = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
 
+    // Devolver los datos en formato JSON
     echo json_encode($materias);
 }
+
 ?>
