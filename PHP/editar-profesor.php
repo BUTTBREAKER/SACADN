@@ -17,8 +17,7 @@ if ($_POST) {
   WHERE cedula = ?
   SQL;
 
-  $db->prepare($sql)
-    ->execute([
+  $db->prepare($sql)->execute([
       $_POST['cedula'],
       $_POST['nombre'],
       $_POST['apellido'],

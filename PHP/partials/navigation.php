@@ -52,13 +52,13 @@
               </li>
             <?php endif ?>
             <li>
-              <a class="dropdown-item" href="notas.php">
+              <a class="dropdown-item" href="notas_estudiantes.php">
                 <i class="ri-sticky-note-line"></i>
                 Ver notas
               </a>
             </li>
             <li>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="Calificaciones.php">
                 <i class="ri-git-repository-commits-line"></i>
                 Cargar notas
               </a>

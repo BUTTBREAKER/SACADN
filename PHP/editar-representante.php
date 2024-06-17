@@ -5,8 +5,7 @@ include __DIR__ . '/partials/header.php';
 
 if ($_POST) {
   $sql = <<<SQL
-  UPDATE representantes SET 
-  cedula = ?,
+  UPDATE representantes SET  cedula = ?,
   nombre = ?,
   apellido = ?,
   fecha_nacimiento = ?,
@@ -17,8 +16,7 @@ if ($_POST) {
   WHERE cedula = ?
   SQL;
 
-  $db->prepare($sql)
-    ->execute([
+  $db->prepare($sql) ->execute([
       $_POST['cedula'],
       $_POST['nombre'],
       $_POST['apellido'],

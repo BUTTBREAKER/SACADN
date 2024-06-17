@@ -5,15 +5,15 @@ include __DIR__ . '/partials/header.php';
 
 if ($_POST) {
   $sql = <<<SQL
-  UPDATE estudiantes SET cedula = ?,
-  nombre = ?,
-  apellido = ?,
-  fecha_nacimiento = ?,
-  estado_nacimiento = ?,
-  lugar_nacimiento = ?,
-  genero = ?,
-  id_representante= ?,
-  WHERE cedula = ?
+  UPDATE estudiantes SET e.cedula = ?,
+  e.nombre = ?,
+  e.apellido = ?,
+  e.fecha_nacimiento = ?,
+  e.estado_nacimiento = ?,
+  e.lugar_nacimiento = ?,
+  e.genero = ?,
+  r.id_representante= ?,
+  WHERE e.cedula = ?
   SQL;
 
   $db->prepare($sql)
