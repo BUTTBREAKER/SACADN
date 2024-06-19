@@ -16,16 +16,11 @@ SQL;
 
 $result = $db->query($sql);
 
-if (!$result) {
-    echo "Error en la consulta: " . $db->error;
-    exit;
-}
-
 ?>
 
 <div class="container card card-body table-responsive">
   <h3>Materias Asignadas a Profesores</h3>
-  <table id="tablaEstudiantes" class="table table-striped datatable">
+  <table id="tablaProfesores" class="table table-striped datatable">
     <thead>
       <tr>
         <th>Cédula</th>
@@ -39,36 +34,24 @@ if (!$result) {
     <tbody> 
 
       <?php while ($mostrar = $result->fetch_assoc()) { ?>
-
-        <td>
-              <?= htmlspecialchars($mostrar['cedulaProfesor']) ?>
-          </td>
-        <td>
-            <a href="detalles-profesor.php?id=<?= htmlspecialchars($mostrar['idProfesor']) ?>">
+      <tr>
+        <td> <?= htmlspecialchars($mostrar['cedulaProfesor']) ?></td>
+        <td><a href="detalles-profesor.php?id=<?= htmlspecialchars($mostrar['idProfesor']) ?>">
               <?= htmlspecialchars($mostrar['nombreProfesor']) ?>
-            </a>
-          </td>
-         <td>
-              <?= htmlspecialchars($mostrar['apellidoProfesor']) ?>
-          </td>  
-         <td>
-              <?= htmlspecialchars($mostrar['materia']) ?>
-         </td>
-         <td>
-              <?= htmlspecialchars($mostrar['nivel_estudio']) ?>
-         </td>
-         <td>
-              <?= htmlspecialchars($mostrar['seccion']) ?>
-          </td>
-            
-      <?php } ?>
+            </a></td>
+        <td><?= htmlspecialchars($mostrar['apellidoProfesor']) ?></td>  
+        <td><?= htmlspecialchars($mostrar['materia']) ?></td>
+        <td><?= htmlspecialchars($mostrar['nivel_estudio']) ?></td>
+        <td><?= htmlspecialchars($mostrar['seccion']) ?></td>
+      </tr>      
+      <?php }?>
     </tbody>
   </table>
 </div>
 
 <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 <script>
-  const tablaEstudiantes = new simpleDatatables.DataTable("#tablaEstudiantes");
+  const tablaProfesores = new simpleDatatables.DataTable("#tablaProfesores");
 </script>
 
 <?php include __DIR__ . '/partials/footer.php' ?>

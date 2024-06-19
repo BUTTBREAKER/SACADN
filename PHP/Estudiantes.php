@@ -15,6 +15,7 @@ $sql = <<<SQL
   JOIN representantes r ON r.id = e.id_representante
 SQL;
 
+
 $result = $db->query($sql);
 
 if (!$result) {

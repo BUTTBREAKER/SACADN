@@ -65,6 +65,7 @@
             </li>
           </ul>
         </li>
+
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
             <i class="ri-team-line"></i>
@@ -77,6 +78,7 @@
                 Ver profesores
               </a>
             </li>
+            <li>
             <?php if ($role === 'A') : ?>
               <li>
                 <a class="dropdown-item" href="nuevo_profesor.php">
@@ -84,9 +86,16 @@
                   Registrar profesor
                 </a>
               </li>
+            <li>
+                <a class="dropdown-item" href="lista_profesores.php">
+                  <i class="ri-booklet-line"></i>
+                    Materias Asignadas
+                </a>
+              </li>
             <?php endif ?>
           </ul>
         </li>
+
         <li class="nav-item dropdown">
           <button class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
             <i class="ri-booklet-line"></i>

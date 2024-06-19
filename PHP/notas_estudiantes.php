@@ -4,15 +4,15 @@ include __DIR__ . '/partials/header.php';
 ?>
 
 <body>
-  <div class="container">
+  <div class="container card card-body table-responsive">
     <h1 class="mt-5 mb-4">Consulta de Notas por Año y Sección</h1>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
         <div class="col-md-4">
-          <label for="id_periodo" class="form-label">Selecciona el Año:</label>
+          <label for="id_periodo" class="form-label">Selecciona el periodo:</label>
           <select name="id_periodo" id="id_periodo" class="form-select" required>
-            <option value="" disabled selected>Selecciona un Año</option>
+            <option value="" disabled selected>Selecciona un periodo</option>
             <?php
             // Realizar la conexión a la base de datos (requiere el archivo de conexión)
             $db = require_once __DIR__ . '/conexion_be.php';
@@ -27,9 +27,9 @@ include __DIR__ . '/partials/header.php';
           </select>
         </div>
         <div class="col-md-4">
-          <label for="id_seccion" class="form-label">Selecciona la Sección:</label>
+          <label for="id_seccion" class="form-label">Selecciona Año-Seccion:</label>
           <select name="id_seccion" id="id_seccion" class="form-select" required>
-            <option value="" disabled selected>Selecciona una Sección</option>
+            <option value="" disabled selected>Selecciona Año-Seccion</option>
             <?php
             // Consultar las secciones disponibles
             $sql_secciones = "SELECT s.id, s.nombre AS seccion, n.nombre AS nivel
@@ -49,7 +49,7 @@ include __DIR__ . '/partials/header.php';
       </div>
     </form>
 
-    <?php
+   <?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_periodo']) && isset($_GET['id_seccion'])) {
       // Obtener los valores de los parámetros del formulario
@@ -95,6 +95,7 @@ include __DIR__ . '/partials/header.php';
           echo '<th>' . htmlspecialchars($materia) . '</th>';
         }
         echo '          <th>Detalles</th>
+
                                 </tr>
                             </thead>
                             <tbody>';

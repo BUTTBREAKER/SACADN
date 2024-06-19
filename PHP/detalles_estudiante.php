@@ -14,12 +14,17 @@ if (!$estudiante_id) {
 
 // Realizar la conexión a la base de datos (requiere el archivo de conexión)
 $db = require_once __DIR__ . '/conexion_be.php';
-
 // Consultar los detalles del estudiante
-$sql_estudiante = "SELECT e.*, r.nombre AS nombre_representante, r.apellido AS apellido_representante
-                   FROM estudiantes e
-                   JOIN representantes r ON e.id_representante = r.id
-                   WHERE e.id = ?";
+$sql_estudiante = "SELECT e.* ,r.nombre AS nombre_representante, r.apellido AS apellido_representante
+                          FROM estudiantes e
+                          JOIN representantes r ON e.id_representante =r.id
+                          WHERE e.id = ?";
+$stmt_estudiante = $db->prepare($sql_estudiante);
+$stmt_estudiante->bind_param('i', $estudiante_id);
+$stmt_estudiante->execute();
+$result_estudiante = $stmt_estudiante->get_result();
+
+ 
 $stmt_estudiante = $db->prepare($sql_estudiante);
 $stmt_estudiante->bind_param('i', $estudiante_id);
 $stmt_estudiante->execute();
@@ -90,7 +95,7 @@ $result_calificaciones = $stmt_calificaciones->get_result();
                 <p><strong>Cédula:</strong> <?= htmlspecialchars($estudiante['cedula']) ?></p>
                 <p><strong>Fecha de Nacimiento:</strong> <?= htmlspecialchars($estudiante['fecha_nacimiento']) ?></p>
                 <p><strong>Estado de Nacimiento:</strong> <?= htmlspecialchars($estudiante['estado_nacimiento']) ?></p>
-                <p><strong>Lugar de Nacimiento:</strong> <?= htmlspecialchars($estudiante['lugar_nacimiento']) ?></p>
+                <p><strong>Municipio de Nacimiento:</strong> <?= htmlspecialchars($estudiante['lugar_nacimiento']) ?></p>
                 <p><strong>Género:</strong> <?= htmlspecialchars($estudiante['genero']) ?></p>
                 <p><strong>Representante:</strong> <?= htmlspecialchars($estudiante['nombre_representante']) . ' ' . htmlspecialchars($estudiante['apellido_representante']) ?></p>
 
