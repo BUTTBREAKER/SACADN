@@ -4,26 +4,16 @@ include __DIR__ . '/partials/header.php';
 ?>
 
 <body>
-<<<<<<< HEAD
-  <div class="container card card-body table-responsive">
-    <h1 class="mt-5 mb-4">Consulta de Notas por Año y Sección</h1>
-=======
+<body>
   <div class="container">
     <h1 class="mt-5 mb-4">Consulta de Notas por Momentos y Sección</h1>
->>>>>>> 86bcf7288f04f619f8b846cec92468e6fd2c3942
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
+   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
         <div class="col-md-4">
-<<<<<<< HEAD
-          <label for="id_periodo" class="form-label">Selecciona el periodo:</label>
-          <select name="id_periodo" id="id_periodo" class="form-select" required>
-            <option value="" disabled selected>Selecciona un periodo</option>
-=======
           <label for="id_momento" class="form-label">Selecciona el Momento:</label>
           <select name="id_momento" id="id_momento" class="form-select" required>
             <option value="" disabled selected>Selecciona un Momento</option>
->>>>>>> 86bcf7288f04f619f8b846cec92468e6fd2c3942
             <?php
             // Realizar la conexión a la base de datos (requiere el archivo de conexión)
             $db = require_once __DIR__ . '/conexion_be.php';
@@ -109,16 +99,9 @@ include __DIR__ . '/partials/header.php';
           echo '<th>' . htmlspecialchars($materia) . '</th>';
         }
         echo '          <th>Detalles</th>
-<<<<<<< HEAD
-
-                                </tr>
-                            </thead>
-                            <tbody>';
-=======
                         </tr>
                     </thead>
                     <tbody>';
->>>>>>> 86bcf7288f04f619f8b846cec92468e6fd2c3942
         // Mostrar las calificaciones por estudiante
         foreach ($calificacionesPorEstudiante as $estudiante_id => $data) {
           echo '<tr>
@@ -139,7 +122,8 @@ include __DIR__ . '/partials/header.php';
         echo '      </tbody>
                 </table>
             </div>';
-      } else {
+      }
+       else {
         echo "<p class='mt-4'>No se encontraron notas para el momento y la sección seleccionados.</p>";
       }
     }

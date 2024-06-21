@@ -95,14 +95,7 @@ while ($row = $result_calificaciones->fetch_assoc()) {
                 <h5 class="card-title">Información del Estudiante</h5>
                 <p><strong>Nombre Completo:</strong> <?= htmlspecialchars($estudiante['nombre']) . ' ' . htmlspecialchars($estudiante['apellido']) ?></p>
                 <p><strong>Cédula:</strong> <?= htmlspecialchars($estudiante['cedula']) ?></p>
-<<<<<<< HEAD
-                <p><strong>Fecha de Nacimiento:</strong> <?= htmlspecialchars($estudiante['fecha_nacimiento']) ?></p>
-                <p><strong>Estado de Nacimiento:</strong> <?= htmlspecialchars($estudiante['estado_nacimiento']) ?></p>
-                <p><strong>Municipio de Nacimiento:</strong> <?= htmlspecialchars($estudiante['lugar_nacimiento']) ?></p>
-                <p><strong>Género:</strong> <?= htmlspecialchars($estudiante['genero']) ?></p>
-                <p><strong>Representante:</strong> <?= htmlspecialchars($estudiante['nombre_representante']) . ' ' . htmlspecialchars($estudiante['apellido_representante']) ?></p>
-=======
->>>>>>> 86bcf7288f04f619f8b846cec92468e6fd2c3942
+
 
                 <h5 class="card-title mt-4">Detalles Académicos</h5>
                 <p><strong>Nivel de Estudio:</strong> <?= htmlspecialchars($asignacion['nivel_estudio']) ?></p>
