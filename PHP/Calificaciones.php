@@ -52,8 +52,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_materia'], $_POST['
   $id_boletin = $boletin['id'] ?? null;
 
   if ($id_boletin) {
+    // Obtener el ID de la materia correspondiente a la asignación seleccionada
+    $stmt_materia = $conexion->prepare("SELECT m.id FROM asignaciones a JOIN materias m ON a.id_materia = m.id WHERE a.id = ?");
+    $stmt_materia->bind_param("i", $id_materia);
+    $stmt_materia->execute();
+    $result_materia = $stmt_materia->get_result();
+    $materia = $result_materia->fetch_assoc();
+    $id_materia_real = $materia['id'];
+
     $stmt_calificacion = $conexion->prepare("INSERT INTO calificaciones (id_materia, id_boletin, calificacion) VALUES (?, ?, ?)");
-    $stmt_calificacion->bind_param("iii", $id_materia, $id_boletin, $calificacion);
+    $stmt_calificacion->bind_param("iii", $id_materia_real, $id_boletin, $calificacion);
 
     try {
       $stmt_calificacion->execute();
