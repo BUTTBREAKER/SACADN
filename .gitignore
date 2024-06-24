@@ -6,3 +6,4 @@ vendor
 .idea
 *backup*
 .htaccess
+*.exe*
