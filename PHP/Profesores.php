@@ -30,7 +30,9 @@ $result = $db->query($sql);
         <th>Teléfono</th>
         <th>Dirección</th>
         <th>Estado</th>
+        <?php if ($role === 'A') : ?>
         <th>Opciones</th>
+        <?php endif ?>
       </tr>
     </thead>
     <tbody>
@@ -47,10 +49,11 @@ $result = $db->query($sql);
           <td><?= $mostrar['telefono'] ?></td>
           <td><?= $mostrar['direccion'] ?></td>
           <td><?= $mostrar['estado'] ?></td>
+          <?php if ($role === 'A') : ?>
           <td>
             <form method="post">
               <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
-              <?php { 
+              <?php {
                echo "<a data-action='toggle-status' data-prof-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-profesor.php?toggle_estado=true&profesor_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
              }?>
              </button>
@@ -59,6 +62,7 @@ $result = $db->query($sql);
               </button>
             </form>
           </td>
+          <?php endif ?>
         </tr>
       <?php endwhile ?>
     </tbody>

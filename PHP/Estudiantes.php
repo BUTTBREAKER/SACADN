@@ -39,10 +39,12 @@ if (!$result) {
         <th>Sexo</th>
         <th>Representante</th>
         <th>Estado</th>
+        <?php if ($role === 'A') : ?>
         <th>Opciones</th>
+        <?php endif ?>
       </tr>
     </thead>
-    <tbody> 
+    <tbody>
 
       <?php while ($mostrar = $result->fetch_assoc()) { ?>
         <tr>
@@ -64,10 +66,11 @@ if (!$result) {
             </a>
           </td>
           <td><?= htmlspecialchars($mostrar['estado']) ?></td>
+          <?php if ($role === 'A') : ?>
           <td>
             <form method="post">
             <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
-             <?php { 
+             <?php {
                echo "<a data-action='toggle-status' data-studen-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estudiante.php?toggle_estado=true&estudiante_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
              } ?>
             </button>
@@ -76,6 +79,7 @@ if (!$result) {
               </button>
             </form>
           </td>
+          <?php endif ?>
         </tr>
       <?php } ?>
     </tbody>
