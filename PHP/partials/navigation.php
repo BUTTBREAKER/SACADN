@@ -121,7 +121,6 @@
                   Asignar materia a años
                 </a>
               </li>
-            <?php endif ?>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -131,12 +130,11 @@
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="javascript:">
+              <a class="dropdown-item" href="asignar-estudiante.php">
                 <i class="ri-table-line"></i>
-                Ver años y secciones
+                Asignar Estudiantes
               </a>
             </li>
-            <?php if ($role === 'A') : ?>
               <li>
                 <a class="dropdown-item" href="nuevo_curso.php">
                   <i class="ri-database-line"></i>
@@ -158,6 +156,7 @@
                 Ver períodos
               </a>
             </li>
+            <?php if ($role === 'A') : ?>
             <li>
               <a class="dropdown-item" href="nuevo_periodo.php">
                 <i class="ri-add-large-line"></i>
@@ -170,6 +169,7 @@
                 Asignar Lapsos<br />por período
               </a>
             </li>
+            <?php endif ?>
           </ul>
         </li>
         <?php if ($role === 'A') : ?>
