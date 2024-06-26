@@ -220,7 +220,6 @@ try {
     <form method="post">
         <?= $html ?>
         <div class="text-center mt-4">
-            <button class="btn btn-primary mr-2" name="generar_pdf">Generar PDF</button>
             <button class="btn btn-success" onclick="window.print()">Imprimir</button>
         </div>
     </form>

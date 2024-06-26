@@ -48,9 +48,6 @@ $resultEstudiantes = $stmtEstudiantes->get_result();
 
 <div class="container card card-body">
   <h2>Detalles del Representante</h2>
-   <div >
-        <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
-     </div>
   <p><strong>Nombre:</strong> <?= htmlspecialchars($representante['nombre']) ?></p>
   <p><strong>Apellido:</strong> <?= htmlspecialchars($representante['apellido']) ?></p>
   <p><strong>Teléfono:</strong> <?= htmlspecialchars($representante['telefono']) ?></p>
