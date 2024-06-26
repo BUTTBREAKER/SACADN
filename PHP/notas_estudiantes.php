@@ -6,14 +6,14 @@ include __DIR__ . '/partials/header.php';
 
 <body>
   <div class="container card card-body table-responsive">
-    <h1 class="mt-5 mb-4">Consulta de Notas por Momentos y Sección</h1>
+    <h1 class="mt-5 mb-4">Consulta de Notas por lapso y Sección</h1>
 
    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
         <div class="col-md-4">
-          <label for="id_momento" class="form-label">Selecciona el Momento:</label>
+          <label for="id_momento" class="form-label">Selecciona el Lapso:</label>
           <select name="id_momento" id="id_momento" class="form-select" required>
-            <option value="" disabled selected>Selecciona un Momento</option>
+            <option value="" disabled selected>Selecciona un Lapso</option>
             <?php
             // Realizar la conexión a la base de datos (requiere el archivo de conexión)
             $db = require_once __DIR__ . '/conexion_be.php';
