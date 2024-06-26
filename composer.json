@@ -10,7 +10,9 @@
     "thomaspark/bootswatch": "^5.3",
     "select2/select2": "^4.0",
     "components/jquery": "^3.7",
-    "apalfrey/select2-bootstrap-5-theme": "^1.3"
+    "apalfrey/select2-bootstrap-5-theme": "^1.3",
+    "dompdf/dompdf": "^3.0",
+    "tecnickcom/tcpdf": "^6.7"
   },
   "scripts": {
     "dev:win": "start php -S localhost:8080",
