@@ -9,7 +9,7 @@ include __DIR__ . '/partials/header.php';
 /* Seleccionar representantes con el conteo de estudiantes */
 $sql = <<<SQL
   SELECT r.id, r.cedula, r.nombre, r.apellido, r.fecha_nacimiento, r.lugar_nacimiento,
-  r.genero, r.telefono, r.direccion, r.fecha_registro, COUNT(e.id) AS num_estudiantes
+  r.genero, r.telefono, r.direccion, r.estado, r.fecha_registro, COUNT(e.id) AS num_estudiantes
   FROM representantes r
   LEFT JOIN estudiantes e ON r.id = e.id_representante
   GROUP BY r.id
@@ -35,6 +35,7 @@ $result = $db->query($sql);
         <th>Teléfono</th>
         <th>Dirección</th>
         <th>Num.Representados</th>
+        <th>Estado</th>
         <th>Opciones</th>
       </tr>
     </thead>
@@ -55,11 +56,14 @@ $result = $db->query($sql);
           <td><?= htmlspecialchars($mostrar['telefono']) ?></td>
           <td><?= htmlspecialchars($mostrar['direccion']) ?></td>
           <td><?= htmlspecialchars($mostrar['num_estudiantes']) ?></td>
+          <td><?= htmlspecialchars($mostrar['estado']) ?></td>
           <td>
             <form method="post">
-              <button data-bs-toggle="tooltip" title="Eliminar" class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
-                <i class="ri-delete-bin-line"></i>
-              </button>
+              <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
+              <?php { 
+               echo "<a data-action='toggle-status' data-representative-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-representante.php?toggle_estado=true&representante_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
+             } ?>
+            </button>
               <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-edit-box-line"></i>
               </button>

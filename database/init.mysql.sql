@@ -37,6 +37,7 @@ CREATE TABLE representantes (
   genero ENUM('Femenino', 'Masculino') NOT NULL,
   telefono VARCHAR(16) NOT NULL UNIQUE,
   direccion TEXT NOT NULL,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -51,6 +52,7 @@ CREATE TABLE profesores (
   genero ENUM('Femenino', 'Masculino') NOT NULL,
   telefono VARCHAR(16) NOT NULL UNIQUE,
   direccion TEXT NOT NULL,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -73,6 +75,7 @@ CREATE TABLE estudiantes (
   estado_nacimiento VARCHAR(20) NOT NULL,
   lugar_nacimiento TEXT NOT NULL,
   genero ENUM('Femenino', 'Masculino') NOT NULL,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
   id_representante INT NOT NULL,
 

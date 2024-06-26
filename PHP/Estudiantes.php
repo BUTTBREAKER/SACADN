@@ -9,7 +9,7 @@ include __DIR__ . '/partials/header.php';
 /* Selecciona campo ci_est y cámbiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
   SELECT e.id, e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, e.estado_nacimiento, e.lugar_nacimiento,
-  e.genero, e.fecha_registro, r.id AS idRepresentante, r.nombre AS nombresRepresentante,
+  e.genero, e.estado, e.fecha_registro, r.id AS idRepresentante, r.nombre AS nombresRepresentante,
   r.apellido AS apellidosRepresentante
   FROM estudiantes e
   JOIN representantes r ON r.id = e.id_representante
@@ -38,6 +38,7 @@ if (!$result) {
         <th>Municipio de nacimiento</th>
         <th>Sexo</th>
         <th>Representante</th>
+        <th>Estado</th>
         <th>Opciones</th>
       </tr>
     </thead>
@@ -62,11 +63,14 @@ if (!$result) {
               <?= htmlspecialchars($mostrar['nombresRepresentante'] . ' ' . $mostrar['apellidosRepresentante']) ?>
             </a>
           </td>
+          <td><?= htmlspecialchars($mostrar['estado']) ?></td>
           <td>
             <form method="post">
-              <button data-bs-toggle="tooltip" title="Eliminar" class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-estudiante.php?cedula=<?= htmlspecialchars($mostrar['cedula']) ?>">
-                <i class="ri-delete-bin-line"></i>
-              </button>
+            <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
+             <?php { 
+               echo "<a data-action='toggle-status' data-studen-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estudiante.php?toggle_estado=true&estudiante_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
+             } ?>
+            </button>
               <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-estudiante.php?cedula=<?= htmlspecialchars($mostrar['cedula']) ?>">
                 <i class="ri-edit-box-line"></i>
               </button>

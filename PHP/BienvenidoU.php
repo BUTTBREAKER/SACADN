@@ -8,7 +8,7 @@ $user = auth()['Usuario'];
 
 ?>
 
-<div class="container">
+<div class="container card card-body">
   <div class="row mt-3 justify-content-md-center">
     <div class="col-md-6">
       <h1>Bienvenido, <?= $user ?></h1>

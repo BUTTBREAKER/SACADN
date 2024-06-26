@@ -8,7 +8,7 @@ include __DIR__ . '/partials/header.php';
 
 $sql = <<<SQL
   SELECT id, cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento,
-  lugar_nacimiento, genero, telefono, direccion, fecha_registro FROM profesores
+  lugar_nacimiento, genero, telefono, direccion, estado, fecha_registro FROM profesores
  SQL;
 
 $result = $db->query($sql);
@@ -25,10 +25,11 @@ $result = $db->query($sql);
         <th>Fecha de nacimiento</th>
         <th>Edad</th>
         <th>Estado de nacimiento</th>
-        <th>Lugar de nacimiento</th>
+        <th>Municipio de nacimiento</th>
         <th>Sexo</th>
         <th>Teléfono</th>
         <th>Dirección</th>
+        <th>Estado</th>
         <th>Opciones</th>
       </tr>
     </thead>
@@ -45,11 +46,14 @@ $result = $db->query($sql);
           <td><?= $mostrar['genero'] ?></td>
           <td><?= $mostrar['telefono'] ?></td>
           <td><?= $mostrar['direccion'] ?></td>
+          <td><?= $mostrar['estado'] ?></td>
           <td>
             <form method="post">
-              <button data-bs-toggle="tooltip" title="Eliminar" class="btn btn-outline-danger fs-4 p-1" formaction="eliminar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
-                <i class="ri-delete-bin-line"></i>
-              </button>
+              <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
+              <?php { 
+               echo "<a data-action='toggle-status' data-prof-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-profesor.php?toggle_estado=true&profesor_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
+             }?>
+             </button>
               <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
                 <i class="ri-edit-box-line "></i>
               </button>
