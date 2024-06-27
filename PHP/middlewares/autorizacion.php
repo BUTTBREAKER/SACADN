@@ -10,8 +10,8 @@ $rol = $conexion
 if ($rol === "U") {
   exit (<<<HTML
   <body>
-    <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
-    <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
+    <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
     <script>
       Swal.fire({
         title: 'Acceso Denegado Solo Personal Autorizado',

@@ -5,6 +5,7 @@ declare(strict_types=1);
 $showAdministratorRegister ??= true;
 
 ?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -24,7 +25,7 @@ $showAdministratorRegister ??= true;
           echo <<<html
           <form
             id="registerForm"
-            action="php/registro_usuario_be.php"
+            action="PHP/registro_usuario_be.php"
             method="post"
             class="formulario__register"
           >
@@ -42,13 +43,26 @@ $showAdministratorRegister ??= true;
             </div>
             <div class="form-control">
               <input
-                id="registerNombreCompleto"
-                minlength="7"
+                id="nombre"
+                minlength="3"
                 maxlength="80"
                 pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
-                placeholder="Nombre completo"
-                name="nombre_completo"
+                placeholder="Nombres"
+                name="nombre"
                 required
+                title="Mínimo 2 palabras de al menos 3 caracteres"
+              /> <small class="error-message"></small> <span></span>
+            </div>
+            <div class="form-control">
+              <input
+                id="apellido"
+                minlength="3"
+                maxlength="80"
+                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
+                placeholder="Apellidos"
+                name="apellido"
+                required
+                title="Mínimo 2 palabras de al menos 3 caracteres"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -65,15 +79,16 @@ $showAdministratorRegister ??= true;
                 type="password"
                 id="registerContrasena"
                 placeholder="Contraseña"
-                name="contrasena"
+                name="clave"
                 required
                 minlength="4"
                 maxlength="20"
-                pattern=".{4,20}"
-                title="La contraseña debe tener entre 4 y 20 caracteres."
+                pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,}"
+                title="La contraseña debe tener al menos 1 mayúscula,
+                1 número y un símbolo"
               /> <small class="error-message"></small> <span></span>
             </div>
-            <input type="hidden" name="rol" id="rol" value="A">
+            <input type="hidden" name="rol" value="A" />
             <button>Registrar</button>
           </form>
           html;
@@ -99,7 +114,7 @@ $showAdministratorRegister ??= true;
               type="password"
               id="loginContrasena"
               placeholder="Contraseña"
-              name="contrasena"
+              name="clave"
             /> <small class="error-message"></small> <span></span>
           </div>
           <button value="submit">Iniciar sesión</button>

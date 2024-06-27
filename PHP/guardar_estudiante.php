@@ -1,38 +1,39 @@
-<?php 
+<?php
 
-require __DIR__."/conexion2.php";
+require __DIR__."/conexion_be.php";
 
 $resultado = null;
 
 if($_POST) {
-
- $ci_est = $_POST['ci_est'];
- $nombre_completo = $_POST['nombre_completo'];
+ $cedula = $_POST['cedula'];
+ $nombre = $_POST['nombre'];
  $apellido = $_POST['apellido'];
- $fecha_nac = $_POST['fecha_nac'];
- $estado = $_POST['estado'];
- $lugar = $_POST['lugar'];
+ $fecha_nacimiento = $_POST['fecha_nacimiento'];
+ $estado_nacimiento = $_POST['estado_nacimiento'];
+ $lugar_nacimiento = $_POST['lugar_nacimiento'];
  $genero = $_POST['genero'];
- $fech_est = date("d/m/y");  
+ $fecha_registro = date("d/m/y");
+ $id_representante = $_POST['id_representante'];
 
- $sql= "INSERT INTO `estudiantes`(`ci_est`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `ci_repr`)
- VALUES ('$ci_est','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_est','$ci_repr')";
-   
- $resultado = mysqli_query($conn,$sql);
+ $sql = "INSERT INTO estudiantes ( cedula, nombre,  apellido ,  fecha_nacimiento,  estado_nacimiento,
+  lugar_nacimiento,  genero, fecha_registro, id_representante)
+ VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento','$estado_nacimiento','$lugar_nacimiento',
+ '$genero', '$fecha_registro','$id_representante')"; 
 
+  $conexion->query($sql);
 
  }
 echo <<<HTML
 <body>
-  <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
-  <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
+  <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
   <script>
     Swal.fire({
       title: 'Estudiante Almacenado correctamente',
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
-    }).then(() => location.href = './representantes.php')
+    }).then(() => location.href = './Estudiantes.php')
   </script>
 </body>
 HTML;

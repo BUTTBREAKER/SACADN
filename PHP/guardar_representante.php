@@ -1,40 +1,41 @@
 <?php 
 
-require __DIR__."/conexion2.php";
+require __DIR__."/conexion_be.php";
 
 $resultado = null;
 
 if($_POST) {
 
- $ci_repr = $_POST['ci_repr'];
- $nombre_completo = $_POST['nombre_completo'];
+ $cedula = $_POST['cedula'];
+ $nombre = $_POST['nombre'];
  $apellido = $_POST['apellido'];
- $fecha_nac = $_POST['fecha_nac'];
- $estado = $_POST['estado'];
- $lugar = $_POST['lugar'];
+ $fecha_nacimiento = $_POST['fecha_nacimiento'];
+ $lugar_nacimiento = $_POST['lugar_nacimiento'];
  $genero = $_POST['genero'];
  $telefono = $_POST['telefono'];
  $direccion = $_POST['direccion'];
- $fech_repr = date("d/m/y");  
+ $fecha_registro = date("d/m/y");  
 
- $sql= "INSERT INTO `representantes`(`ci_repr`, `nombre_completo`, `apellido`, `fecha_nac`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_repr`)
- VALUES ('$ci_repr','$nombre_completo','$apellido','$fecha_nac','$estado','$lugar','$genero','$telefono','$direccion','$fech_repr')";
+ $sql= "INSERT INTO representantes (cedula, nombre, apellido, fecha_nacimiento,  
+  lugar_nacimiento, genero , telefono , direccion, fecha_registro)
+ VALUES ('$cedula','$nombre','$apellido','$fecha_nacimiento',
+  '$lugar_nacimiento','$genero','$telefono','$direccion','$fecha_registro')";
    
- $resultado = mysqli_query($conn,$sql);
-
+ $conexion->query($sql);
 
  }
+
 echo <<<HTML
 <body>
-  <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
-  <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
+  <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
   <script>
     Swal.fire({
-      title: 'Representante Almacenado correctamente',
+      title: 'Representante almacenado correctamente',
       icon: 'success',
       showConfirmButton: false,
       timer: 3000
-    }).then(() => location.href = './representantes.php')
+    }).then(() => location.href = './Representantes.php')
   </script>
 </body>
 HTML;

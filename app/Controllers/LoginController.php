@@ -15,7 +15,7 @@ final readonly class LoginController
 
   public function renderPage(): void
   {
-    $sql = "SELECT COUNT(*) FROM usuarios WHERE rol = 'A'";
+    $sql = "SELECT COUNT(*) FROM usuarios WHERE rol = 'A' AND estado = 'activo'";
     $administratorsNumber = (int) $this->db->query($sql)->fetch_column();
 
     $this->view->render('pages/login', [
@@ -25,7 +25,7 @@ final readonly class LoginController
 
   public function handleLogin(): never
   {
-    if (!key_exists('usuario', $_POST) || !key_exists('contrasena', $_POST)) {
+    if (!key_exists('usuario', $_POST) || !key_exists('clave', $_POST)) {
       // TODO: show 'Required credentials' error
       exit;
     }
@@ -43,7 +43,9 @@ final readonly class LoginController
       );
     }
 
-    $stmt->bind_result($id, $fullName, $idCard, $user, $hash, $role, $state);
+
+    $stmt->bind_result($id, $name, $lastName, $idCard, $user, $hash, $role, $state, $createdAt);
+
     $stmt->fetch();
 
     if ($state !== 'activo') {
@@ -54,7 +56,7 @@ final readonly class LoginController
       );
     }
 
-    if (!password_verify($_POST['contrasena'], $hash)) {
+    if (!password_verify($_POST['clave'], $hash)) {
       $this->showError(
         'Credenciales incorrectas.'
           . ' Por favor, verifique su usuario y contraseña.',
@@ -65,7 +67,7 @@ final readonly class LoginController
     session_start();
     $_SESSION['usuario_id'] = $id;
 
-    exit(header("Location: php/Bienvenido$role.php"));
+    exit(header("Location: PHP/Bienvenido$role.php"));
   }
 
   private function showError(string $message, string $type): never
@@ -79,8 +81,8 @@ final readonly class LoginController
 
     exit(<<<html
     <body>
-      <link rel="stylesheet" href="./assets/sweetalert2/borderless.min.css" />
-      <script src="./assets/sweetalert2/sweetalert2.min.js"></script>
+      <link rel="stylesheet" href="./Assets/sweetalert2/borderless.min.css" />
+      <script src="./Assets/sweetalert2/sweetalert2.min.js"></script>
       <script>
         Swal.fire({
           title: '$title',
@@ -88,7 +90,7 @@ final readonly class LoginController
           icon: 'error',
           showConfirmButton: false,
           timer: 5000
-        }).then(() => location.href = './php/salir.php')
+        }).then(() => location.href = './PHP/salir.php')
       </script>
     </body>
     html);
