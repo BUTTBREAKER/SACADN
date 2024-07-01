@@ -31,7 +31,8 @@ $representante = $result->fetch_assoc();
 
 /* Seleccionar los estudiantes representados por este representante junto con su nivel de estudio y sección */
 $sqlEstudiantes = <<<SQL
-  SELECT e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, ne.nombre AS nivel_estudio, s.nombre AS seccion
+  SELECT e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, ne.nombre AS nivel_estudio, s.nombre AS seccion,
+  ae.fecha_registro AS fecha
   FROM estudiantes e
   JOIN asignaciones_estudiantes ae ON e.id = ae.id_estudiante
   JOIN niveles_estudio ne ON ae.id_nivel_estudio = ne.id
@@ -64,6 +65,7 @@ $resultEstudiantes = $stmtEstudiantes->get_result();
           <th>Fecha de Nacimiento</th>
           <th>Nivel de Estudio</th>
           <th>Sección</th>
+          <th>Fecha de Inscripción/Hora</th>
         </tr>
       </thead>
       <tbody>
@@ -75,6 +77,7 @@ $resultEstudiantes = $stmtEstudiantes->get_result();
             <td><?= htmlspecialchars(formatearFecha($estudiante['fecha_nacimiento'])) ?></td>
             <td><?= htmlspecialchars($estudiante['nivel_estudio']) ?></td>
             <td><?= htmlspecialchars($estudiante['seccion']) ?></td>
+            <td><?= htmlspecialchars($estudiante['fecha']) ?></td>
           </tr>
         <?php } ?>
       </tbody>

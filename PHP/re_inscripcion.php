@@ -70,32 +70,40 @@ $sql =
 $result = $db->query($sql);
 }
 ?>
+<body>
+    <div class="container card card-body table-responsive">
+        <h3 value="<?= $nivel['nombre'] ?>"></h3>
+         <h3 value="<?= $seccion['nombre'] ?>"></h3>
+            <div class="table-responsive">
+                  <table id="tablaEstudiantesPorSeciones" class="table table-striped datatable">
+                        <thead>
+                            <tr>
+                                <th>Cedula</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Representante</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($estudiante = $result_estudiante->fetch_assoc(MYSQLI_ASSOC)) { ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($estudiante['cedulaEstudiante']) ?></td>
+                                    <td><?= htmlspecialchars($estudiante['nombreEstudiante']) ?></td>
+                                    <td><?= htmlspecialchars($estudiante['apellidoEstudiante']) ?></td>
+                                    <td>
+                                       <a href="detalles-representante.php?id=<?= htmlspecialchars($estudiante['idRepresentante']) ?>">
+                                          <?= htmlspecialchars($estudiante['nombresRepresentante'] . ' ' . $estudiante['apellidosRepresentante']) ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+            </div>
+    </div>
+</body>
 
-<div class="container card card-body table-responsive">
-  <h3>Materias Asignadas a Profesores</h3>
-  <table id="tablaEstudiantes" class="table table-striped datatable">
-    <thead>
-      <tr>
-        <th>Cédula</th>
-        <th>Nombres</th>
-        <th>Apellidos</th>
-        <th>Momento</th>
-      </tr>
-    </thead>
-    <tbody> 
-   <?php while ($mostrar = $result->fetch_assoc()) { ?>
-      <tr>
-        <td> <?= htmlspecialchars($mostrar['cedulaEstudiante']) ?></td>
-        <td><a href="detalles-profesor.php?id=<?= htmlspecialchars($mostrar['id_estudiante']) ?>">
-              <?= htmlspecialchars($mostrar['nombreEstudiante']) ?>
-            </a></td>
-        <td><?= htmlspecialchars($mostrar['apellidoEstudiante']) ?></td>  
-        <td><?= htmlspecialchars($mostrar['momento']) ?></td>
-      </tr>      
-      <?php }?>
-    </tbody>
-  </table>
-</div>
+
 
   <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 

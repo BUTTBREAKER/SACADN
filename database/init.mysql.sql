@@ -131,10 +131,13 @@ CREATE TABLE calificaciones (
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_materia INT NOT NULL,
   id_boletin INT NOT NULL,
+  id_usuario INT NOT NULL,
   calificacion INT NOT NULL CHECK (calificacion >= 0 AND calificacion <= 20),
-
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+  
   FOREIGN KEY (id_materia) REFERENCES materias (id),
-  FOREIGN KEY (id_boletin) REFERENCES boletines (id)
+  FOREIGN KEY (id_boletin) REFERENCES boletines (id),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
 );
 
 CREATE TABLE asignaciones_estudiantes (

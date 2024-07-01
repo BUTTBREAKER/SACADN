@@ -18,20 +18,20 @@ $sql_estudiante =
   FROM estudiantes e
   JOIN representantes r ON r.id = e.id_representante";
 $result_estudiante = $db->query($sql_estudiante);
-            while ($estudiante = $result_estudiante->fetch_assoc(MYSQLI_ASSOC));
+            while ($estudiante = $result_estudiante->fetch_assoc());
 
 
 $sql_nivel = "SELECT id, nombre FROM niveles_estudio ";
 $result_nivel = $db->query($sql_nivel);
-            while ($nivel = $result_nivel->fetch_assoc(MYSQLI_ASSOC));
+            while ($nivel = $result_nivel->fetch_assoc());
 
 $sql_secciones = "SELECT id, nombre FROM secciones";
             $result_secciones = $db->query($sql_secciones);
-            while ($seccion = $result_secciones->fetch_assoc(MYSQLI_ASSOC));
+            while ($seccion = $result_secciones->fetch_assoc());
 
 //if ($result->num_rows > 0) {
     // Inicio de la lista HTML
-    echo "<ul>";
+    //echo "<ul>";
     // Salida de datos de cada fila como elementos de la lista
     //while($fila = $result->fetch_assoc()) {
         //echo "<li>Cedula: " . $fila["cedulaEstudiante"]. " - Nombres: " . $fila["nombreEstudiante"]. " - Apellidos: " . $fila["apellidoEstudiante"].

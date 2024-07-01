@@ -52,8 +52,7 @@ include __DIR__ . '/partials/header.php';
         </div>
       </div>
     </form>
-
-   <?php
+<?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_momento']) && isset($_GET['id_seccion'])) {
       // Obtener los valores de los parámetros del formulario
