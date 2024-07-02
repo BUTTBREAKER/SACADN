@@ -19,10 +19,9 @@ include __DIR__ . '/partials/header.php';
             $db = require_once __DIR__ . '/conexion_be.php';
 
             // Consultar los momentos disponibles
-            $sql_momentos = "SELECT m.id, CONCAT('Momento ', m.numero_momento, ' - ', p.anio_inicio) AS momento
+            $sql_momentos = "SELECT m.id, CONCAT('lapso ', m.numero_momento) AS momento
                              FROM momentos m
-                             JOIN periodos p ON m.id_periodo = p.id
-                             ORDER BY p.anio_inicio DESC, m.numero_momento DESC";
+                             ORDER BY  m.numero_momento DESC";
             $result_momentos = $db->query($sql_momentos);
             while ($momento = $result_momentos->fetch_assoc()) {
               echo '<option value="' . $momento['id'] . '">' . $momento['momento'] . '</option>';
@@ -123,7 +122,7 @@ include __DIR__ . '/partials/header.php';
             </div>';
       }
        else {
-        echo "<p class='mt-4'>No se encontraron notas para el momento y la sección seleccionados.</p>";
+        echo "<p class='mt-4'>No se encontraron notas para el lapso y la sección seleccionados.</p>";
       }
     }
     ?>
