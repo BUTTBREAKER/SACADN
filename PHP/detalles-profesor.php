@@ -31,10 +31,10 @@ $profesor = $result->fetch_assoc();
 
 /* Seleccionar las asignaciones de materias para este profesor junto con el nivel de estudio y la sección */
 $sqlAsignaciones = <<<SQL
-  SELECT m.nombre AS materia, ne.nombre AS nivel_estudio, s.nombre AS seccion
+  SELECT ma.nombre AS materia, ne.nombre AS nivel_estudio, s.nombre AS seccion
   FROM asignaciones a
-  JOIN materias m ON a.id_materia = m.id
-  JOIN periodos p ON a.id_periodo = p.id
+  JOIN materias ma ON a.id_materia = ma.id
+  JOIN momentos m ON a.id_momento = m.id
   JOIN secciones s ON a.id_seccion = s.id
   JOIN niveles_estudio ne ON a.id_nivel_estudio = ne.id
   WHERE a.id_profesor = ?
@@ -63,6 +63,9 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
           <th>Nivel de Estudio</th>
           <th>Sección</th>
         </tr>
+        <div >
+        <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="asignar-materias.php" class="btn btn-success mb-4">+ Nueva Materia</a></button>
+     </div>
       </thead>
       <tbody>
         <?php while ($asignacion = $resultAsignaciones->fetch_assoc()) { ?>
