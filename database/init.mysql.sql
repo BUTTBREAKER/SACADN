@@ -155,13 +155,13 @@ CREATE TABLE asignaciones (
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_profesor INT NOT NULL,
   id_materia INT NOT NULL,
-  id_momento INT NOT NULL,
+  id_periodo INT NOT NULL,
   id_nivel_estudio INT NOT NULL,
   id_seccion INT NOT NULL,
 
   FOREIGN KEY (id_profesor) REFERENCES profesores (id),
   FOREIGN KEY (id_materia) REFERENCES materias (id),
-  FOREIGN KEY (id_momento) REFERENCES momentos (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id),
   FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio (id),
   FOREIGN KEY (id_seccion) REFERENCES secciones (id),
   UNIQUE(id_profesor, id_materia, id_periodo, id_nivel_estudio, id_seccion)
