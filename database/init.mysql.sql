@@ -1,7 +1,7 @@
 SET foreign_key_checks = 0;
 
-DROP TABLE IF EXISTS asignaciones_materias;
-DROP TABLE IF EXISTS asignaciones_profesores;
+-- Limpiar tablas si existen
+DROP TABLE IF EXISTS asignaciones;
 DROP TABLE IF EXISTS secciones;
 DROP TABLE IF EXISTS materias;
 DROP TABLE IF EXISTS calificaciones;
@@ -15,6 +15,7 @@ DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS representantes;
 DROP TABLE IF EXISTS niveles_estudio;
 
+-- Crear tablas
 CREATE TABLE usuarios (
   id INT PRIMARY KEY AUTO_INCREMENT,
   nombre VARCHAR(20) NOT NULL,
@@ -63,7 +64,8 @@ CREATE TABLE niveles_estudio (
 
 CREATE TABLE periodos (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  anio_inicio INT NOT NULL UNIQUE
+  anio_inicio INT NOT NULL UNIQUE,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL
 );
 
 CREATE TABLE estudiantes (
@@ -78,8 +80,10 @@ CREATE TABLE estudiantes (
   estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
   id_representante INT NOT NULL,
+  id_periodo INT NOT NULL,
 
-  FOREIGN KEY (id_representante) REFERENCES representantes (id)
+  FOREIGN KEY (id_representante) REFERENCES representantes (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
 );
 
 CREATE TABLE secciones (
@@ -87,8 +91,11 @@ CREATE TABLE secciones (
   nombre VARCHAR(20) NOT NULL,
   id_nivel_estudio INT NOT NULL,
   numero_matriculas INT NOT NULL,
+  id_periodo INT NOT NULL,
+
   FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio(id),
-  UNIQUE(nombre, id_nivel_estudio)
+  FOREIGN KEY (id_periodo) REFERENCES periodos(id),
+  UNIQUE(nombre, id_nivel_estudio, id_periodo)
 );
 
 CREATE TABLE momentos (
@@ -106,24 +113,28 @@ CREATE TABLE inscripciones (
   id_momento INT NOT NULL,
   id_estudiante INT NOT NULL,
   id_seccion INT NOT NULL,
+  id_periodo INT NOT NULL,
 
   FOREIGN KEY (id_momento) REFERENCES momentos (id),
   FOREIGN KEY (id_estudiante) REFERENCES estudiantes (id),
-  FOREIGN KEY (id_seccion) REFERENCES secciones (id)
+  FOREIGN KEY (id_seccion) REFERENCES secciones (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
 );
 
 CREATE TABLE boletines (
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_momento INT NOT NULL,
   id_estudiante INT NOT NULL,
+  id_periodo INT NOT NULL,
 
   FOREIGN KEY (id_momento) REFERENCES momentos (id),
-  FOREIGN KEY (id_estudiante) REFERENCES estudiantes (id)
+  FOREIGN KEY (id_estudiante) REFERENCES estudiantes (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
 );
 
 CREATE TABLE materias (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(20) NOT NULL UNIQUE,
+  nombre VARCHAR(50) NOT NULL UNIQUE,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -133,11 +144,13 @@ CREATE TABLE calificaciones (
   id_boletin INT NOT NULL,
   id_usuario INT NOT NULL,
   calificacion INT NOT NULL CHECK (calificacion >= 0 AND calificacion <= 20),
-  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
-  
+  id_periodo INT NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+
   FOREIGN KEY (id_materia) REFERENCES materias (id),
   FOREIGN KEY (id_boletin) REFERENCES boletines (id),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
+  FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
 );
 
 CREATE TABLE asignaciones_estudiantes (
@@ -145,26 +158,29 @@ CREATE TABLE asignaciones_estudiantes (
     id_estudiante INT NOT NULL,
     id_nivel_estudio INT NOT NULL,
     id_seccion INT NOT NULL,
+    id_periodo INT NOT NULL,
+
     FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id),
     FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio(id),
     FOREIGN KEY (id_seccion) REFERENCES secciones(id),
-    UNIQUE(id_estudiante, id_nivel_estudio, id_seccion)
+    FOREIGN KEY (id_periodo) REFERENCES periodos(id),
+    UNIQUE(id_estudiante, id_nivel_estudio, id_seccion, id_periodo)
 );
 
 CREATE TABLE asignaciones (
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_profesor INT NOT NULL,
   id_materia INT NOT NULL,
-  id_momento INT NOT NULL,
   id_nivel_estudio INT NOT NULL,
   id_seccion INT NOT NULL,
+  id_periodo INT NOT NULL,
 
   FOREIGN KEY (id_profesor) REFERENCES profesores (id),
   FOREIGN KEY (id_materia) REFERENCES materias (id),
-  FOREIGN KEY (id_momento) REFERENCES momentos (id),
   FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio (id),
   FOREIGN KEY (id_seccion) REFERENCES secciones (id),
-  UNIQUE(id_profesor, id_materia, id_periodo, id_nivel_estudio, id_seccion)
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id),
+  UNIQUE(id_profesor, id_materia, id_nivel_estudio, id_seccion, id_periodo)
 );
 
 
@@ -190,3 +206,6 @@ and boletines.id_estudiante = estudiantes.id
 and boletines.id_momento = momentos.id
 and momentos.id_periodo = periodos.id;
  */
+
+SET foreign_key_checks = 1;
+
