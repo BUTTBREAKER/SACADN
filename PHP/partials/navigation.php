@@ -86,13 +86,13 @@
                   Registrar profesor
                 </a>
               </li>
+              <?php endif ?>
             <li>
                 <a class="dropdown-item" href="lista_profesores.php">
                   <i class="ri-booklet-line"></i>
                     Materias Asignadas
                 </a>
               </li>
-            <?php endif ?>
           </ul>
         </li>
 
@@ -204,6 +204,12 @@
                 <a class="dropdown-item" href="moduloa.php">
                   <i class="ri-team-line"></i>
                   Control de usuarios
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="cargas.php">
+                  <i class="ri-team-line"></i>
+                  Historial de Carga de Notas
                 </a>
               </li>
             </ul>
