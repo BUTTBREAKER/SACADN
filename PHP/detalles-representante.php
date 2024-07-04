@@ -26,13 +26,12 @@ if ($result->num_rows === 0) {
     exit;
 }
 
-
 $representante = $result->fetch_assoc();
 
 /* Seleccionar los estudiantes representados por este representante junto con su nivel de estudio y sección */
 $sqlEstudiantes = <<<SQL
   SELECT e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, ne.nombre AS nivel_estudio, s.nombre AS seccion,
-  ae.fecha_registro AS fecha
+  e.fecha_registro AS fecha
   FROM estudiantes e
   JOIN asignaciones_estudiantes ae ON e.id = ae.id_estudiante
   JOIN niveles_estudio ne ON ae.id_nivel_estudio = ne.id
@@ -86,8 +85,8 @@ $resultEstudiantes = $stmtEstudiantes->get_result();
     <p>Este representante no tiene estudiantes asignados.</p>
   <?php } ?>
   <div >
-        <buttontype= "button" class="btn-group btn-group-lg mx-3"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
-     </div>
+    <button type="button" class="btn-group btn-group-lg mx-3"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
+  </div>
 </div>
 
 <?php include __DIR__ . '/partials/footer.php' ?>
