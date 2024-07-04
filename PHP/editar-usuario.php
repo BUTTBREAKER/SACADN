@@ -1,34 +1,35 @@
 <?php
+// Incluir archivo de conexión a la base de datos
+$db = require_once __DIR__ . '/conexion_be.php';
 //verfica que solo pueden entrar los Administradores
 include __DIR__ . '/partials/header.php';
 require __DIR__ . "/Middlewares/autorizacion.php";
-// Incluir archivo de conexión a la base de datos
 
-$db = require_once __DIR__ . '/conexion_be.php';
 
 if ($_POST) {
   $sql = <<<SQL
  UPDATE usuarios SET
- ID = ?,
  nombre = ?,
  apellido = ?,
  cedula = ?,
  usuario = ?,
  clave = ?,
  rol = ?
- WHERE ID= ?
+ WHERE id = ?
  SQL;
+
+$contrasena_hash = password_hash($_POST['clave'], PASSWORD_BCRYPT);
+
 
 $db->prepare($sql)
     ->execute([
-$_POST['ID'],
 $_POST['nombre'],
 $_POST['apellido'],
 $_POST['cedula'],
 $_POST['usuario'],
-$_POST['clave'],
+$contrasena_hash,
 $_POST['rol'],
-$_POST['ID']
+$_POST['id']
 ]);
 
  exit(<<<HTML
@@ -48,13 +49,13 @@ $_POST['ID']
 
 }
 
-$sql = "SELECT ID, nombre, apellido, cedula, usuario, clave, rol FROM usuarios";
+$sql = "SELECT id, nombre, apellido, cedula, usuario, clave, rol FROM usuarios";
 $resultado = $conexion->query($sql);
 $usuario = $resultado->fetch_assoc()
 ?>
 
 <div class=" row mx-0 justify-content-center pb-5">
-<form class="card col-md-7 py-4 mt-3" action="registro_usuario_be.php" method="POST">
+<form class="card col-md-7 py-4 mt-3" action="editar-usuario.php" method="POST">
   <h2 class="card-title h3 text-center">Editar Usuario</h2>
   <div class="card-body row">
     <div class="form-floating mb-2 col-6">
@@ -63,8 +64,8 @@ $usuario = $resultado->fetch_assoc()
     </div>
 
     <div class="form-floating mb-2 col-6">
-       <div class="form-control form-control-sm" placeholder=" " id="registerNombreCompleto" name="id_representante" required ><?php echo $usuario['nombre']; ?> </div>
-     
+       <div class="form-control form-control-sm" placeholder=" " id="registerNombreCompleto" name="id" required ><?php echo $usuario['nombre']; ?> </div>
+
       <label class="ms-2" for="registerNombreCompleto">Nombres</label>
     </div>
     <div class="form-floating mb-2 col-6">
@@ -86,6 +87,7 @@ $usuario = $resultado->fetch_assoc()
       </select>
       <label for="rol">Rol</label>
     </div>
+    <input type="hidden" value="<?= $usuario['id'] ?>" name="id">
     <div class="col-12 text-center">
       <button type="submit" class="btn btn-success">Editar Usuario</button>
     </div>
