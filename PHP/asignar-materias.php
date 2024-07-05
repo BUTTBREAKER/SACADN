@@ -142,22 +142,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById('id_nivel_estudio').addEventListener('change', cargarSecciones);
 
     function cargarSecciones() {
-      const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
+        const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
 
-      if (idNivelEstudio) {
-        fetch(`./Procesophp/cargar_secciones.php?id_nivel_estudio=${idNivelEstudio}`)
-          .then(response => response.json())
-          .then(secciones => {
-            const seccionSelect = document.getElementById('id_seccion');
-            seccionSelect.innerHTML = '<option value="" selected disabled>Seleccione una sección</option>';
-            secciones.forEach(seccion => {
-              seccionSelect.innerHTML += `<option value="${seccion.id}">${seccion.nombre}</option>`;
-            });
-          })
-          .catch(error => console.error('Error al cargar secciones:', error));
-      }
+        if (idNivelEstudio) {
+            fetch(`./Procesophp/cargar_secciones.php?id_nivel_estudio=${idNivelEstudio}`)
+                .then(response => response.json())
+                .then(secciones => {
+                    const seccionSelect = document.getElementById('id_seccion');
+                    seccionSelect.innerHTML = ''; // Limpiamos las opciones existentes
+
+                    // Iteramos sobre las secciones y creamos opciones
+                    secciones.forEach(seccion => {
+                        const option = document.createElement('option');
+                        option.value = seccion.id;
+                        option.textContent = seccion.nombre;
+                        seccionSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error al cargar secciones:', error));
+        }
     }
-
     // Mostrar mensaje con SweetAlert2
     <?php if (isset($mensaje)) : ?>
       Swal.fire({
