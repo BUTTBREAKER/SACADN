@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS inscripciones;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS representantes;
 DROP TABLE IF EXISTS niveles_estudio;
+DROP TABLE IF EXISTS asignaciones_estudiantes;
 
 -- Crear tablas
 CREATE TABLE usuarios (
@@ -183,29 +184,7 @@ CREATE TABLE asignaciones (
   UNIQUE(id_profesor, id_materia, id_nivel_estudio, id_seccion, id_periodo)
 );
 
-
 INSERT INTO niveles_estudio (nombre) VALUES ('Primer Año'),
 ('Segundo Año'), ('Tercer Año'), ('Cuarto Año'), ('Quinto Año');
 
-/*
-CHULETA: Sacar las calificaciones de X estudiante
-
-select concat(periodos.anio_inicio, '-', periodos.anio_inicio + 1) as periodo,
-concat('Momento ', momentos.numero_momento) as momento,
-concat(estudiantes.nombre, ' ', estudiantes.apellido) as estudiante,
-materias.nombre as materia, calificacion
-from calificaciones
-join materias
-join boletines
-join estudiantes
-join momentos
-join periodos
-on calificaciones.id_materia = materias.id
-and calificaciones.id_boletin = boletines.id
-and boletines.id_estudiante = estudiantes.id
-and boletines.id_momento = momentos.id
-and momentos.id_periodo = periodos.id;
- */
-
 SET foreign_key_checks = 1;
-
