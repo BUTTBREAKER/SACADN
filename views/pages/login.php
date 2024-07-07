@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use SACADN\Enums\HtmlPattern;
+use SACADN\Enums\PCRegExp;
 
 $showAdministratorRegister ??= true;
 
@@ -33,12 +33,12 @@ $showAdministratorRegister ??= true;
             <div class="form-control">
               <input
                 id="registerUsuario"
-                pattern="<?= HtmlPattern::UserAlias->value ?>"
+                pattern="<?= PCRegExp::UserAlias->pattern() ?>"
+                title="<?= PCRegExp::UserAlias->title() ?>"
                 title="Sólo letras y números"
                 placeholder="Usuario"
                 name="usuario"
                 required
-                title="<?= HtmlPattern::UserAlias->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -46,11 +46,11 @@ $showAdministratorRegister ??= true;
                 id="nombre"
                 minlength="3"
                 maxlength="80"
-                pattern="<?= HtmlPattern::Names->value ?>"
+                pattern="<?= PCRegExp::Names->pattern() ?>"
+                title="<?= PCRegExp::Names->title() ?>"
                 placeholder="Nombres"
                 name="nombre"
                 required
-                title="<?= HtmlPattern::Names->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -58,11 +58,11 @@ $showAdministratorRegister ??= true;
                 id="apellido"
                 minlength="3"
                 maxlength="80"
-                pattern="<?= HtmlPattern::Names->value ?>"
+                pattern="<?= PCRegExp::Names->pattern() ?>"
+                title="<?= PCRegExp::Names->title() ?>"
                 placeholder="Apellidos"
                 name="apellido"
                 required
-                title="<?= HtmlPattern::Names->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -83,8 +83,8 @@ $showAdministratorRegister ??= true;
                 required
                 minlength="4"
                 maxlength="20"
-                pattern="<?= HtmlPattern::Password->value ?>"
-                title="<?= HtmlPattern::Password->title() ?>"
+                pattern="<?= PCRegExp::Password->pattern() ?>"
+                title="<?= PCRegExp::Password->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <input type="hidden" name="rol" value="A" />

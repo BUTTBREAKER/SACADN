@@ -1,6 +1,6 @@
 <?php
 
-use SACADN\Enums\HtmlPattern;
+use SACADN\Enums\PCRegExp;
 
 require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
@@ -37,8 +37,8 @@ $result = $db->query($sql);
           placeholder=" "
           name="nombre"
           required
-          pattern="<?= HtmlPattern::Names->value ?>"
-          title="<?= HtmlPattern::Names->title() ?>"
+          pattern="<?= PCRegExp::Names->pattern() ?>"
+          title="<?= PCRegExp::Names->title() ?>"
         />
         <label class="ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -53,8 +53,8 @@ $result = $db->query($sql);
           placeholder=" "
           name="apellido"
           required
-          pattern="<?= HtmlPattern::Names->value ?>"
-          title="<?= HtmlPattern::Names->title() ?>"
+          pattern="<?= PCRegExp::Names->pattern() ?>"
+          title="<?= PCRegExp::Names->title() ?>"
         />
         <label class="ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -101,8 +101,8 @@ $result = $db->query($sql);
           placeholder=" "
           name="telefono"
           required
-          pattern="<?= HtmlPattern::Phone->value ?>"
-          title="<?= HtmlPattern::Phone->title() ?>"
+          pattern="<?= PCRegExp::Phone->pattern() ?>"
+          title="<?= PCRegExp::Phone->title() ?>"
         />
         <label class="ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

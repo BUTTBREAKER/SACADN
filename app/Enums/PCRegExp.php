@@ -9,6 +9,10 @@ enum PCRegExp: string {
   case Password = '/^(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,}$/';
   case Phone = '/^\+[0-9]{2} [0-9]{3}-[0-9]{7}$/';
 
+  function pattern(): string {
+    return mb_substr($this->value, 2, mb_strlen($this->value) - 4);
+  }
+
   function title(): string {
     return match ($this) {
       self::UserAlias => 'Mínimo 4 letras y números',
