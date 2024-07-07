@@ -16,7 +16,7 @@
   },
   "scripts": {
     "dev:win": "start php -S localhost:8080",
-    "db:install": "php app/commands/db-install.php",
+    "migrate:fresh": "php app/commands/migrate-fresh.php",
     "pre-install-cmd": [
       "composer check-platform-reqs"
     ],
