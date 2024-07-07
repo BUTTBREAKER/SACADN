@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use SACADN\Enums\HtmlPattern;
+
 $showAdministratorRegister ??= true;
 
 ?>
@@ -31,11 +33,12 @@ $showAdministratorRegister ??= true;
             <div class="form-control">
               <input
                 id="registerUsuario"
-                pattern="[a-zA-Z0-9]{4,}"
+                pattern="<?= HtmlPattern::UserAlias->value ?>"
                 title="Sólo letras y números"
                 placeholder="Usuario"
                 name="usuario"
                 required
+                title="<?= HtmlPattern::UserAlias->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -43,11 +46,11 @@ $showAdministratorRegister ??= true;
                 id="nombre"
                 minlength="3"
                 maxlength="80"
-                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
+                pattern="<?= HtmlPattern::Names->value ?>"
                 placeholder="Nombres"
                 name="nombre"
                 required
-                title="Mínimo 2 palabras de al menos 3 caracteres"
+                title="<?= HtmlPattern::Names->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -55,11 +58,11 @@ $showAdministratorRegister ??= true;
                 id="apellido"
                 minlength="3"
                 maxlength="80"
-                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20} (\s?[a-zA-ZáéíóúÁÉÍÓÚñÑ]{3,20}){1,3}"
+                pattern="<?= HtmlPattern::LastNames->value ?>"
                 placeholder="Apellidos"
                 name="apellido"
                 required
-                title="Mínimo 2 palabras de al menos 3 caracteres"
+                title="<?= HtmlPattern::LastNames->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
@@ -80,9 +83,8 @@ $showAdministratorRegister ??= true;
                 required
                 minlength="4"
                 maxlength="20"
-                pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{8,}"
-                title="La contraseña debe tener al menos 1 mayúscula,
-                1 número y un símbolo"
+                pattern="<?= HtmlPattern::Password->value ?>"
+                title="<?= HtmlPattern::Password->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <input type="hidden" name="rol" value="A" />
