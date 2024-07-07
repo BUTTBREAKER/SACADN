@@ -58,11 +58,11 @@ $showAdministratorRegister ??= true;
                 id="apellido"
                 minlength="3"
                 maxlength="80"
-                pattern="<?= HtmlPattern::LastNames->value ?>"
+                pattern="<?= HtmlPattern::Names->value ?>"
                 placeholder="Apellidos"
                 name="apellido"
                 required
-                title="<?= HtmlPattern::LastNames->title() ?>"
+                title="<?= HtmlPattern::Names->title() ?>"
               /> <small class="error-message"></small> <span></span>
             </div>
             <div class="form-control">
