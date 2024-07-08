@@ -151,20 +151,6 @@ CREATE TABLE calificaciones (
   FOREIGN KEY (id_periodo) REFERENCES periodos (id)
 );
 
-CREATE TABLE asignaciones_estudiantes (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    id_estudiante INT NOT NULL,
-    id_nivel_estudio INT NOT NULL,
-    id_seccion INT NOT NULL,
-    id_periodo INT NOT NULL,
-
-    FOREIGN KEY (id_estudiante) REFERENCES estudiantes(id),
-    FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio(id),
-    FOREIGN KEY (id_seccion) REFERENCES secciones(id),
-    FOREIGN KEY (id_periodo) REFERENCES periodos(id),
-    UNIQUE(id_estudiante, id_nivel_estudio, id_seccion, id_periodo)
-);
-
 CREATE TABLE asignaciones (
   id INT PRIMARY KEY AUTO_INCREMENT,
   id_profesor INT NOT NULL,
