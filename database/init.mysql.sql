@@ -81,10 +81,8 @@ CREATE TABLE estudiantes (
   estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
   id_representante INT NOT NULL,
-  id_periodo INT NOT NULL,
 
-  FOREIGN KEY (id_representante) REFERENCES representantes (id),
-  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
+  FOREIGN KEY (id_representante) REFERENCES representantes (id)
 );
 
 CREATE TABLE secciones (
