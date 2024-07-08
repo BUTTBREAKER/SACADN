@@ -10,7 +10,7 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_est y cambiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
-  SELECT  id, cedula, nombre, apellido, fecha_nacimiento, estado_nacimiento,  lugar_nacimiento,
+  SELECT  id, cedula, nombres, apellidos, fecha_nacimiento, estado_nacimiento,  lugar_nacimiento,
   genero ,  fecha_registro FROM estudiantes
 SQL;
 

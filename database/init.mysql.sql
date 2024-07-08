@@ -72,8 +72,8 @@ CREATE TABLE periodos (
 CREATE TABLE estudiantes (
   id INT PRIMARY KEY AUTO_INCREMENT,
   cedula INT NOT NULL UNIQUE,
-  nombre VARCHAR(20) NOT NULL,
-  apellido VARCHAR(20) NOT NULL,
+  nombres VARCHAR(255) NOT NULL,
+  apellidos VARCHAR(255) NOT NULL,
   fecha_nacimiento DATE NOT NULL,
   estado_nacimiento VARCHAR(20) NOT NULL,
   lugar_nacimiento TEXT NOT NULL,

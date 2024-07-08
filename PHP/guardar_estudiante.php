@@ -1,6 +1,7 @@
 <?php
 
-require __DIR__ . '/conexion_be.php';
+require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/conexion_be.php';
 
 $resultado = null;
 
@@ -16,7 +17,7 @@ if ($_POST) {
   $id_representante = $_POST['id_representante'];
 
   $sql = "
-    INSERT INTO estudiantes (cedula, nombre, apellido, fecha_nacimiento,
+    INSERT INTO estudiantes (cedula, nombres, apellidos, fecha_nacimiento,
     estado_nacimiento, lugar_nacimiento, genero, fecha_registro, id_representante)
     VALUES ('$cedula', '$nombre', '$apellido', '$fecha_nacimiento',
     '$estado_nacimiento', '$lugar_nacimiento', '$genero', '$fecha_registro',

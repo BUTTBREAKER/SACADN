@@ -8,7 +8,7 @@ include __DIR__ . '/partials/header.php';
 
 /* Selecciona campo ci_est y cámbiale el nombre a cedula, ..., de la tabla estudiantes */
 $sql = <<<SQL
-  SELECT e.id, e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, e.estado_nacimiento, e.lugar_nacimiento,
+  SELECT e.id, e.cedula, e.nombres, e.apellidos, e.fecha_nacimiento, e.estado_nacimiento, e.lugar_nacimiento,
   e.genero, e.estado, e.fecha_registro, r.id AS idRepresentante, r.nombre AS nombresRepresentante,
   r.apellido AS apellidosRepresentante
   FROM estudiantes e
@@ -51,10 +51,10 @@ if (!$result) {
           <td><?= htmlspecialchars($mostrar['cedula']) ?></td>
           <td>
             <a href="detalles_estudiante.php?id=<?= $mostrar['id'] ?>">
-              <?= htmlspecialchars($mostrar['nombre']) ?>
+              <?= htmlspecialchars($mostrar['nombres']) ?>
             </a>
           </td>
-          <td><?= htmlspecialchars($mostrar['apellido']) ?></td>
+          <td><?= htmlspecialchars($mostrar['apellidos']) ?></td>
           <td><?= htmlspecialchars(formatearFecha($mostrar['fecha_nacimiento'])) ?></td>
           <td><?= htmlspecialchars(calcularEdad($mostrar['fecha_nacimiento'])) ?></td>
           <td><?= htmlspecialchars($mostrar['estado_nacimiento']) ?></td>

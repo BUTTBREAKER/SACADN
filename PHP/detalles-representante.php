@@ -29,13 +29,14 @@ if ($result->num_rows === 0) {
 $representante = $result->fetch_assoc();
 
 /* Seleccionar los estudiantes representados por este representante junto con su nivel de estudio y sección */
+/* TODO: en nuevo_estudiante.php y guardar_estudiante.php, seleccionar a qué
+período asignar la inscripción y a qué sección asignar, para al momento de
+consultar, saber cual es la sección y nivel de estudio del período actual
+del estudiante */
 $sqlEstudiantes = <<<SQL
-  SELECT e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, ne.nombre AS nivel_estudio, s.nombre AS seccion,
+  SELECT e.cedula, e.nombres, e.apellidos, e.fecha_nacimiento,
   e.fecha_registro AS fecha
   FROM estudiantes e
-  JOIN asignaciones_estudiantes ae ON e.id = ae.id_estudiante
-  JOIN niveles_estudio ne ON ae.id_nivel_estudio = ne.id
-  JOIN secciones s ON ae.id_seccion = s.id
   WHERE e.id_representante = ?
 SQL;
 
@@ -55,32 +56,34 @@ $resultEstudiantes = $stmtEstudiantes->get_result();
 
   <h3>Estudiantes Representados</h3>
   <?php if ($resultEstudiantes->num_rows > 0) { ?>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Cédula</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Fecha de Nacimiento</th>
-          <th>Nivel de Estudio</th>
-          <th>Sección</th>
-          <th>Fecha de Inscripción/Hora</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php while ($estudiante = $resultEstudiantes->fetch_assoc()) { ?>
+    <div class="table-responsive mb-5">
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><?= htmlspecialchars($estudiante['cedula']) ?></td>
-            <td><?= htmlspecialchars($estudiante['nombre']) ?></td>
-            <td><?= htmlspecialchars($estudiante['apellido']) ?></td>
-            <td><?= htmlspecialchars(formatearFecha($estudiante['fecha_nacimiento'])) ?></td>
-            <td><?= htmlspecialchars($estudiante['nivel_estudio']) ?></td>
-            <td><?= htmlspecialchars($estudiante['seccion']) ?></td>
-            <td><?= htmlspecialchars($estudiante['fecha']) ?></td>
+            <th>Cédula</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Nivel de Estudio</th>
+            <th>Sección</th>
+            <th>Fecha de Inscripción/Hora</th>
           </tr>
-        <?php } ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <?php while ($estudiante = $resultEstudiantes->fetch_assoc()) { ?>
+            <tr>
+              <td><?= htmlspecialchars($estudiante['cedula']) ?></td>
+              <td><?= htmlspecialchars($estudiante['nombres']) ?></td>
+              <td><?= htmlspecialchars($estudiante['apellidos']) ?></td>
+              <td><?= htmlspecialchars(formatearFecha($estudiante['fecha_nacimiento'])) ?></td>
+              <td><?= htmlspecialchars($estudiante['nivel_estudio'] ?? '') ?></td>
+              <td><?= htmlspecialchars($estudiante['seccion'] ?? '') ?></td>
+              <td><?= date('d/m/Y', strtotime($estudiante['fecha'])) ?></td>
+            </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
   <?php } else { ?>
     <p>Este representante no tiene estudiantes asignados.</p>
   <?php } ?>
