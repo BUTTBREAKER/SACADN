@@ -53,7 +53,9 @@ try {
     $estudiante = $result_estudiante->fetch_assoc();
 
     // Consultar el nivel de estudio y la sección actual del estudiante
-    $sql_asignacion = "SELECT n.nombre AS nivel_estudio, s.nombre AS seccion
+    // TODO: usar la tabla de inscripciones, y crear un registro al inscribir
+    // con la información requerida: nivel de estudio y sección
+    /*$sql_asignacion = "SELECT n.nombre AS nivel_estudio, s.nombre AS seccion
                        FROM asignaciones_estudiantes ae
                        JOIN niveles_estudio n ON ae.id_nivel_estudio = n.id
                        JOIN secciones s ON ae.id_seccion = s.id
@@ -64,10 +66,10 @@ try {
     $result_asignacion = $stmt_asignacion->get_result();
 
     // Obtener los detalles de la asignación del estudiante
-    $asignacion = $result_asignacion->fetch_assoc();
+    $asignacion = $result_asignacion->fetch_assoc();*/
 
     // Consultar todas las calificaciones del estudiante
-    $sql_calificaciones = "SELECT concat(p.anio_inicio, '-', p.anio_inicio + 1) AS periodo,
+    /*$sql_calificaciones = "SELECT concat(p.anio_inicio, '-', p.anio_inicio + 1) AS periodo,
                                   m.numero_momento AS momento,
                                   ma.nombre AS materia,
                                   c.calificacion,
@@ -103,7 +105,7 @@ try {
         $momentos = $detalles['momentos'];
         $detalles['promedio'] = array_sum($momentos) / count($momentos);
         $detalles['def'] = round($detalles['promedio']); // Calificación definitiva redondeada
-    }
+    }*/
 
     // HTML para el contenido del boletín
     ?>
@@ -119,9 +121,9 @@ try {
             <div class="card my-4">
                 <div class="card-body">
                     <h5 class="card-title">Información del Estudiante</h5>
-                    <p><strong>Apellidos y Nombres:</strong> <?= htmlspecialchars($estudiante['apellido']) . ' ' . htmlspecialchars($estudiante['nombre']) ?></p>
+                    <p><strong>Apellidos y Nombres:</strong> <?= htmlspecialchars($estudiante['apellidos']) . ' ' . htmlspecialchars($estudiante['nombres']) ?></p>
                     <p><strong>C.I.:</strong> <?= htmlspecialchars($estudiante['cedula']) ?></p>
-                    <p><strong>Año y Sección:</strong> <?= htmlspecialchars($asignacion['nivel_estudio']) . ' ' . htmlspecialchars($asignacion['seccion']) ?></p>
+                    <p><strong>Año y Sección:</strong> <?= htmlspecialchars($asignacion['nivel_estudio'] ?? '') . ' ' . htmlspecialchars($asignacion['seccion'] ?? '') ?></p>
                 </div>
             </div>
             <div class="card my-4">
@@ -138,7 +140,7 @@ try {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($calificaciones as $materia => $detalles) { ?>
+                            <?php foreach ($calificaciones ?? [] as $materia => $detalles) { ?>
                                 <tr>
                                     <td><?= htmlspecialchars($materia) ?></td>
                                     <td><?= htmlspecialchars($detalles['momentos'][1] ?? '') ?></td>
@@ -154,7 +156,7 @@ try {
                                 <?php
                                 $promedios = array_fill(1, 3, 0);
                                 $conteos = array_fill(1, 3, 0);
-                                foreach ($calificaciones as $detalles) {
+                                foreach ($calificaciones ?? [] as $detalles) {
                                     for ($i = 1; $i <= 3; $i++) {
                                         if (isset($detalles['momentos'][$i])) {
                                             $promedios[$i] += $detalles['momentos'][$i];
@@ -166,7 +168,7 @@ try {
                                 <?php for ($i = 1; $i <= 3; $i++) { ?>
                                     <td><?= $conteos[$i] ? round($promedios[$i] / $conteos[$i], 1) : '' ?></td>
                                 <?php } ?>
-                                <td><?= round(array_sum($promedios) / array_sum($conteos), 1) ?></td>
+                                <td><?= round(array_sum($promedios) / (array_sum($conteos) ?: 1), 1) ?></td>
                             </tr>
                         </tfoot>
                     </table>
