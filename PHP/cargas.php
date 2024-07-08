@@ -12,7 +12,6 @@ $sqlAsignaciones = <<<SQL
   FROM asignaciones a
   JOIN profesores p ON a.id_profesor = p.id
   JOIN materias ma ON a.id_materia = ma.id
-  JOIN momentos m ON a.id_momento = m.id
   JOIN secciones s ON a.id_seccion = s.id
   JOIN niveles_estudio ne ON a.id_nivel_estudio = ne.id
   JOIN calificaciones c ON c.id_materia = ma.id
