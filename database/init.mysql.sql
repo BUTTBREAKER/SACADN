@@ -112,13 +112,11 @@ CREATE TABLE inscripciones (
   id_momento INT NOT NULL,
   id_estudiante INT NOT NULL,
   id_seccion INT NOT NULL,
-  id_periodo INT NOT NULL,
   fecha_registro DATETIME NOT NULL,
 
   FOREIGN KEY (id_momento) REFERENCES momentos (id),
   FOREIGN KEY (id_estudiante) REFERENCES estudiantes (id),
-  FOREIGN KEY (id_seccion) REFERENCES secciones (id),
-  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
+  FOREIGN KEY (id_seccion) REFERENCES secciones (id)
 );
 
 CREATE TABLE boletines (
