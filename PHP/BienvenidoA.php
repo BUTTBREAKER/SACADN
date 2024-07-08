@@ -7,7 +7,7 @@ include __DIR__ . '/partials/header.php';
 $user = auth()['usuario'];
 $conn = require_once __DIR__ . '/conexion_be.php';
 
-$query_asignaciones_estudiantes = "SELECT COUNT(*) AS count FROM asignaciones_estudiantes";
+$query_asignaciones_estudiantes = "SELECT COUNT(*) AS count FROM inscripciones";
 $query_materias = "SELECT COUNT(*) AS count FROM materias";
 $query_profesores = "SELECT COUNT(*) AS count FROM profesores";
 
