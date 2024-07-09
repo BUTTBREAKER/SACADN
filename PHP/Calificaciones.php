@@ -1,4 +1,3 @@
-
 <?php
 // Incluir cabecera
 include __DIR__ . '/partials/header.php';
@@ -11,8 +10,10 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/conexion_be.php';
 
 if ($conexion === false) {
-  die("Error al conectar con la base de datos.");
+    die("Error al conectar con la base de datos.");
 }
+
+$id_usuario = $_SESSION['usuario_id'];
 
 // Obtener todos los lapsos, niveles de estudio y secciones
 $momentos = $conexion->query("SELECT id, CONCAT('Lapso ', numero_momento) AS momento FROM momentos")->fetch_all(MYSQLI_ASSOC);
@@ -22,242 +23,256 @@ $secciones = $conexion->query("SELECT id, nombre FROM secciones")->fetch_all(MYS
 $id_momento = $_POST['id_momento'] ?? null;
 $id_nivel_estudio = $_POST['id_nivel_estudio'] ?? null;
 $id_seccion = $_POST['id_seccion'] ?? null;
+$id_estudiante = $_POST['id_estudiante'] ?? null;
 
-// Obtener las asignaciones
+// Obtener los estudiantes
+$estudiantes = [];
+if ($id_nivel_estudio && $id_seccion) {
+    $stmt_estudiantes = $conexion->prepare("SELECT e.id, CONCAT(e.nombre, ' ', e.apellido) as nombre FROM estudiantes e
+                                            JOIN inscripciones i ON e.id = i.id_estudiante
+                                            WHERE i.id_nivel_estudio = ? AND i.id_seccion = ?");
+    $stmt_estudiantes->bind_param("ii", $id_nivel_estudio, $id_seccion);
+    $stmt_estudiantes->execute();
+    $result_estudiantes = $stmt_estudiantes->get_result();
+    $estudiantes = $result_estudiantes->fetch_all(MYSQLI_ASSOC);
+    $stmt_estudiantes->close();
+}
+
+// Obtener las asignaciones del estudiante si se ha seleccionado un estudiante
 $asignaciones = [];
-if ($id_momento && $id_nivel_estudio && $id_seccion) {
-  $stmt_asignaciones = $conexion->prepare("SELECT a.id, m.nombre as nombre_materia, p.nombre as nombre_profesor
+if ($id_estudiante) {
+    $stmt_asignaciones = $conexion->prepare("SELECT a.id, m.nombre as nombre_materia, p.nombre as nombre_profesor, c.calificacion
                                              FROM asignaciones a
                                              JOIN materias m ON a.id_materia = m.id
                                              JOIN profesores p ON a.id_profesor = p.id
-                                             WHERE a.id_momento = ? AND a.id_nivel_estudio = ? AND a.id_seccion = ?");
-  $stmt_asignaciones->bind_param("iii", $id_momento, $id_nivel_estudio, $id_seccion);
-  $stmt_asignaciones->execute();
-  $result_asignaciones = $stmt_asignaciones->get_result();
-  $asignaciones = $result_asignaciones->fetch_all(MYSQLI_ASSOC);
-  $stmt_asignaciones->close();
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id_materia'], $_POST['id_estudiante'], $_POST['calificacion'])) {
-  $id_materia = $_POST['id_materia'];
-  $id_estudiante = $_POST['id_estudiante'];
-  $calificacion = $_POST['calificacion'];
-
-  // Obtener id_boletin basado en el estudiante y lapso 
-  $stmt_boletin = $conexion->prepare("SELECT id FROM boletines WHERE id_estudiante = ? AND id_momento = ?");
-  $stmt_boletin->bind_param("ii", $id_estudiante, $id_momento);
-  $stmt_boletin->execute();
-  $result_boletin = $stmt_boletin->get_result();
-  $boletin = $result_boletin->fetch_assoc();
-  $id_boletin = $boletin['id'] ?? null;
-
-  if ($id_boletin) {
-    // Obtener el ID de la materia correspondiente a la asignación seleccionada
-    $stmt_materia = $conexion->prepare("SELECT m.id FROM asignaciones a JOIN materias m ON a.id_materia = m.id WHERE a.id = ?");
-    $stmt_materia->bind_param("i", $id_materia);
-    $stmt_materia->execute();
-    $result_materia = $stmt_materia->get_result();
-    $materia = $result_materia->fetch_assoc();
-    $id_materia_real = $materia['id'];
-
-    $stmt_calificacion = $conexion->prepare("INSERT INTO calificaciones (id_materia, id_boletin, calificacion) VALUES (?, ?, ?)");
-    $stmt_calificacion->bind_param("iii", $id_materia_real, $id_boletin, $calificacion);
-
-    try {
-      $stmt_calificacion->execute();
-      $mensaje = "Calificación ingresada correctamente.";
-    } catch (mysqli_sql_exception $e) {
-      $mensaje = "Error: " . $e->getMessage();
-    }
-
-    $stmt_calificacion->close();
-  } else {
-    $mensaje = "No se encontró un boletín para el estudiante y el periodo seleccionados.";
-  }
+                                             LEFT JOIN calificaciones c ON c.id_asignacion = a.id AND c.id_estudiante = ?
+                                             WHERE a.id_nivel_estudio = ? AND a.id_seccion = ?");
+    $stmt_asignaciones->bind_param("iii", $id_estudiante, $id_nivel_estudio, $id_seccion);
+    $stmt_asignaciones->execute();
+    $result_asignaciones = $stmt_asignaciones->get_result();
+    $asignaciones = $result_asignaciones->fetch_all(MYSQLI_ASSOC);
+    $stmt_asignaciones->close();
 }
 
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cargar Notas</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-default@4/default.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cargar Notas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-default@4/default.min.css" />
 </head>
 
 <body>
 
-  <div class="row mx-0 justify-content-center pb-5">
-    <form class="card col-md-5 py-4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-      <h2 class="card-title h3 text-center">Cargar Notas</h2>
+    <div class="row mx-0 justify-content-center pb-5">
+        <form class="card col-md-5 py-4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <h2 class="card-title h3 text-center">Cargar Notas</h2>
 
-      <?php if (isset($mensaje)) : ?>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script>
-          Swal.fire({
-            title: 'Resultado',
-            text: '<?= $mensaje ?>',
-            icon: '<?= strpos($mensaje, "Error") === false ? "success" : "error" ?>',
-            confirmButtonText: 'OK'
-          });
-        </script>
-      <?php endif; ?>
+            <?php if (isset($_SESSION['mensaje'])) : ?>
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script>
+                    Swal.fire({
+                        title: 'Resultado',
+                        text: '<?= $_SESSION['mensaje'] ?>',
+                        icon: '<?= strpos($_SESSION['mensaje'], "Error") === false ? "success" : "error" ?>',
+                        confirmButtonText: 'OK'
+                    });
+                </script>
+                <?php unset($_SESSION['mensaje']); ?>
+            <?php endif; ?>
 
-      <div class="col-md-12 form-floating mb-3">
-        <select name="id_momento" class="form-select" id="id_momento" required>
-          <option value="" selected disabled>Seleccione un lapso</option>
-          <?php foreach ($momentos as $momento) : ?>
-            <option value="<?= $momento['id'] ?>"><?= $momento['momento'] ?></option>
-          <?php endforeach; ?>
-        </select>
-        <label for="id_momento">
-          <i class="ri-calendar-line"></i>
-          <path fill="currentColor" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342" />
-          lapso:
-        </label>
-      </div>
+            <div class="col-md-12 form-floating mb-3">
+                <select name="id_momento" class="form-select" id="id_momento">
+                    <option value="">Seleccione el lapso</option>
+                    <?php foreach ($momentos as $momento) : ?>
+                        <option value="<?php echo $momento['id']; ?>"><?php echo $momento['momento']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="id_momento">Lapso</label>
+            </div>
+            <div class="col-md-12 form-floating mb-3">
+                <select name="id_nivel_estudio" class="form-select" id="id_nivel_estudio">
+                    <option value="">Seleccione el nivel de estudio</option>
+                    <?php foreach ($niveles_estudio as $nivel_estudio) : ?>
+                        <option value="<?php echo $nivel_estudio['id']; ?>"><?php echo $nivel_estudio['nombre']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="id_nivel_estudio">Nivel de Estudio</label>
+            </div>
+            <div class="col-md-12 form-floating mb-3">
+                <select name="id_seccion" class="form-select" id="id_seccion">
+                    <option value="">Seleccione la sección</option>
+                    <?php foreach ($secciones as $seccion) : ?>
+                        <option value="<?php echo $seccion['id']; ?>"><?php echo $seccion['nombre']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="id_seccion">Sección</label>
+            </div>
 
-      <div class="col-md-12 form-floating mb-3">
-        <select name="id_nivel_estudio" class="form-select" id="id_nivel_estudio" required>
-          <option value="" selected disabled>Seleccione un nivel de estudio</option>
-          <?php foreach ($niveles_estudio as $nivel) : ?>
-            <option value="<?= $nivel['id'] ?>"><?= $nivel['nombre'] ?></option>
-          <?php endforeach; ?>
-        </select>
-        <label for="id_nivel_estudio">
-          <i class="ri-barricade-line"></i>
-          <path fill="currentColor" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342" />
-          Nivel de Estudio:
-        </label>
-      </div>
+            <div class="col-md-12 form-floating mb-3">
+                <select name="id_estudiante" class="form-select" id="id_estudiante">
+                    <option value="">Seleccione el estudiante</option>
+                    <?php foreach ($estudiantes as $estudiante) : ?>
+                        <option value="<?php echo $estudiante['id']; ?>"><?php echo $estudiante['nombre']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <label for="id_estudiante">Estudiante</label>
+            </div>
 
-      <div class="col-md-12 form-floating mb-3">
-        <select name="id_seccion" class="form-select" id="id_seccion" required>
-          <option value="" selected disabled>Seleccione una sección</option>
-          <!-- Las opciones se cargarán mediante AJAX -->
-        </select>
-        <label for="id_seccion">
-          <i class="ri-barricade-line"></i>
-          <path fill="currentColor" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342" />
-          Sección:
-        </label>
-      </div>
+            <div class="col-md-12 form-floating mb-3">
+                <button type="submit" class="btn btn-primary">Buscar Asignaciones</button>
+            </div>
+        </form>
+    </div>
 
-      <div class="col-md-12 form-floating mb-3">
-        <select name="id_materia" class="form-select" id="id_materia" required>
-          <option value="" selected disabled>Seleccione una materia</option>
-          <?php foreach ($asignaciones as $asignacion) : ?>
-            <option value="<?= $asignacion['id'] ?>"><?= $asignacion['nombre']?> (Profesor: <?= $asignacion['nombre_profesor'] ?>)</option>
-          <?php endforeach; ?>
-        </select>
-        <label for="id_materia">
-          <i class="ri-booklet-line"></i>
-          <path fill="currentColor" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342" />
-          Materia:
-        </label>
-      </div>
+    <?php if (!empty($asignaciones)) : ?>
+        <div class="row mx-0 justify-content-center">
+            <div class="card col-md-8 py-4">
+                <h2 class="card-title h3 text-center">Asignaciones de <?php echo $estudiantes[array_search($id_estudiante, array_column($estudiantes, 'id'))]['nombre']; ?></h2>
 
-      <div class="col-md-12 form-floating mb-3">
-        <select name="id_estudiante" class="form-select" id="id_estudiante" required>
-          <option value="" selected disabled>Seleccione un estudiante</option>
-          <!-- Las opciones se cargarán mediante AJAX -->
-        </select>
-        <label for="id_estudiante">
-          <label class="ms-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <path fill="currentColor" d="M360 73c-14.43 0-27.79 7.71-38.055 21.395c-10.263 13.684-16.943 33.2-16.943 54.94c0 21.74 6.68 41.252 16.943 54.936c10.264 13.686 23.625 21.396 38.055 21.396s27.79-7.71 38.055-21.395C408.318 190.588 415 171.075 415 149.335c0-21.74-6.682-41.255-16.945-54.94C387.79 80.71 374.43 73 360 73m-240 96c-10.012 0-19.372 5.32-26.74 15.145C85.892 193.968 81 208.15 81 224c0 15.85 4.892 30.032 12.26 39.855C100.628 273.68 109.988 279 120 279c10.012 0 19.374-5.32 26.742-15.145c7.368-9.823 12.256-24.006 12.256-39.855c0-15.85-4.888-30.032-12.256-39.855C139.374 174.32 130.012 169 120 169m188.805 47.674a77.568 77.568 0 0 0-4.737 3.974c-13.716 12.524-23.816 31.052-31.53 54.198c-14.59 43.765-20.404 103.306-30.063 164.154h235.05c-9.66-60.848-15.476-120.39-30.064-164.154c-7.714-23.146-17.812-41.674-31.528-54.198a76.795 76.795 0 0 0-4.737-3.974c-12.84 16.293-30.942 26.994-51.195 26.994s-38.355-10.7-51.195-26.994zM81.27 277.658c-.573.485-1.143.978-1.702 1.488c-9.883 9.024-17.315 22.554-23.03 39.7c-10.6 31.8-15.045 75.344-22.063 120.154h171.048c-7.017-44.81-11.462-88.354-22.062-120.154c-5.714-17.146-13.145-30.676-23.028-39.7a59.378 59.378 0 0 0-1.702-1.488C148.853 289.323 135.222 297 120 297c-15.222 0-28.852-7.678-38.73-19.342" />
-            </svg>
-            Estudiante:
-          </label>
-      </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Materia</th>
+                            <th>Profesor</th>
+                            <th>Calificación</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($asignaciones as $asignacion) : ?>
+                            <tr>
+                                <td><?php echo $asignacion['nombre_materia']; ?></td>
+                                <td><?php echo $asignacion['nombre_profesor']; ?></td>
+                                <td>
+                                    <form id="form-calificacion-<?php echo $asignacion['id']; ?>" action="./procesophp/actualizar_calificacion.php" method="post">
+                                        <input type="hidden" name="id_asignacion" value="<?php echo $asignacion['id']; ?>">
+                                        <input type="hidden" name="id_estudiante" value="<?php echo $id_estudiante; ?>">
+                                        <input type="hidden" name="id_momento" value="<?php echo $id_momento; ?>">
+                                        <input type="number" name="calificacion" value="<?php echo $asignacion['calificacion']; ?>" class="form-control" min="0" max="20">
+                                    </form>
+                                </td>
+                                <td>
+                                    <button type="submit" form="form-calificacion-<?php echo $asignacion['id']; ?>" class="btn btn-primary">Guardar</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <?php endif; ?>
 
-      <div class="col-md-12 form-floating mb-3">
-        <input class="form-control" type="number" name="calificacion" id="calificacion" min="0" max="20" required>
-        <label class="ms-2" for="calificacion">Calificación:</label>
-      </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function verificarCalificacion(id_asignacion, id_estudiante) {
+            const form = document.getElementById(`form-calificacion-${id_asignacion}`);
+            const nueva_calificacion = form.querySelector('input[name="nueva_calificacion"]').value;
+            const calificacion_existente = form.querySelector('input[name="calificacion_existente"]').value;
 
-      <div class="btn-group btn-group-lg mx-6">
-        <button class="btn btn-success w-75" type="submit" value="Cargar Nota">Cargar Nota</button>
-        <a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a>
-      </div>
-    </form>
-  </div>
+            if (!nueva_calificacion) {
+                Swal.fire('Error', 'Debe ingresar una calificación.', 'error');
+                return;
+            }
 
+            if (nueva_calificacion != calificacion_existente) {
+                Swal.fire({
+                    title: 'Advertencia',
+                    text: 'La calificación ya existe. ¿Desea actualizarla?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, actualizar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        actualizarCalificacion(id_asignacion, id_estudiante, nueva_calificacion);
+                    }
+                });
+            } else {
+                actualizarCalificacion(id_asignacion, id_estudiante, nueva_calificacion);
+            }
+        }
 
-  <script>
-    // Cargar secciones cuando se selecciona el nivel de estudio
-    document.getElementById('id_nivel_estudio').addEventListener('change', cargarSecciones);
+        function actualizarCalificacion(id_asignacion, id_estudiante, nueva_calificacion) {
+            const formData = new FormData();
+            formData.append('id_asignacion', id_asignacion);
+            formData.append('id_estudiante', id_estudiante);
+            formData.append('nueva_calificacion', nueva_calificacion);
 
-    // Cargar estudiantes cuando se selecciona el nivel de estudio y la sección
-    document.getElementById('id_nivel_estudio').addEventListener('change', cargarEstudiantes);
-    document.getElementById('id_seccion').addEventListener('change', cargarEstudiantes);
-
-    function cargarSecciones() {
-      const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
-
-      if (idNivelEstudio) {
-        fetch(`./procesophp/cargar_secciones.php?id_nivel_estudio=${idNivelEstudio}`)
-          .then(response => response.json())
-          .then(secciones => {
-            const seccionSelect = document.getElementById('id_seccion');
-            seccionSelect.innerHTML = '<option value="" selected disabled>Seleccione una sección</option>';
-            secciones.forEach(seccion => {
-              seccionSelect.innerHTML += `<option value="${seccion.id}">${seccion.nombre}</option>`;
+            fetch('./procesophp/actualizar_calificacion.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                console.log(data); // Agrega esta línea para depurar
+                Swal.fire('Éxito', 'La calificación ha sido guardada correctamente.', 'success').then(() => {
+                    location.reload();
+                });
+            })
+            .catch(error => {
+                console.error(error);
+                Swal.fire('Error', 'Ocurrió un error al actualizar la calificación.', 'error');
             });
-          })
-          .catch(error => console.error('Error al cargar secciones:', error));
-      }
-    }
+        }
+    </script>
 
-    function cargarEstudiantes() {
-      const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
-      const idSeccion = document.getElementById('id_seccion').value;
+    <script>
+        // Cargar secciones cuando se selecciona el nivel de estudio
+        document.getElementById('id_nivel_estudio').addEventListener('change', cargarSecciones);
 
-      if (idNivelEstudio && idSeccion) {
-        fetch(`./procesophp/cargar_estudiantes.php?id_nivel_estudio=${idNivelEstudio}&id_seccion=${idSeccion}`)
-          .then(response => response.json())
-          .then(estudiantes => {
-            const estudiantesSelect = document.getElementById('id_estudiante');
-            estudiantesSelect.innerHTML = '<option value="" selected disabled>Seleccione un estudiante</option>';
-            estudiantes.forEach(estudiante => {
-              estudiantesSelect.innerHTML += `<option value="${estudiante.id}">${estudiante.nombre} ${estudiante.apellido}</option>`;
-            });
-          })
-          .catch(error => console.error('Error al cargar estudiantes:', error));
-      }
-    }
+        // Cargar estudiantes cuando se selecciona el nivel de estudio y la sección
+        document.getElementById('id_nivel_estudio').addEventListener('change', cargarEstudiantes);
+        document.getElementById('id_seccion').addEventListener('change', cargarEstudiantes);
 
-    // Agrega la llamada a cargarMaterias() en los eventos de cambio
-document.getElementById('id_momento').addEventListener('change', cargarMaterias);
-document.getElementById('id_nivel_estudio').addEventListener('change', cargarMaterias);
-document.getElementById('id_seccion').addEventListener('change', cargarMaterias);
+        function cargarSecciones() {
+            const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
 
-// Define la función cargarMaterias()
-function cargarMaterias() {
-  const idMomento = document.getElementById('id_momento').value;
-  const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
-  const idSeccion = document.getElementById('id_seccion').value;
+            if (idNivelEstudio) {
+                fetch(`./procesophp/cargar_secciones.php?id_nivel_estudio=${idNivelEstudio}`)
+                .then(response => response.json())
+                .then(secciones => {
+                    const seccionSelect = document.getElementById('id_seccion');
+                    seccionSelect.innerHTML = '<option value="" selected disabled>Seleccione una sección</option>';
+                    secciones.forEach(seccion => {
+                        seccionSelect.innerHTML += `<option value="${seccion.id}">${seccion.nombre}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error al cargar secciones:', error));
+            }
+        }
 
-  if (idMomento && idNivelEstudio && idSeccion) {
-    fetch(`./procesophp/cargar_materias.php?id_momento=${idMomento}&id_nivel_estudio=${idNivelEstudio}&id_seccion=${idSeccion}`)
-      .then(response => response.json())
-      .then(materias => {
-        // Aquí puedes manejar las materias devueltas por el archivo PHP
-        const materiaSelect = document.getElementById('id_materia');
-        materiaSelect.innerHTML = '<option value="" selected disabled>Seleccione una materia</option>';
-        materias.forEach(materia => {
-          materiaSelect.innerHTML += `<option value="${materia.id}">${materia.nombre}</option>`;
-        });
-      })
-      .catch(error => console.error('Error al cargar las materias:', error));
-  }
-}
+        function cargarEstudiantes() {
+            const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
+            const idSeccion = document.getElementById('id_seccion').value;
 
-  </script>
+            if (idNivelEstudio && idSeccion) {
+                fetch(`./procesophp/cargar_estudiantes.php?id_nivel_estudio=${idNivelEstudio}&id_seccion=${idSeccion}`)
+                .then(response => response.json())
+                .then(estudiantes => {
+                    const estudiantesSelect = document.getElementById('id_estudiante');
+                    estudiantesSelect.innerHTML = '<option value="" selected disabled>Seleccione un estudiante</option>';
+                    estudiantes.forEach(estudiante => {
+                        estudiantesSelect.innerHTML += `<option value="${estudiante.id}">${estudiante.nombre} ${estudiante.apellido}</option>`;
+                    });
+                })
+                .catch(error => console.error('Error al cargar estudiantes:', error));
+            }
+        }
+    </script>
 
-  <?php include __DIR__ . '/partials/footer.php' ?>
+    <?php include __DIR__ . '/partials/footer.php' ?>
 </body>
 
 </html>
