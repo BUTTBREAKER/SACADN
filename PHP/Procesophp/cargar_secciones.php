@@ -8,7 +8,7 @@ if ($conexion === false) {
 $id_nivel_estudio = $_GET['id_nivel_estudio'] ?? null;
 
 if ($id_nivel_estudio) {
-    $stmt = $conexion->prepare("SELECT s.id, s.nombre
+    $stmt = $conexion->prepare("SELECT DISTINCT s.id, s.nombre
                                 FROM secciones s
                                 JOIN asignaciones_estudiantes ae ON s.id = ae.id_seccion
                                 WHERE ae.id_nivel_estudio = ?");
