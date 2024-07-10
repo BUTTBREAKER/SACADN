@@ -8,7 +8,7 @@ $rol = $conexion
 
 // Usuario no autorizado
 if ($rol === "U") {
-  exit (<<<HTML
+  exit(<<<HTML
   <body>
     <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
     <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>

@@ -37,7 +37,7 @@ $result = $db->query($sql);
         <th>Num.Representados</th>
         <th>Estado</th>
         <?php if ($role === 'A') : ?>
-        <th>Opciones</th>
+          <th>Opciones</th>
         <?php endif ?>
       </tr>
     </thead>
@@ -60,21 +60,21 @@ $result = $db->query($sql);
           <td><?= htmlspecialchars($mostrar['num_estudiantes']) ?></td>
           <td><?= htmlspecialchars($mostrar['estado']) ?></td>
           <?php if ($role === 'A') : ?>
-          <td>
-            <form method="post">
-              <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
-              <?php {
-               echo "<a data-action='toggle-status' data-representative-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-representante.php?toggle_estado=true&representante_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
-             } ?>
-            </button>
-              <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
-                <i class="ri-edit-box-line"></i>
-              </button>
-            </form>
-          </td>
+            <td>
+              <form method="post">
+                <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
+                  <?php {
+                    echo "<a data-action='toggle-status' data-representative-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-representante.php?toggle_estado=true&representante_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
+                  } ?>
+                </button>
+                <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-representante.php?cedula=<?= $mostrar['cedula'] ?>">
+                  <i class="ri-edit-box-line"></i>
+                </button>
+              </form>
+            </td>
           <?php endif ?>
         </tr>
-        <?php endwhile ?>
+      <?php endwhile ?>
     </tbody>
   </table>
 </div>

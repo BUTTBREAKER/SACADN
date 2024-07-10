@@ -3,9 +3,9 @@ session_start();
 require_once __DIR__ . '/../conexion_be.php';
 
 if ($conexion === false) {
-    $_SESSION['mensaje'] = 'Error al conectar con la base de datos.';
-    header('Location: ../cargar_notas.php');
-    exit;
+  $_SESSION['mensaje'] = 'Error al conectar con la base de datos.';
+  header('Location: ../cargar_notas.php');
+  exit;
 }
 
 $id_asignacion = $_POST['id_asignacion'] ?? null;
@@ -15,9 +15,9 @@ $id_usuario_actualizacion = $_SESSION['usuario_id'];
 $id_periodo = $_POST['id_periodo'] ?? null;
 
 if (!$id_asignacion || !$id_estudiante || !$nueva_calificacion || !$id_periodo) {
-    $_SESSION['mensaje'] = 'Datos insuficientes para actualizar la calificación.';
-    header('Location: ../calificaciones.php');
-    exit;
+  $_SESSION['mensaje'] = 'Datos insuficientes para actualizar la calificación.';
+  header('Location: ../calificaciones.php');
+  exit;
 }
 
 // Verificar si ya existe un boletín para este estudiante y momento
@@ -29,11 +29,11 @@ $result_verificar_boletin = $stmt_verificar_boletin->get_result();
 $stmt_verificar_boletin->close();
 
 if ($result_verificar_boletin->num_rows === 0) {
-    // Si no existe un boletín, crear uno nuevo
-    $stmt_insertar_boletin = $conexion->prepare("INSERT INTO boletines (id_estudiante, id_momento, id_periodo) VALUES (?, ?, ?)");
-    $stmt_insertar_boletin->bind_param("iii", $id_estudiante, $id_momento, $id_periodo);
-    $stmt_insertar_boletin->execute();
-    $stmt_insertar_boletin->close();
+  // Si no existe un boletín, crear uno nuevo
+  $stmt_insertar_boletin = $conexion->prepare("INSERT INTO boletines (id_estudiante, id_momento, id_periodo) VALUES (?, ?, ?)");
+  $stmt_insertar_boletin->bind_param("iii", $id_estudiante, $id_momento, $id_periodo);
+  $stmt_insertar_boletin->execute();
+  $stmt_insertar_boletin->close();
 }
 
 // Obtener id_boletin
@@ -60,20 +60,19 @@ $result_verificar_calificacion = $stmt_verificar_calificacion->get_result();
 $stmt_verificar_calificacion->close();
 
 if ($result_verificar_calificacion->num_rows > 0) {
-    // Actualizar la calificación existente
-    $stmt_actualizar_calificacion = $conexion->prepare("UPDATE calificaciones SET calificacion = ?, id_usuario = ?, fecha_registro = CURRENT_TIMESTAMP WHERE id_boletin = ? AND id_materia = ?");
-    $stmt_actualizar_calificacion->bind_param("diii", $nueva_calificacion, $id_usuario_actualizacion, $id_boletin, $id_materia);
-    $stmt_actualizar_calificacion->execute();
-    $stmt_actualizar_calificacion->close();
-    $_SESSION['mensaje'] = 'Calificación actualizada correctamente.';
+  // Actualizar la calificación existente
+  $stmt_actualizar_calificacion = $conexion->prepare("UPDATE calificaciones SET calificacion = ?, id_usuario = ?, fecha_registro = CURRENT_TIMESTAMP WHERE id_boletin = ? AND id_materia = ?");
+  $stmt_actualizar_calificacion->bind_param("diii", $nueva_calificacion, $id_usuario_actualizacion, $id_boletin, $id_materia);
+  $stmt_actualizar_calificacion->execute();
+  $stmt_actualizar_calificacion->close();
+  $_SESSION['mensaje'] = 'Calificación actualizada correctamente.';
 } else {
-    // Insertar una nueva calificación
-    $stmt_insertar_calificacion = $conexion->prepare("INSERT INTO calificaciones (id_materia, id_boletin, id_usuario, calificacion, id_periodo) VALUES (?, ?, ?, ?, ?)");
-    $stmt_insertar_calificacion->bind_param("iiiii", $id_materia, $id_boletin, $id_usuario_actualizacion, $nueva_calificacion, $id_periodo);
-    $stmt_insertar_calificacion->execute();
-    $stmt_insertar_calificacion->close();
-    $_SESSION['mensaje'] = 'Calificación asignada correctamente.';
+  // Insertar una nueva calificación
+  $stmt_insertar_calificacion = $conexion->prepare("INSERT INTO calificaciones (id_materia, id_boletin, id_usuario, calificacion, id_periodo) VALUES (?, ?, ?, ?, ?)");
+  $stmt_insertar_calificacion->bind_param("iiiii", $id_materia, $id_boletin, $id_usuario_actualizacion, $nueva_calificacion, $id_periodo);
+  $stmt_insertar_calificacion->execute();
+  $stmt_insertar_calificacion->close();
+  $_SESSION['mensaje'] = 'Calificación asignada correctamente.';
 }
 
 header('Location: ../calificaciones.php');
-?>

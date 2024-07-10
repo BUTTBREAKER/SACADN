@@ -8,9 +8,7 @@ use mysqli;
 
 final readonly class EnsureUserIsAuthenticated
 {
-  public function __construct(private mysqli $db)
-  {
-  }
+  public function __construct(private mysqli $db) {}
 
   public function check(): void
   {

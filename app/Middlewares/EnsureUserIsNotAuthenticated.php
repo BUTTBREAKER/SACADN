@@ -6,11 +6,12 @@ namespace SACADN\Middlewares;
 
 use mysqli;
 
-final readonly class EnsureUserIsNotAuthenticated {
-  public function __construct(private mysqli $db) {
-  }
+final readonly class EnsureUserIsNotAuthenticated
+{
+  public function __construct(private mysqli $db) {}
 
-  public function check(): void {
+  public function check(): void
+  {
     session_start();
 
     if (key_exists('usuario_id', $_SESSION)) {

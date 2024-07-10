@@ -48,7 +48,7 @@ function container(): ContainerInterface
 
     $container->bind(
       abstract: View::class,
-      concrete: fn (): View => new View(__DIR__ . '/../views'),
+      concrete: fn(): View => new View(__DIR__ . '/../views'),
       shared: true
     );
   }

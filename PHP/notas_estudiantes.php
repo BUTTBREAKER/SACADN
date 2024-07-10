@@ -8,7 +8,7 @@ include __DIR__ . '/partials/header.php';
   <div class="container card card-body table-responsive">
     <h1 class="mt-5 mb-4">Consulta de Notas por lapso y Sección</h1>
 
-   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
         <div class="col-md-4">
           <label for="id_momento" class="form-label">Selecciona el Lapso:</label>
@@ -51,7 +51,7 @@ include __DIR__ . '/partials/header.php';
         </div>
       </div>
     </form>
-<?php
+    <?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_momento']) && isset($_GET['id_seccion'])) {
       // Obtener los valores de los parámetros del formulario
@@ -120,8 +120,7 @@ include __DIR__ . '/partials/header.php';
         echo '      </tbody>
                 </table>
             </div>';
-      }
-       else {
+      } else {
         echo "<p class='mt-4'>No se encontraron notas para el lapso y la sección seleccionados.</p>";
       }
     }

@@ -10,8 +10,8 @@ include __DIR__ . '/partials/header.php';
 $idRepresentante = $_GET['id'] ?? null;
 
 if (!$idRepresentante) {
-    echo "No se ha proporcionado un ID de representante.";
-    exit;
+  echo "No se ha proporcionado un ID de representante.";
+  exit;
 }
 
 /* Seleccionar los detalles del representante */
@@ -22,8 +22,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
-    echo "No se encontraron detalles para este representante.";
-    exit;
+  echo "No se encontraron detalles para este representante.";
+  exit;
 }
 
 $representante = $result->fetch_assoc();
@@ -87,7 +87,7 @@ $resultEstudiantes = $stmtEstudiantes->get_result();
   <?php } else { ?>
     <p>Este representante no tiene estudiantes asignados.</p>
   <?php } ?>
-  <div >
+  <div>
     <button type="button" class="btn-group btn-group-lg mx-3"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
   </div>
 </div>

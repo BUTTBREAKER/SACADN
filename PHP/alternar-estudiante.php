@@ -13,8 +13,4 @@ if (isset($_GET['toggle_estado'])) {
   $conexion->query($update_sql);
   header('Location: ./Estudiantes.php');
   exit;
-
 }
-
-
-

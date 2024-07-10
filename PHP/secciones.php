@@ -7,7 +7,7 @@ include __DIR__ . '/partials/header.php';
   <div class="container card card-body table-responsive">
     <h1 class="mt-5 mb-4">Consulta de Notas por Momentos y Sección</h1>
 
-   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
         <div class="col-md-4">
           <label for="id_momento" class="form-label">Selecciona el Lapso:</label>
@@ -52,14 +52,14 @@ include __DIR__ . '/partials/header.php';
       </div>
     </form>
 
-   <?php
+    <?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_momento']) && isset($_GET['id_seccion'])) {
       // Obtener los valores de los parámetros del formulario
       $idMomento = $_GET['id_momento'];
       $idSeccion = $_GET['id_seccion'];
 
-$sql = <<<SQL
+      $sql = <<<SQL
    SELECT m.id AS id_momento, m.numero_momento AS momento, e.id As id_estudiante, e.cedula AS cedulaEstudiante,e.nombre AS nombreEstudiante,
 e.apellido As apellidoEstudiante, s.id AS id_seccion, s.nombre AS nombreSeccion, s.id_nivel_estudio AS nombreNivel FROM inscripciones i
 JOIN momentos m ON m.id = i.id_momento
@@ -67,63 +67,60 @@ JOIN estudiantes e ON e.id = i.id_estudiante
 JOIN secciones s ON s.id = i.id_seccion
 SQL;
 
-$result = $db->query($sql);
-}
-?>
+      $result = $db->query($sql);
+    }
+    ?>
 
-<body>
-    <div class="container card card-body table-responsive">
+    <body>
+      <div class="container card card-body table-responsive">
         <h3 value="<?= $nivel['nombre'] ?>"></h3>
-         <h3 value="<?= $seccion['nombre'] ?>"></h3>
-            <div class="table-responsive">
-                  <table id="tablaEstudiantesPorSeciones" class="table table-striped datatable">
-                        <thead>
-                            <tr>
-                                <th>Cedula</th>
-                                <th>Nombres</th>
-                                <th>Apellidos</th>
-                                <th>Representante</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php while ($estudiante = $result_estudiante->fetch_assoc(MYSQLI_ASSOC)) { ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($estudiante['cedulaEstudiante']) ?></td>
-                                    <td><?= htmlspecialchars($estudiante['nombreEstudiante']) ?></td>
-                                    <td><?= htmlspecialchars($estudiante['apellidoEstudiante']) ?></td>
-                                    <td>
-                                       <a href="detalles-representante.php?id=<?= htmlspecialchars($estudiante['idRepresentante']) ?>">
-                                          <?= htmlspecialchars($estudiante['nombresRepresentante'] . ' ' . $estudiante['apellidosRepresentante']) ?>
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
-            </div>
-    </div>Lapso
-  <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
+        <h3 value="<?= $seccion['nombre'] ?>"></h3>
+        <div class="table-responsive">
+          <table id="tablaEstudiantesPorSeciones" class="table table-striped datatable">
+            <thead>
+              <tr>
+                <th>Cedula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Representante</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while ($estudiante = $result_estudiante->fetch_assoc(MYSQLI_ASSOC)) { ?>
+                <tr>
+                  <td><?= htmlspecialchars($estudiante['cedulaEstudiante']) ?></td>
+                  <td><?= htmlspecialchars($estudiante['nombreEstudiante']) ?></td>
+                  <td><?= htmlspecialchars($estudiante['apellidoEstudiante']) ?></td>
+                  <td>
+                    <a href="detalles-representante.php?id=<?= htmlspecialchars($estudiante['idRepresentante']) ?>">
+                      <?= htmlspecialchars($estudiante['nombresRepresentante'] . ' ' . $estudiante['apellidosRepresentante']) ?>
+                    </a>
+                  </td>
+                </tr>
+              <?php } ?>
+            </tbody>
+          </table>
+        </div>
+      </div>Lapso
+      <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 
-  <!-- Inicializar Simple-DataTables -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const tablaEstudiantes= new simpleDatatables.DataTable("#tablaEstudiantes");
-    });
-  </script>
-</body>
-
-
-<?php include __DIR__ . '/partials/footer.php' 
-///$sql = <<<SQL
-  // SELECT m.id AS id_momento, m.numero_momento AS momento, e.id As id_estudiante, e.cedula AS cedulaEstudiante,e.nombre AS nombreEstudiante,
-//e.apellido As apellidoEstudiante, s.id AS id_seccion, s.nombre AS nombreSeccion, s.id_nivel_estudio AS nombreNivel FROM inscripciones i
-//JOIN momentos m ON m.id = i.id_momento
-//JOIN estudiantes e ON e.id = i.id_estudiante
-//JOIN secciones s ON s.id = i.id_seccion
-//SQL;
-
-//$result = $db->query($sql);///
-?>
+      <!-- Inicializar Simple-DataTables -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const tablaEstudiantes = new simpleDatatables.DataTable("#tablaEstudiantes");
+        });
+      </script>
+    </body>
 
 
-    
+    <?php include __DIR__ . '/partials/footer.php'
+    ///$sql = <<<SQL
+    // SELECT m.id AS id_momento, m.numero_momento AS momento, e.id As id_estudiante, e.cedula AS cedulaEstudiante,e.nombre AS nombreEstudiante,
+    //e.apellido As apellidoEstudiante, s.id AS id_seccion, s.nombre AS nombreSeccion, s.id_nivel_estudio AS nombreNivel FROM inscripciones i
+    //JOIN momentos m ON m.id = i.id_momento
+    //JOIN estudiantes e ON e.id = i.id_estudiante
+    //JOIN secciones s ON s.id = i.id_seccion
+    //SQL;
+
+    //$result = $db->query($sql);///
+    ?>

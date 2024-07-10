@@ -4,19 +4,19 @@ require __DIR__ . "/conexion_be.php";
 
 $resultado = null;
 
-if($_POST) {
+if ($_POST) {
 
- $anio_inicio = $_POST['anio_inicio'];
+  $anio_inicio = $_POST['anio_inicio'];
 
 
- $sql= "INSERT INTO `periodos`(`anio_inicio`) VALUES ('$anio_inicio')";
-   
- $resultado = mysqli_query($conexion,$sql);
+  $sql = "INSERT INTO `periodos`(`anio_inicio`) VALUES ('$anio_inicio')";
+
+  $resultado = mysqli_query($conexion, $sql);
 }
 ?>
 
 echo <<<HTML
-<body>
+  <body>
   <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
   <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
   <script>
@@ -27,5 +27,5 @@ echo <<<HTML
       timer: 3000
     }).then(() => location.href = '../')
   </script>
-</body>
- HTML;
+  </body>
+  HTML;

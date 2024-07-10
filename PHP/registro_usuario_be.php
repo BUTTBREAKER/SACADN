@@ -1,13 +1,16 @@
 <?php
 // Clase Registro para el proceso de registro de usuarios
-class Registro {
+class Registro
+{
   private $conexion;
 
-  public function __construct($conexion) {
+  public function __construct($conexion)
+  {
     $this->conexion = $conexion;
   }
 
-  public function registrarUsuario($usuario, $nombre,$apellido, $cedula, $contrasena, $rol) {
+  public function registrarUsuario($usuario, $nombre, $apellido, $cedula, $contrasena, $rol)
+  {
     // Verificar si ya existe un usuario con el mismo nombre
     $query_check = "SELECT usuario FROM usuarios WHERE usuario = ?";
     $stmt_check = mysqli_prepare($this->conexion, $query_check);
@@ -45,7 +48,8 @@ class Registro {
     }
   }
 
-  private function mostrarMensajeExito(string $mensaje): void {
+  private function mostrarMensajeExito(string $mensaje): void
+  {
     echo <<<HTML
         <body>
           <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
@@ -62,7 +66,8 @@ class Registro {
         HTML;
   }
 
-  private function mostrarMensajeError(string $mensaje): void {
+  private function mostrarMensajeError(string $mensaje): void
+  {
     echo <<<HTML
             <body>
                 <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
@@ -85,7 +90,7 @@ include 'conexion_be.php'; // Asumiendo que la conexión se establece aquí
 
 $registro = new Registro($conexion);
 
-if (isset($_POST['usuario'], $_POST['nombre'],$_POST['apellido'], $_POST['cedula'], $_POST['clave'],$_POST['rol'])) {
+if (isset($_POST['usuario'], $_POST['nombre'], $_POST['apellido'], $_POST['cedula'], $_POST['clave'], $_POST['rol'])) {
   $usuario = $_POST['usuario'];
   $nombre = $_POST['nombre'];
   $apellido = $_POST['apellido'];
@@ -93,5 +98,5 @@ if (isset($_POST['usuario'], $_POST['nombre'],$_POST['apellido'], $_POST['cedula
   $contrasena = $_POST['clave'];
   $rol = $_POST['rol'];
 
-  $registro->registrarUsuario($usuario, $nombre,$apellido, $cedula, $contrasena, $rol);
+  $registro->registrarUsuario($usuario, $nombre, $apellido, $cedula, $contrasena, $rol);
 }

@@ -1,8 +1,8 @@
 <?php
-require __DIR__."/Middlewares/autorizacion.php";
+require __DIR__ . "/Middlewares/autorizacion.php";
 
 // Verifica si el directorio de respaldo existe, si no, créalo
-$backupDirectory = __DIR__ .'/backups';
+$backupDirectory = __DIR__ . '/backups';
 
 if (!is_dir($backupDirectory)) {
   if (!mkdir($backupDirectory, 0777, true)) {
@@ -12,7 +12,7 @@ if (!is_dir($backupDirectory)) {
 
 $backupPath = $backupDirectory . '/full_backup.mysql.sql';
 
-$conexion = require __DIR__."/conexion_be.php";
+$conexion = require __DIR__ . "/conexion_be.php";
 
 // Abre el archivo para escritura
 $backupFile = fopen($backupPath, 'w');
@@ -35,7 +35,7 @@ foreach ($tables as $table) {
   $result = $conexion->query("SHOW CREATE TABLE $table");
   $row = $result->fetch_row();
   fwrite($backupFile, $row[1] . ";\n");
-  
+
   // Obtiene y escribe los datos de la tabla en el archivo
   $result = $conexion->query("SELECT * FROM $table");
   while ($row = $result->fetch_assoc()) {

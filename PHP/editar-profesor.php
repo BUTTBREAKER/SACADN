@@ -1,5 +1,3 @@
-
-
 <?php
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -9,9 +7,9 @@ include __DIR__ . '/partials/header.php';
 
 if ($_POST) {
   $sql = <<<SQL
- UPDATE profesores SET 
+ UPDATE profesores SET
  cedula = ?,
- nombre = ?, 
+ nombre = ?,
  apellido = ?,
  fecha_nacimiento = ?,
  estado_nacimiento = ?,
@@ -22,21 +20,21 @@ if ($_POST) {
  WHERE cedula = ?
  SQL;
 
-$db->prepare($sql)
+  $db->prepare($sql)
     ->execute([
-$_POST['cedula'],
-$_POST['nombre'],
-$_POST['apellido'],
-$_POST['fecha_nacimiento'],     
-$_POST['estado_nacimiento'],    
-$_POST['lugar_nacimiento'],
-$_POST['genero'],
-$_POST['telefono'],    
-$_POST['direccion'],
-$_POST['cedula']
-]);
-  
- exit(<<<HTML
+      $_POST['cedula'],
+      $_POST['nombre'],
+      $_POST['apellido'],
+      $_POST['fecha_nacimiento'],
+      $_POST['estado_nacimiento'],
+      $_POST['lugar_nacimiento'],
+      $_POST['genero'],
+      $_POST['telefono'],
+      $_POST['direccion'],
+      $_POST['cedula']
+    ]);
+
+  exit(<<<HTML
   <body>
     <link rel="stylesheet" href="../assets/sweetalert2/borderless.min.css" />
     <script src="../assets/sweetalert2/sweetalert2.min.js"></script>
@@ -50,7 +48,6 @@ $_POST['cedula']
     </script>
   </body>
   HTML);
-
 }
 $sql = <<<SQL
   SELECT   cedula, nombre, apellido , fecha_nacimiento,  estado_nacimiento,  lugar_nacimiento,
@@ -63,10 +60,10 @@ $stmt->execute([$_GET['cedula']]);
 
 $profesor = $stmt->get_result()->fetch_assoc();
 $venezuela = json_decode(file_get_contents(__DIR__ . '/data/venezuela.json'));
-$estados = array_map(static fn (object $info): string => $info->estado, $venezuela);
+$estados = array_map(static fn(object $info): string => $info->estado, $venezuela);
 
 ?>
-  <div class="container row mx-0 justify-content-center pb-5">
+<div class="container row mx-0 justify-content-center pb-5">
   <form class="card col-md-8 py-4" method="post" action="./editar-profesor.php">
     <h1 class="card-title h3 text-center">Editar Profesor</h1>
     <div class="card-body row">
@@ -107,7 +104,7 @@ $estados = array_map(static fn (object $info): string => $info->estado, $venezue
         </label>
       </div>
       <div class="col-md-6 form-floating mb-3">
-        <select name="genero" class="form-select"  required placeholder=" ">
+        <select name="genero" class="form-select" required placeholder=" ">
           <option disabled selected>Selecciona una opción</option>
           <option <?= $profesor['genero'] === 'Masculino' ? 'selected' : '' ?> value="masculino">Masculino</option>
           <option <?= $profesor['genero'] !== 'Masculino' ? 'selected' : '' ?> value="femenino">Femenino</option>
@@ -154,7 +151,7 @@ $estados = array_map(static fn (object $info): string => $info->estado, $venezue
         </label>
       </div>
       <div class="col-md-6 form-floating mb-3">
-        <textarea class="form-control"  placeholder=" " name="direccion" required><?= htmlspecialchars($profesor['direccion']) ?></textarea>
+        <textarea class="form-control" placeholder=" " name="direccion" required><?= htmlspecialchars($profesor['direccion']) ?></textarea>
         <label class="ms-2">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path fill="currentColor" d="M5 20v-9.15L2.2 13L1 11.4L12 3l4 3.05V4h3v4.35l4 3.05l-1.2 1.6l-2.8-2.15V20h-6v-6h-2v6zm2-2h2v-6h6v6h2V9.325l-5-3.8l-5 3.8zm3-7.975h4q0-.8-.6-1.313T12 8.2q-.8 0-1.4.513t-.6 1.312M9 18v-6h6v6v-6H9z" />
@@ -171,5 +168,3 @@ $estados = array_map(static fn (object $info): string => $info->estado, $venezue
 </div>
 
 <?php include __DIR__ . '/partials/footer.php' ?>
-
-

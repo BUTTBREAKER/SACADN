@@ -9,9 +9,7 @@ use SACADN\View;
 
 final readonly class LoginController
 {
-  public function __construct(private mysqli $db, private View $view)
-  {
-  }
+  public function __construct(private mysqli $db, private View $view) {}
 
   public function renderPage(): void
   {

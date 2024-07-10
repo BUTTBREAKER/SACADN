@@ -31,7 +31,7 @@ $result = $db->query($sql);
         <th>Dirección</th>
         <th>Estado</th>
         <?php if ($role === 'A') : ?>
-        <th>Opciones</th>
+          <th>Opciones</th>
         <?php endif ?>
       </tr>
     </thead>
@@ -50,18 +50,18 @@ $result = $db->query($sql);
           <td><?= $mostrar['direccion'] ?></td>
           <td><?= $mostrar['estado'] ?></td>
           <?php if ($role === 'A') : ?>
-          <td>
-            <form method="post">
-              <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
-              <?php {
-               echo "<a data-action='toggle-status' data-prof-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-profesor.php?toggle_estado=true&profesor_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
-             }?>
-             </button>
-              <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
-                <i class="ri-edit-box-line "></i>
-              </button>
-            </form>
-          </td>
+            <td>
+              <form method="post">
+                <button data-bs-toggle="tooltip" title="Estado" class="btn btn-outline-dark fs-10 p-1">
+                  <?php {
+                    echo "<a data-action='toggle-status' data-prof-id='" . $mostrar['id'] . "' data-new-state='" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'  href='./alternar-estado-profesor.php?toggle_estado=true&profesor_id=" . $mostrar['id'] . "&nuevo_estado=" . ($mostrar['estado'] == 'activo' ? 'inactivo' : 'activo') . "'>" . ($mostrar['estado'] === 'activo' ? 'Desactivar' : 'Activar')  . "</a>";
+                  } ?>
+                </button>
+                <button data-bs-toggle="tooltip" title="Editar" class="btn btn-outline-dark fs-4 p-1" formaction="editar-profesor.php?cedula=<?= $mostrar['cedula'] ?>">
+                  <i class="ri-edit-box-line "></i>
+                </button>
+              </form>
+            </td>
           <?php endif ?>
         </tr>
       <?php endwhile ?>

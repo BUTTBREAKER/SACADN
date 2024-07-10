@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 use Psr\Container\ContainerExceptionInterface;
 use SACADN\Controllers\LoginController;
 use SACADN\Middlewares\EnsureUserIsNotAuthenticated;
@@ -13,7 +11,6 @@ updateErrorsUrls(__DIR__ . '/.htaccess', 'views/errors');
 try {
   /** @var LoginController */
   $loginController = container()->get(LoginController::class);
-
   container()->get(EnsureUserIsNotAuthenticated::class)->check();
 
   empty($_POST)

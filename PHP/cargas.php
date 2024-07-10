@@ -69,7 +69,7 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
 <!-- Integración de SimpleDatatables -->
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     new simpleDatatables.DataTable('#calificaciones-table');
   });
 </script>

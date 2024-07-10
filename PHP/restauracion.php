@@ -1,10 +1,10 @@
 <?php
-require __DIR__."/Middlewares/autorizacion.php";
+require __DIR__ . "/Middlewares/autorizacion.php";
 //leemos el archivo del backup 
 $consultas = file_get_contents(__DIR__ . "/backups/full_backup.mysql.sql");
 
 //nos conectamos a la base de datos 
-$conexion = require __DIR__."/conexion_be.php";
+$conexion = require __DIR__ . "/conexion_be.php";
 // ejecutamos las consultas
 $conexion->multi_query($consultas);
 //damos feeback al usuario

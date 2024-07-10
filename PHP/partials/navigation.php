@@ -79,20 +79,20 @@
               </a>
             </li>
             <li>
-            <?php if ($role === 'A') : ?>
-              <li>
-                <a class="dropdown-item" href="nuevo_profesor.php">
-                  <i class="ri-user-add-line"></i>
-                  Registrar profesor
-                </a>
-              </li>
-              <?php endif ?>
+              <?php if ($role === 'A') : ?>
             <li>
-                <a class="dropdown-item" href="lista_profesores.php">
-                  <i class="ri-booklet-line"></i>
-                    Materias Asignadas
-                </a>
-              </li>
+              <a class="dropdown-item" href="nuevo_profesor.php">
+                <i class="ri-user-add-line"></i>
+                Registrar profesor
+              </a>
+            </li>
+          <?php endif ?>
+          <li>
+            <a class="dropdown-item" href="lista_profesores.php">
+              <i class="ri-booklet-line"></i>
+              Materias Asignadas
+            </a>
+          </li>
           </ul>
         </li>
 
@@ -135,13 +135,13 @@
                 Asignar Estudiantes
               </a>
             </li>
-              <li>
-                <a class="dropdown-item" href="nuevo_curso.php">
-                  <i class="ri-database-line"></i>
-                  Aperturar sección
-                </a>
-              </li>
-            <?php endif ?>
+            <li>
+              <a class="dropdown-item" href="nuevo_curso.php">
+                <i class="ri-database-line"></i>
+                Aperturar sección
+              </a>
+            </li>
+          <?php endif ?>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -157,18 +157,18 @@
               </a>
             </li>
             <?php if ($role === 'A') : ?>
-            <li>
-              <a class="dropdown-item" href="nuevo_periodo.php">
-                <i class="ri-add-large-line"></i>
-                Aperturar período
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="nuevo_momento.php">
-                <i class="ri-guide-line"></i>
-                Asignar Lapsos<br />por período
-              </a>
-            </li>
+              <li>
+                <a class="dropdown-item" href="nuevo_periodo.php">
+                  <i class="ri-add-large-line"></i>
+                  Aperturar período
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="nuevo_momento.php">
+                  <i class="ri-guide-line"></i>
+                  Asignar Lapsos<br />por período
+                </a>
+              </li>
             <?php endif ?>
           </ul>
         </li>

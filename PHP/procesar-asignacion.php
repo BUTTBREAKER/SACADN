@@ -6,6 +6,3 @@ $db = require_once __DIR__ . '/conexion_be.php';
 include_once __DIR__ . '/../Assets/Menu/Menu.php';
 
 print_r($_POST);
-
-
-?>

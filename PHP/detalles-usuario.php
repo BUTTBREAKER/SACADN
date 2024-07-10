@@ -32,8 +32,8 @@ $usuario = $result->fetch_assoc();
   <p><strong>Rol:</strong> <?php $usuario['rol'] ?></p>
   <p><strong>Usuario:</strong> <?php $usuario['usuario'] ?></p>
   <p><strong>Contraseña:</strong> <?php $usuario['clave'] ?></p>
-      <div >
-        <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
-     </div>
+  <div>
+    <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
+  </div>
 
-<?php include __DIR__ . '/partials/footer.php' ?>
+  <?php include __DIR__ . '/partials/footer.php' ?>

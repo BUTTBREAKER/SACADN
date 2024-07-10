@@ -10,8 +10,8 @@ include __DIR__ . '/partials/header.php';
 $idProfesor = $_GET['id'] ?? null;
 
 if (!$idProfesor) {
-    echo "No se ha proporcionado un ID de profesor.";
-    exit;
+  echo "No se ha proporcionado un ID de profesor.";
+  exit;
 }
 
 /* Seleccionar los detalles del profesor */
@@ -22,8 +22,8 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows === 0) {
-    echo "No se encontraron detalles para este profesor.";
-    exit;
+  echo "No se encontraron detalles para este profesor.";
+  exit;
 }
 
 
@@ -41,7 +41,7 @@ $sqlAsignaciones = <<<SQL
 SQL;
 
 $stmtAsignaciones = $db->prepare($sqlAsignaciones);
-$stmtAsignaciones -> bind_param('i', $idProfesor);
+$stmtAsignaciones->bind_param('i', $idProfesor);
 $stmtAsignaciones->execute();
 $resultAsignaciones = $stmtAsignaciones->get_result();
 
@@ -63,9 +63,9 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
           <th>Nivel de Estudio</th>
           <th>Sección</th>
         </tr>
-        <div >
-        <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="asignar-materias.php" class="btn btn-success mb-4">+ Nueva Materia</a></button>
-     </div>
+        <div>
+          <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="asignar-materias.php" class="btn btn-success mb-4">+ Nueva Materia</a></button>
+        </div>
       </thead>
       <tbody>
         <?php while ($asignacion = $resultAsignaciones->fetch_assoc()) { ?>
@@ -77,9 +77,9 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
         <?php } ?>
       </tbody>
     </table>
-      <div >
-        <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
-     </div>
+    <div>
+      <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
+    </div>
   <?php } else { ?>
     <p>Este profesor no tiene asignadas materias.</p>
   <?php } ?>

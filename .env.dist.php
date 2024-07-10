@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 return [
   'DB_CONNECTION' => 'mysql',
   // "DB_CONNECTION" => "sqlite",

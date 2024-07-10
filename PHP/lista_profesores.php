@@ -1,4 +1,4 @@
-<?php 
+<?php
 require __DIR__ . '/../vendor/autoload.php';
 // Incluir el archivo de conexión a la base de datos
 /** @var mysqli */
@@ -8,7 +8,7 @@ include __DIR__ . '/partials/header.php';
 
 $sql = <<<SQL
   SELECT p.id AS idProfesor, p.cedula AS cedulaProfesor, p.nombre AS nombreProfesor, apellido AS apellidoProfesor, m.id AS idMateria, m.nombre AS materia,
-   ne.id AS idNivel_estudio, ne.nombre As nivel_estudio, s.id idSeccion, s.nombre AS seccion FROM 
+   ne.id AS idNivel_estudio, ne.nombre As nivel_estudio, s.id idSeccion, s.nombre AS seccion FROM
    asignaciones a
 JOIN profesores p ON p.id = a.id_profesor
 JOIN materias m ON m.id = a.id_materia
@@ -33,20 +33,20 @@ $result = $db->query($sql);
         <th>Seccion</th>
       </tr>
     </thead>
-    <tbody> 
+    <tbody>
 
       <?php while ($mostrar = $result->fetch_assoc()) { ?>
-      <tr>
-        <td> <?= htmlspecialchars($mostrar['cedulaProfesor']) ?></td>
-        <td><a href="detalles-profesor.php?id=<?= htmlspecialchars($mostrar['idProfesor']) ?>">
+        <tr>
+          <td> <?= htmlspecialchars($mostrar['cedulaProfesor']) ?></td>
+          <td><a href="detalles-profesor.php?id=<?= htmlspecialchars($mostrar['idProfesor']) ?>">
               <?= htmlspecialchars($mostrar['nombreProfesor']) ?>
             </a></td>
-        <td><?= htmlspecialchars($mostrar['apellidoProfesor']) ?></td>  
-        <td><?= htmlspecialchars($mostrar['materia']) ?></td>
-        <td><?= htmlspecialchars($mostrar['nivel_estudio']) ?></td>
-        <td><?= htmlspecialchars($mostrar['seccion']) ?></td>
-      </tr>      
-      <?php }?>
+          <td><?= htmlspecialchars($mostrar['apellidoProfesor']) ?></td>
+          <td><?= htmlspecialchars($mostrar['materia']) ?></td>
+          <td><?= htmlspecialchars($mostrar['nivel_estudio']) ?></td>
+          <td><?= htmlspecialchars($mostrar['seccion']) ?></td>
+        </tr>
+      <?php } ?>
     </tbody>
   </table>
 </div>
