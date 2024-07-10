@@ -1,70 +1,61 @@
 <?php
 
-require __DIR__ . '/../app/bootstrap.php';
+use SACADN\Repositories\PeriodRepository;
 
-// Incluir el archivo de conexión a la base de datos
-/** @var mysqli */
-$db = require_once __DIR__ . '/conexion_be.php';
+require __DIR__ . '/../app/bootstrap.php';
 include __DIR__ . '/partials/header.php';
 
-$sql = <<<SQL
-  SELECT id, anio_inicio AS periodo FROM periodos
-SQL;
+/** @var PeriodRepository */
+$periodRepository = container()->get(PeriodRepository::class);
+$periods = $periodRepository->all();
 
-$result = $db->query($sql);
 ?>
 
-<title>Periodos registrados</title>
+<title>Periodos aperturados</title>
 <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css" />
 
-<div>
-  <?php if ($result && $result->num_rows > 0): ?>
-    <div class="container card card-body table-responsive">
-      <table id="tablaPeriodos" class="datatable">
-        <thead>
+<div class="container card card-body table-responsive">
+  <?php if ($periods): ?>
+    <table id="tablaPeriodos" class="table datatable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Periodo</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($periods as $period): ?>
           <tr>
-            <th>ID</th>
-            <th>Periodo</th>
-            <th>Opciones</th>
+            <td><?= $period['id'] ?></td>
+            <td>
+              <?= "{$period['anio_inicio']}-" . ($period['anio_inicio'] + 1) ?>
+            </td>
+            <td>
+              <a
+                class="btn btn-outline-secondary"
+                href="detalles-periodo.php?id=<?= $period['id'] ?>">
+                Ver detalles
+              </a>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <?php while ($mostrar = $result->fetch_assoc()): ?>
-            <tr>
-              <td>
-                <?= htmlspecialchars($mostrar['id'], ENT_QUOTES, 'UTF-8') ?>
-              </td>
-              <td>
-                <?= htmlspecialchars(
-                  "{$mostrar['periodo']}-" . ($mostrar['periodo'] + 1),
-                  ENT_QUOTES,
-                  'UTF-8'
-                ) ?>
-              </td>
-              <td>
-                <form method="post">
-                  <button formaction="periodos.php?id=<?= urlencode($mostrar['id']) ?>">
-                    Ver periodo
-                  </button>
-                </form>
-              </td>
-            </tr>
-          <?php endwhile; ?>
-        </tbody>
-      </table>
-    </div>
+        <?php endforeach ?>
+      </tbody>
+    </table>
   <?php else: ?>
-    <h2>No se encuentra registrado ningun periodo actualmente</h2>
-    <h5>¿Desea registrar un nuevo periodo?</h5>
-    <div class="row">
-      <a href="nuevo_periodo.php">
-        <button type="submit">Nuevo periodo</button>
-      </a>
+    <h2>No se encuentra aperturado ningun período actualmente</h2>
+    <h5>¿Desea aperturar un nuevo período?</h5>
+
+    <div class="text-center">
+      <a href="nuevo_periodo.php" class="btn btn-primary">Aperturar período</a>
     </div>
   <?php endif ?>
 </div>
 
 <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
-<script>new simpleDatatables.DataTable("#tablaPeriodos")</script>
+
+<script>
+  new simpleDatatables.DataTable('#tablaPeriodos')
+</script>
 
 <?php include __DIR__ . '/partials/footer.php';

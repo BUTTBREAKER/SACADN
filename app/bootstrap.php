@@ -40,7 +40,7 @@ function container(): ContainerInterface
       try {
         $mysql->select_db($_ENV['DB_DATABASE']);
       } catch (mysqli_sql_exception) {
-        $mysql->query('CREATE DATABASE ' . $_ENV['DB_DATABASE']);
+        $mysql->query("CREATE DATABASE {$_ENV['DB_DATABASE']}");
       }
 
       return $mysql;
