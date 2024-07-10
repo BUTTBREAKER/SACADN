@@ -1,13 +1,70 @@
 <?php
 
-declare(strict_types=1);
-
+require __DIR__ . '/../vendor/autoload.php';
+// Incluir el archivo de conexión a la base de datos
+/** @var mysqli */
+$db = require_once __DIR__ . '/conexion_be.php';
 include __DIR__ . '/partials/header.php';
 
+$sql = <<<SQL
+  SELECT id, anio_inicio AS periodo FROM periodos
+SQL;
+
+$result = $db->query($sql);
 ?>
 
-<main class="container">
-  <h1>Aquí va el listado de periodos</h1>
-</main>
+<!DOCTYPE html>
+<html lang="es">
 
-<?php include __DIR__ . '/partials/footer.php' ?>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Periodos registrados</title>
+  <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css">
+</head>
+<body>
+	<div>
+  <?php if ($result && $result->num_rows > 0): ?>
+    <div class="container card card-body table-responsive">
+      <table id="tablaPeriodos" class="datatable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Periodo</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php while ($mostrar = $result->fetch_assoc()): ?>
+            <tr>
+              <td><?= htmlspecialchars($mostrar['id'], ENT_QUOTES, 'UTF-8') ?></td>
+              <td><?= htmlspecialchars($mostrar['periodo'] . ' - ' . ($mostrar['periodo'] + 1), ENT_QUOTES, 'UTF-8') ?></td>
+              <td>
+                <form method="post">
+                  <button formaction="periodos.php?id=<?= urlencode($mostrar['id']) ?>">
+                    Ver periodo
+                  </button>
+                </form>
+              </td>
+            </tr>
+        <?php endwhile; ?>
+          </tbody>
+      </table>
+    </div>
+  <?php else: ?>
+    <h2>No se encuentra registrado ningun periodo actualmente</h2>
+    <h5>¿Desea registrar un nuevo periodo?</h5>
+    <div class="row">
+      <a href="nuevo_periodo.php">
+        <button type="submit">Nuevo periodo</button>
+      </a>
+    </div>
+  <?php endif; ?>
+
+  <script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
+  <script>
+    const tablaPeriodos = new simpleDatatables.DataTable("#tablaPeriodos");
+  </script>
+  <?php include('partials/footer.php') ?>
+</body>
+</html>

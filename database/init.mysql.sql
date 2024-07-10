@@ -1,274 +1,173 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Servidor: 127.0.0.1
--- Tiempo de generación: 19-03-2024 a las 15:10:52
--- Versión del servidor: 10.1.29-MariaDB
--- Versión de PHP: 8.2.16
+SET foreign_key_checks = 0;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+-- Limpiar tablas si existen
+DROP TABLE IF EXISTS asignaciones;
+DROP TABLE IF EXISTS secciones;
+DROP TABLE IF EXISTS materias;
+DROP TABLE IF EXISTS calificaciones;
+DROP TABLE IF EXISTS boletines;
+DROP TABLE IF EXISTS estudiantes;
+DROP TABLE IF EXISTS momentos;
+DROP TABLE IF EXISTS profesores;
+DROP TABLE IF EXISTS periodos;
+DROP TABLE IF EXISTS inscripciones;
+DROP TABLE IF EXISTS usuarios;
+DROP TABLE IF EXISTS representantes;
+DROP TABLE IF EXISTS niveles_estudio;
+DROP TABLE IF EXISTS asignaciones_estudiantes;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- Crear tablas
+CREATE TABLE usuarios (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(20) NOT NULL,
+  apellido VARCHAR(20) NOT NULL,
+  cedula INT NOT NULL UNIQUE,
+  usuario VARCHAR(20) NOT NULL UNIQUE,
+  clave TEXT NOT NULL,
+  rol ENUM('A', 'U'),
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
---
--- Base de datos: `sacadn1`
---
+CREATE TABLE representantes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  cedula INT NOT NULL UNIQUE,
+  nombre VARCHAR(20) NOT NULL,
+  apellido VARCHAR(20) NOT NULL,
+  fecha_nacimiento DATE NOT NULL,
+  lugar_nacimiento TEXT NOT NULL,
+  genero ENUM('Femenino', 'Masculino') NOT NULL,
+  telefono VARCHAR(16) NOT NULL UNIQUE,
+  direccion TEXT NOT NULL,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
--- --------------------------------------------------------
+CREATE TABLE profesores (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  cedula INT NOT NULL UNIQUE,
+  nombre VARCHAR(20) NOT NULL,
+  apellido VARCHAR(20) NOT NULL,
+  fecha_nacimiento DATE NOT NULL,
+  estado_nacimiento VARCHAR(20) NOT NULL,
+  lugar_nacimiento TEXT NOT NULL,
+  genero ENUM('Femenino', 'Masculino') NOT NULL,
+  telefono VARCHAR(16) NOT NULL UNIQUE,
+  direccion TEXT NOT NULL,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
---
--- Estructura de tabla para la tabla `asignacion`
---
+CREATE TABLE niveles_estudio (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(20) NOT NULL UNIQUE
+);
 
-CREATE TABLE `asignacion` (
-  `ID_asig` int(11) NOT NULL,
-  `ci_est` int(11) NOT NULL,
-  `ci_prof` int(11) NOT NULL,
-  `ID_materias` int(11) NOT NULL,
-  `ID_seccion_anio` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE periodos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  anio_inicio INT NOT NULL UNIQUE,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL
+);
 
--- --------------------------------------------------------
+CREATE TABLE estudiantes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  cedula INT NOT NULL UNIQUE,
+  nombres VARCHAR(255) NOT NULL,
+  apellidos VARCHAR(255) NOT NULL,
+  fecha_nacimiento DATE NOT NULL,
+  estado_nacimiento VARCHAR(20) NOT NULL,
+  lugar_nacimiento TEXT NOT NULL,
+  genero ENUM('Femenino', 'Masculino') NOT NULL,
+  estado ENUM('activo', 'inactivo') DEFAULT 'activo' NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
+  id_representante INT NOT NULL,
 
---
--- Estructura de tabla para la tabla `estudiantes`
---
+  FOREIGN KEY (id_representante) REFERENCES representantes (id)
+);
 
-CREATE TABLE `estudiantes` (
-  `ci_est` int(11) NOT NULL,
-  `nombre_completo` varchar(50) DEFAULT NULL,
-  `apellido` varchar(50) DEFAULT NULL,
-  `fecha_nac` date DEFAULT NULL,
-  `edad` int(3) NOT NULL,
-  `estado` varchar(20) DEFAULT NULL,
-  `lugar` varchar(20) DEFAULT NULL,
-  `genero` varchar(12) DEFAULT NULL,
-  `fech_est` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ci_repr` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE secciones (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(20) NOT NULL,
+  id_nivel_estudio INT NOT NULL,
+  numero_matriculas INT NOT NULL,
+  id_periodo INT NOT NULL,
 
---
--- Volcado de datos para la tabla `estudiantes`
---
+  FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio(id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos(id),
+  UNIQUE(nombre, id_nivel_estudio, id_periodo)
+);
 
-INSERT INTO `estudiantes` (`ci_est`, `nombre_completo`, `apellido`, `fecha_nac`, `edad`, `estado`, `lugar`, `genero`, `fech_est`, `ci_repr`) VALUES
-(30734944, 'Elaine Yusenidis', 'Rndón Angulo', '2003-01-04', 0, 'Mérida', 'Tucaní', 'femenino', '2024-03-19 04:48:10', 0);
+CREATE TABLE momentos (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  numero_momento INT NOT NULL,
+  mes_inicio INT NOT NULL CHECK (mes_inicio >= 1 AND mes_inicio <= 12),
+  dia_inicio INT NOT NULL CHECK (dia_inicio >= 1 AND dia_inicio <= 31),
+  id_periodo INT NOT NULL,
 
--- --------------------------------------------------------
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
+);
 
---
--- Estructura de tabla para la tabla `materias`
---
+CREATE TABLE inscripciones (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  id_momento INT NOT NULL,
+  id_estudiante INT NOT NULL,
+  id_seccion INT NOT NULL,
+  fecha_registro DATETIME NOT NULL,
 
-CREATE TABLE `materias` (
-  `ID_mater` int(11) NOT NULL,
-  `codigo` int(11) DEFAULT NULL,
-  `nombre` varchar(40) DEFAULT NULL,
-  `fech_mater` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  FOREIGN KEY (id_momento) REFERENCES momentos (id),
+  FOREIGN KEY (id_estudiante) REFERENCES estudiantes (id),
+  FOREIGN KEY (id_seccion) REFERENCES secciones (id)
+);
 
+CREATE TABLE boletines (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  id_momento INT NOT NULL,
+  id_estudiante INT NOT NULL,
+  id_periodo INT NOT NULL,
 
--- --------------------------------------------------------
+  FOREIGN KEY (id_momento) REFERENCES momentos (id),
+  FOREIGN KEY (id_estudiante) REFERENCES estudiantes (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
+);
 
---
--- Estructura de tabla para la tabla `notas`
---
+CREATE TABLE materias (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nombre VARCHAR(50) NOT NULL UNIQUE,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TABLE `notas` (
-  `ID_notas` int(11) NOT NULL,
-  `momento_notas` varchar(45) DEFAULT NULL,
-  `ci_est` int(11) NOT NULL,
-  `ci_prof` int(11) NOT NULL,
-  `notas` TEXT NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE calificaciones (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  id_materia INT NOT NULL,
+  id_boletin INT NOT NULL,
+  id_usuario INT NOT NULL,
+  calificacion INT NOT NULL CHECK (calificacion >= 0 AND calificacion <= 20),
+  id_periodo INT NOT NULL,
+  fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
 
--- --------------------------------------------------------
+  FOREIGN KEY (id_materia) REFERENCES materias (id),
+  FOREIGN KEY (id_boletin) REFERENCES boletines (id),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id)
+);
 
---
--- Estructura de tabla para la tabla `periodos`
---
+CREATE TABLE asignaciones (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  id_profesor INT NOT NULL,
+  id_materia INT NOT NULL,
+  id_nivel_estudio INT NOT NULL,
+  id_seccion INT NOT NULL,
+  id_periodo INT NOT NULL,
 
-CREATE TABLE `periodos` (
-  `ID_per` int(11) NOT NULL,
-  `nombre` varchar(12) DEFAULT NULL,
-  `fech_per` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  FOREIGN KEY (id_profesor) REFERENCES profesores (id),
+  FOREIGN KEY (id_materia) REFERENCES materias (id),
+  FOREIGN KEY (id_nivel_estudio) REFERENCES niveles_estudio (id),
+  FOREIGN KEY (id_seccion) REFERENCES secciones (id),
+  FOREIGN KEY (id_periodo) REFERENCES periodos (id),
+  UNIQUE(id_profesor, id_materia, id_nivel_estudio, id_seccion, id_periodo)
+);
 
--- --------------------------------------------------------
+INSERT INTO niveles_estudio (nombre) VALUES ('Primer Año'),
+('Segundo Año'), ('Tercer Año'), ('Cuarto Año'), ('Quinto Año');
 
---
--- Estructura de tabla para la tabla `profesores`
---
-
-CREATE TABLE `profesores` (
-  `ci_prof` int(11) NOT NULL,
-  `nombre_completo` varchar(50) DEFAULT NULL,
-  `apellido` varchar(50) DEFAULT NULL,
-  `fecha_nac` date DEFAULT NULL,
-  `edad` int(3) NOT NULL,
-  `estado` varchar(20) DEFAULT NULL,
-  `lugar` varchar(20) DEFAULT NULL,
-  `genero` varchar(12) DEFAULT NULL,
-  `telefono` varchar(15) DEFAULT NULL,
-  `direccion` varchar(50) DEFAULT NULL,
-  `fech_prof` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `profesores`
---
-
-INSERT INTO `profesores` (`ci_prof`, `nombre_completo`, `apellido`, `fecha_nac`, `edad`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_prof`) VALUES
-(66666, 'yyyyy', 'gggggg', '2003-06-08', 0, 'uyyiu', 'hghgvh', 'masculino', '0909', 'bjgvlhb', '2019-03-24 00:00:00'),
-(77777, 'ooooooo', 'uuuuuu', '1999-08-09', 0, 'ggggg', 'uhiuhiuh', 'femenino', '98y98y', 'ypi7tpiy', '2019-03-24 00:00:00'),
-(13567890, 'Lupe Elena', 'Torres Albornoz', '1990-12-04', 0, 'Zulia', 'Desconocido', 'femenino', '0426835678', 'La pueblita', '2019-03-24 00:00:00'),
-(32786878, 'Juan Martines', 'Ramirez Contreras', '1983-05-04', 0, 'Merida', 'Tucaní', 'masculino', '05425678943', 'Caja Seca', '2019-03-24 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `representantes`
---
-
-CREATE TABLE `representantes` (
-  `ci_repr` int(11) NOT NULL,
-  `nombre_completo` varchar(50) DEFAULT NULL,
-  `apellido` varchar(50) DEFAULT NULL,
-  `fecha_nac` date DEFAULT NULL,
-  `edad` int(3) NOT NULL,
-  `estado` varchar(20) DEFAULT NULL,
-  `lugar` varchar(20) DEFAULT NULL,
-  `genero` varchar(12) DEFAULT NULL,
-  `telefono` varchar(15) DEFAULT NULL,
-  `direccion` varchar(50) DEFAULT NULL,
-  `fech_repr` datetime DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `representantes`
---
-
-INSERT INTO `representantes` (`ci_repr`, `nombre_completo`, `apellido`, `fecha_nac`, `edad`, `estado`, `lugar`, `genero`, `telefono`, `direccion`, `fech_repr`) VALUES
-(28072391, 'Franyer', 'Sánchez', '2001-10-06', 15, 'Amarrado', 'No sé', 'masculino', '055555555555', 'No me acuerdo', '2018-03-24 00:00:00'),
-(30735099, 'Yender', 'Sánchez', '2004-04-30', 19, 'Apendejado', 'En su kokoro', 'masculino', '12345', 'Su casa', '2018-03-24 00:00:00');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `secciones_anios`
---
-
-CREATE TABLE `secciones_anios` (
-  `ID_seccion_anio` int(11) NOT NULL,
-  `anio` varchar(20) DEFAULT NULL,
-  `seccion` varchar(1) DEFAULT NULL,
-  `fech_seccion_anio` datetime DEFAULT CURRENT_TIMESTAMP,
-  `ID_per` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `ID` int(11) NOT NULL,
-  `nombre_completo` varchar(50) DEFAULT NULL,
-  `Cedula` varchar(11) DEFAULT NULL,
-  `Usuario` varchar(255) DEFAULT NULL,
-  `contrasena` varchar(255) DEFAULT NULL,
-  `rol` varchar(4) DEFAULT NULL,
-  estado ENUM('activo', 'inactivo') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`ID`, `nombre_completo`, `Cedula`, `Usuario`, `contrasena`, `rol`) VALUES
-(1, 'eliana martines', '31331136', 'eliana', '$2y$10$9jujd5R/Y2Ubv6flQXlpfuRu1zrO8xkz3vQ1TG72QzfB9Z1cQTPia', 'A'),
-(2, 'gregoy albornoz', '30734944', 'parche', '$2y$10$uaeSG4EOuFsw7Xhlo3s26eTmiY/ixbi3gWRYvPvSiJUYa8.djWAjm', 'A'),
-(3, 'Elaine RondÃ³n ', '27890456', 'ela2', '$2y$10$jWAI9MRgYGfoaWzGA7RATekyAIou7tky0fJCERwztjqBWrmIhSg9.', 'A'),
-(4, 'wwww', '222222222', '11111111', '22222222', 'A'),
-(5, 'tttttt', '00009989878', '546546yy', 'tttttt', 'A'),
-(6, 'Elisel Rocet', '456768990', 'Elisel', '$2y$10$xmeCi47RF.CKZKGAXMpuaeKI2srfHvgkAhFZep8SyUooYMBsSpDDu', 'U');
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `asignacion`
---
-ALTER TABLE `asignacion`
-  ADD PRIMARY KEY (`ID_asig`);
-
---
--- Indices de la tabla `estudiantes`
---
-ALTER TABLE `estudiantes`
-  ADD PRIMARY KEY (`ci_est`);
-
---
--- Indices de la tabla `materias`
---
-ALTER TABLE `materias`
-  ADD PRIMARY KEY (`ID_mater`);
-
---
--- Indices de la tabla `notas`
---
-ALTER TABLE `notas`
-  ADD PRIMARY KEY (`ID_notas`);
-
---
--- Indices de la tabla `periodos`
---
-ALTER TABLE `periodos`
-  ADD PRIMARY KEY (`ID_per`);
-
---
--- Indices de la tabla `profesores`
---
-ALTER TABLE `profesores`
-  ADD PRIMARY KEY (`ci_prof`);
-
---
--- Indices de la tabla `representantes`
---
-ALTER TABLE `representantes`
-  ADD PRIMARY KEY (`ci_repr`);
-
---
--- Indices de la tabla `secciones_anios`
---
-ALTER TABLE `secciones_anios`
-  ADD PRIMARY KEY (`ID_seccion_anio`);
-
---
--- Indices de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`ID`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `usuarios`
---
-ALTER TABLE `usuarios`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET foreign_key_checks = 1;

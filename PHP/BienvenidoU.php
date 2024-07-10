@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 include __DIR__ . '/partials/header.php';
 
-$user = auth()['Usuario'];
+$user = auth()['usuario'];
 
 ?>
 
-<div class="container">
+<div class="container card card-body">
   <div class="row mt-3 justify-content-md-center">
     <div class="col-md-6">
       <h1>Bienvenido, <?= $user ?></h1>

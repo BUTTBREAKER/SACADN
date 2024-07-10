@@ -25,9 +25,14 @@ try {
   <meta name="viewport" content="width=device-width" />
   <title>SACADN</title>
   <link rel="icon" href="../favicon.ico" />
-  <link rel="stylesheet" href="../assets/fonts/remixicon.css" />
-  <link rel="stylesheet" href="../assets/app.css" />
-  <link rel="stylesheet" href="../assets/simple-datatables/simple-datatables.css" />
+  <link rel="stylesheet" href="../Assets/fonts/remixicon.css" />
+  <link rel="stylesheet" href="../Assets/app.css" />
+  <link rel="stylesheet" href="../Assets/simple-datatables/simple-datatables.css" />
+  <link rel="stylesheet" href="../vendor/thomaspark/bootswatch/dist/sandstone/bootstrap.min.css" />
+  <link rel="stylesheet" href="../vendor/select2/select2/dist/css/select2.min.css" />
+  <link rel="stylesheet" href="../vendor/apalfrey/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.min.css" />
+  <script src="../Assets/ResizeObserver.global.js"></script>
+  <script src="../Assets/chart.js"></script>
 </head>
 
 <body>
