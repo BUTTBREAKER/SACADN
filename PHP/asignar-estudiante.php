@@ -15,7 +15,7 @@ if ($conexion === false) {
 $estudiantes_result = $conexion->query('SELECT id, cedula, nombres, apellidos FROM estudiantes');
 $estudiantes = $estudiantes_result->fetch_all(MYSQLI_ASSOC);
 
-$niveles_result = $conexion->query('SELECT id, nombre FROM niveles_estudio');
+$niveles_result = $conexion->query('SELECT id, nombre FROM niveles_estudio ORDER BY id');
 $niveles = $niveles_result->fetch_all(MYSQLI_ASSOC);
 
 $secciones_result = $conexion->query('SELECT id, nombre FROM secciones');
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <select name="id_estudiante" class="form-select" id="id_estudiante" required>
         <option value="" selected disabled>Seleccione un estudiante</option>
         <?php foreach ($estudiantes as $estudiante) : ?>
-          <option value="<?= $estudiante['id'] ?>"><?= $estudiante['nombre'] . " " . $estudiante['apellido'] ?></option>
+          <option value="<?= $estudiante['id'] ?>"><?= $estudiante['nombres'] . " " . $estudiante['apellidos'] ?></option>
         <?php endforeach; ?>
       </select>
       <label class="ms-2">
