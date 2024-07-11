@@ -151,7 +151,7 @@
           </button>
           <ul class="dropdown-menu">
             <li>
-              <a class="dropdown-item" href="periodos.php">
+              <a class="dropdown-item" href="consulta_peridodo.php">
                 <i class="ri-calendar-view"></i>
                 Ver períodos
               </a>
