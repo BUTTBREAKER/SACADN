@@ -67,7 +67,7 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
 <?php include __DIR__ . '/partials/footer.php' ?>
 
 <!-- Integración de SimpleDatatables -->
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="../Assets/simple-datatables/simple-datatables.min.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     new simpleDatatables.DataTable('#calificaciones-table');
