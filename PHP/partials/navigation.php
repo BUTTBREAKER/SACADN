@@ -63,6 +63,12 @@
                 Cargar notas
               </a>
             </li>
+            <li>
+              <a class="dropdown-item" href="imprimir_notas_certificadas.php">
+                <i class="ri-git-repository-commits-line"></i>
+                Imprimir notas certificadas
+              </a>
+            </li>
           </ul>
         </li>
 
