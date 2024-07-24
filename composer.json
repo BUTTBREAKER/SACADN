@@ -1,12 +1,12 @@
 {
   "require": {
-    "php": ">=8.2",
+    "php-64bit": ">=8.2",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
     "ext-pdo_sqlite": "*",
     "ext-mysqli": "*",
     "eyra/fecha_utils": "^1.0",
-    "illuminate/container": "^11.7",
+    "illuminate/container": "^11.17",
     "thomaspark/bootswatch": "^5.3",
     "select2/select2": "^4.0",
     "components/jquery": "^3.7",
@@ -31,6 +31,6 @@
     }
   },
   "require-dev": {
-    "symfony/var-dumper": "^7.0"
+    "symfony/var-dumper": "^7.1"
   }
 }
