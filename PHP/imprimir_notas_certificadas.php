@@ -25,7 +25,7 @@ $db = require_once __DIR__ . '/conexion_be.php';
 
 <script>
 function verificarCedula() {
-    var cedula = document.getElementById('cedula').value;
+    let cedula = document.getElementById('cedula').value;
     if (cedula === '') {
         Swal.fire({
             icon: 'error',
