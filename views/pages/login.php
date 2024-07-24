@@ -74,8 +74,8 @@ $showAdministratorRegister ??= true;
         <div class="overlay-panel overlay-right">
           <h1 class="title">Comienza tu gestión ahora</h1>
           <h3>
-            con nuestro Sistema Automatizado de Control y Administracion de
-            notas
+            Con nuestro Sistema Automatizado de Control y Administración de
+            Notas
           </h3>
           <?php if ($showAdministratorRegister) { ?>
             <p>
