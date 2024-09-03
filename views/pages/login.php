@@ -47,8 +47,7 @@ $showAdministratorRegister ??= true;
     </div>
     <div class="form-container login-container">
       <form id="loginForm" method="post" class="formulario__login">
-        <h1>SACADN</h1>
-        <img src="./favicon.ico" width="150" height="150" />
+        <img src="./favicon.ico" alt="Logo de SACADN" width="150" height="150" />
         <h2>Inicia sesión aquí</h2>
         <div class="form-control">
           <input id="loginUsuario" placeholder="Usuario" name="usuario" /> <small class="error-message"></small> <span></span>
@@ -74,8 +73,8 @@ $showAdministratorRegister ??= true;
         <div class="overlay-panel overlay-right">
           <h1 class="title">Comienza tu gestión ahora</h1>
           <h3>
-            con nuestro Sistema Automatizado de Control y Administracion de
-            notas
+            Con nuestro Sistema Automatizado de Control y Administración de
+            Notas
           </h3>
           <?php if ($showAdministratorRegister) { ?>
             <p>
