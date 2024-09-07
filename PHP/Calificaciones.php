@@ -3,7 +3,7 @@
 include __DIR__ . '/partials/header.php';
 
 // Verificar autorización del usuario (profesor)
-require __DIR__ . "/Middlewares/autorizacion.php";
+require __DIR__ . "/middlewares/autorizacion.php";
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /** @var mysqli */
