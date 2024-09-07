@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asignar Nivel y Sección a Estudiante</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-default@4/default.min.css" />
+  <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
 </head>
 
 <body>
@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <h2 class="card-title h3 text-center">Asignar Nivel y Sección a Estudiante</h2>
       <?php if (isset($mensaje)) : ?>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
         <script>
           Swal.fire({
             title: 'Resultado',
