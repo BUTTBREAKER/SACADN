@@ -3,8 +3,8 @@ require_once __DIR__ . '/../conexion_be.php';
 
 header('Content-Type: application/json');
 
-$id_nivel_estudio = $_POST['id_nivel_estudio'] ?? null;
-$id_seccion = $_POST['id_seccion'] ?? null;
+$id_nivel_estudio = $_GET['id_nivel_estudio'] ?? null;
+$id_seccion = $_GET['id_seccion'] ?? null;
 
 if ($id_nivel_estudio && $id_seccion) {
   $stmt_estudiantes = $conexion->prepare("

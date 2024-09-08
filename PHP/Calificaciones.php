@@ -199,61 +199,56 @@ if ($id_estudiante) {
   <?php endif; ?>
 
   <script>
-    $(document).ready(function() {
-      $('#id_nivel_estudio, #id_seccion').on('change', function() {
-        var nivelEstudioId = $('#id_nivel_estudio').val();
-        var seccionId = $('#id_seccion').val();
+    //helper para seleccionar elementos
+    const $ = (idElement) => document.getElementById(idElement);
 
-        if (nivelEstudioId && seccionId) {
-          $.ajax({
-            url: './Procesophp/obtener_estudiantes.php',
-            type: 'POST',
-            data: {
-              id_nivel_estudio: nivelEstudioId,
-              id_seccion: seccionId
-            },
-            success: function(response) {
-              console.log(response); // Verifica la respuesta en la consola
-              try {
-                var result = typeof response === 'string' ? JSON.parse(response) : response;
-                if (result.status === 'success') {
-                  var estudiantes = result.data;
-                  var options = '<option value="">Seleccione el estudiante</option>';
-                  estudiantes.forEach(function(estudiante) {
-                    options += `<option value="${estudiante.id}">${estudiante.nombre}</option>`;
-                  });
-                  $('#id_estudiante').html(options);
-                } else {
-                  Swal.fire({
-                    title: 'Error',
-                    text: result.message,
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                  });
-                }
-              } catch (e) {
-                console.error('Error al procesar la respuesta:', e);
-                Swal.fire({
-                  title: 'Error',
-                  text: 'Ocurrió un error al procesar la respuesta.',
-                  icon: 'error',
-                  confirmButtonText: 'OK'
-                });
-              }
-            },
-            error: function(xhr, status, error) {
-              console.error('Error en la solicitud AJAX:', error);
-              Swal.fire({
-                title: 'Error',
-                text: 'Ocurrió un error al cargar los estudiantes.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-              });
-            }
+    const selectNivelEstudio = $('id_nivel_estudio');
+    const selectSeccion = $('id_seccion');
+    const selectEstudiante = $('id_estudiante');
+    const configucaionFetch = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+
+    const obtenerEstudiantes = async () => {
+      let paramatrosConsulta = `id_nivel_estudio=${selectNivelEstudio.value}&id_seccion=${selectSeccion.value}`;
+      let urlFetch = './Procesophp/obtener_estudiantes.php';
+
+      try {
+        const peticion = await fetch(urlFetch + '?' + paramatrosConsulta, configucaionFetch);
+        const respuesta = await peticion.json();
+        if (respuesta.status == 'success') {
+          let estudiantes = respuesta.data;
+          let options = '<option value="">Seleccione el estudiante</option>';
+          estudiantes.forEach((estudiante) => {
+            options += `<option value="${estudiante.id}">${estudiante.nombre}</option>`;
           });
-        }
-      });
-    });
+          selectEstudiante.innerHTML = options;
+        } else throw new Error(respuesta.message);
+
+      } catch (e) {
+        console.error('Error al procesar la respuesta:', e);
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrió un error al procesar la respuesta.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
+      }
+    };
+
+    //Rellenar la lista de estudiantes solo si se ha seleccionado un nivel de estudio y una sección
+    const onChangeSelect = () => selectNivelEstudio.value && selectSeccion.value && obtenerEstudiantes();
+
+    //Eventos de cambio de selección
+    selectNivelEstudio.addEventListener('change', onChangeSelect);
+    selectSeccion.addEventListener('change', onChangeSelect);
+
+    //Rellenar la lista de estudiantes solo si se ha seleccionado un nivel de estudio y una sección
+    selectNivelEstudio.value && selectSeccion.value && obtenerEstudiantes();
+
 
     function guardarCalificacion(event, asignacionId) {
       event.preventDefault();
