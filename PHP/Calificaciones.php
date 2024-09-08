@@ -73,7 +73,7 @@ if ($id_estudiante) {
 
 <head>
   <title>Asignaciones de <?php echo $nombre_estudiante; ?></title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-default@4/default.min.css" />
+  <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
  <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -251,60 +251,44 @@ if ($id_estudiante) {
 
 
     function guardarCalificacion(event, asignacionId) {
-      event.preventDefault();
-      var form = event.target;
-      var formData = new FormData(form);
+  event.preventDefault();
+  var form = event.target;
+  var formData = new FormData(form);
 
-      $.ajax({
-        url: './Procesophp/guardar_calificacion.php',
-        type: 'POST',
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-          try {
-            var result = JSON.parse(response);
-            if (result.status === 'success') {
-              $('#modal_' + asignacionId).modal('hide'); // Cerrar la modal
-
-              // Mostrar mensaje de éxito
-              Swal.fire({
-                title: 'Éxito',
-                text: result.message,
-                icon: 'success',
-                confirmButtonText: 'OK'
-              }).then(function() {
-                // Recargar la página después de cerrar el mensaje
-                window.location.reload();
-              });
-
-            } else {
-              Swal.fire({
-                title: 'Error',
-                text: result.message,
-                icon: 'error',
-                confirmButtonText: 'OK'
-              });
-            }
-          } catch (e) {
-            Swal.fire({
-              title: 'Error',
-              text: 'Ocurrió un error al procesar la respuesta.',
-              icon: 'error',
-              confirmButtonText: 'OK'
-            });
-          }
-        },
-        error: function(xhr, status, error) {
-          Swal.fire({
-            title: 'Error',
-            text: 'Ocurrió un error al guardar la calificación.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
+  fetch('./Procesophp/guardar_calificacion.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.status === 'success') {
+      document.getElementById('modal_' + asignacionId).style.display = 'none';
+      Swal.fire({
+        title: 'Éxito',
+        text: result.message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(function() {
+        window.location.reload();
+      });
+    } else {
+      Swal.fire({
+        title: 'Error',
+        text: result.message,
+        icon: 'error',
+        confirmButtonText: 'OK'
       });
     }
+  })
+  .catch(error => {
+    Swal.fire({
+      title: 'Error',
+      text: 'Ocurrió un error al guardar la calificación.',
+      icon: 'error',
+      confirmButtonText: 'OK'
+    });
+  });
+}
 
     function limpiarFormulario() {
       document.getElementById('id_momento').value = '';
