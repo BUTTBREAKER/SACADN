@@ -40,18 +40,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id_seccion = $_POST['id_seccion'];
     $fecha_registro = date("Y-m-d H:i:s");
 
-    // Actualizar la consulta para la nueva tabla y campos
-    $stmt_inscripcion = $conexion->prepare("INSERT INTO inscripciones (id_momento, id_estudiante, id_seccion, fecha_registro) VALUES (?, ?, ?, ?)");
-    $stmt_inscripcion->bind_param("iiis", $id_momento, $id_estudiante, $id_seccion, $fecha_registro);
+    // Verificar si el estudiante ya está inscrito en cualquier sección en este lapso
+    $stmt_verificar = $conexion->prepare("SELECT COUNT(*) as inscripcion_existente FROM inscripciones WHERE id_estudiante = ? AND id_momento = ?");
+    $stmt_verificar->bind_param("ii", $id_estudiante, $id_momento);
+    $stmt_verificar->execute();
+    $result_verificar = $stmt_verificar->get_result()->fetch_assoc();
 
-    try {
-        $stmt_inscripcion->execute();
-        $mensaje = "Estudiante inscrito correctamente.";
-    } catch (mysqli_sql_exception $e) {
-        $mensaje = "Error: " . $e->getMessage();
+    if ($result_verificar['inscripcion_existente'] > 0) {
+        // Mensaje de error si el estudiante ya está inscrito
+        $mensaje = "Error: El estudiante ya está inscrito en otra sección en este lapso.";
+    } else {
+        // Verificar si hay cupos disponibles en la sección seleccionada
+        $stmt_cupos = $conexion->prepare("
+            SELECT s.numero_matriculas - COUNT(i.id) AS cupos_disponibles
+            FROM secciones s
+            LEFT JOIN inscripciones i ON i.id_seccion = s.id AND i.id_momento = ?
+            WHERE s.id = ?
+        ");
+        $stmt_cupos->bind_param("ii", $id_momento, $id_seccion);
+        $stmt_cupos->execute();
+        $result_cupos = $stmt_cupos->get_result()->fetch_assoc();
+
+        if ($result_cupos['cupos_disponibles'] <= 0) {
+            // Mensaje de error si no hay cupos disponibles
+            $mensaje = "Error: No hay cupos disponibles en esta sección.";
+        } else {
+            // Proceder con la inscripción
+            $stmt_inscripcion = $conexion->prepare("INSERT INTO inscripciones (id_momento, id_estudiante, id_seccion, fecha_registro) VALUES (?, ?, ?, ?)");
+            $stmt_inscripcion->bind_param("iiis", $id_momento, $id_estudiante, $id_seccion, $fecha_registro);
+
+            try {
+                $stmt_inscripcion->execute();
+                $mensaje = "Estudiante inscrito correctamente.";
+            } catch (mysqli_sql_exception $e) {
+                $mensaje = "Error: " . $e->getMessage();
+            }
+
+            $stmt_inscripcion->close();
+        }
+
+        $stmt_cupos->close();
     }
 
-    $stmt_inscripcion->close();
+    $stmt_verificar->close();
 }
 ?>
 
@@ -73,9 +104,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
         <script>
           Swal.fire({
-            title: 'Resultado',
+            title: '<?= strpos($mensaje, "Error") !== false ? "Error" : "Resultado" ?>',
             text: '<?= $mensaje ?>',
-            icon: '<?= strpos($mensaje, "Error") === false ? "success" : "error" ?>',
+            icon: '<?= strpos($mensaje, "Error") !== false ? "error" : "success" ?>',
             confirmButtonText: 'OK'
           });
         </script>
