@@ -30,7 +30,7 @@ $id_estudiante = $_POST['id_estudiante'] ?? null;
 
 // Consultar todos los momentos, niveles de estudio y secciones
 $momentos = $conexion->query("SELECT id, CONCAT('Lapso ', numero_momento) AS momento FROM momentos")->fetch_all(MYSQLI_ASSOC);
-$niveles_estudio = $conexion->query("SELECT id, nombre FROM niveles_estudio")->fetch_all(MYSQLI_ASSOC);
+$niveles_estudio = $conexion->query("SELECT id, nombre FROM niveles_estudio ORDER BY id")->fetch_all(MYSQLI_ASSOC);
 $secciones = $conexion->query("SELECT id, nombre FROM secciones")->fetch_all(MYSQLI_ASSOC);
 
 // Obtener el nombre y apellido del estudiante seleccionado
