@@ -1,7 +1,6 @@
 <?php
 // Incluir archivos necesarios
 include __DIR__ . '/partials/header.php';
-require __DIR__ . "/Middlewares/autorizacion.php";
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/conexion_be.php';
 

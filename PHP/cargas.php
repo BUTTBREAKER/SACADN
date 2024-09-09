@@ -8,7 +8,17 @@ include __DIR__ . '/partials/header.php';
 
 /* Seleccionar todas las asignaciones de materias junto con el nivel de estudio, sección, calificación, usuario que subió y fecha de registro */
 $sqlAsignaciones = <<<SQL
-  SELECT p.nombre AS nombre_profesor, p.apellido AS apellido_profesor, ma.nombre AS materia, ne.nombre AS nivel_estudio, s.nombre AS seccion, c.calificacion, u.usuario AS usuario_subida, c.fecha_registro
+  SELECT
+    p.nombre AS nombre_profesor,
+    p.apellido AS apellido_profesor,
+    ma.nombre AS materia,
+    ne.nombre AS nivel_estudio,
+    s.nombre AS seccion,
+    c.calificacion,
+    u.usuario AS usuario_subida,
+    c.fecha_registro,
+    e.nombres AS nombre_estudiante,
+    e.apellidos AS apellido_estudiante
   FROM asignaciones a
   JOIN profesores p ON a.id_profesor = p.id
   JOIN materias ma ON a.id_materia = ma.id
@@ -16,7 +26,11 @@ $sqlAsignaciones = <<<SQL
   JOIN niveles_estudio ne ON a.id_nivel_estudio = ne.id
   JOIN calificaciones c ON c.id_materia = ma.id
   JOIN usuarios u ON u.id = c.id_usuario
+  JOIN boletines b ON c.id_boletin = b.id 
+  JOIN estudiantes e ON b.id_estudiante = e.id
 SQL;
+
+
 
 $stmtAsignaciones = $db->prepare($sqlAsignaciones);
 $stmtAsignaciones->execute();
@@ -34,6 +48,7 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
           <th>Materia</th>
           <th>Nivel de Estudio</th>
           <th>Sección</th>
+          <th>Estudiante</th> <!-- Nueva columna para el estudiante -->
           <th>Calificación</th>
           <th>Subido por</th>
           <th>Fecha de Registro</th>
@@ -46,6 +61,7 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
             <td><?= htmlspecialchars($asignacion['materia']) ?></td>
             <td><?= htmlspecialchars($asignacion['nivel_estudio']) ?></td>
             <td><?= htmlspecialchars($asignacion['seccion']) ?></td>
+            <td><?= htmlspecialchars($asignacion['nombre_estudiante'] . ' ' . $asignacion['apellido_estudiante']) ?></td> <!-- Mostrar nombre del estudiante -->
             <td><?= htmlspecialchars($asignacion['calificacion']) ?></td>
             <td><?= htmlspecialchars($asignacion['usuario_subida']) ?></td>
             <td><?= htmlspecialchars($asignacion['fecha_registro']) ?></td>

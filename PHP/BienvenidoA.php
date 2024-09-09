@@ -6,18 +6,26 @@ include __DIR__ . '/partials/header.php';
 
 $user = auth()['usuario'];
 $conn = require_once __DIR__ . '/conexion_be.php';
+// Consulta para obtener la cantidad de estudiantes por año y sección
+$query_estudiantes_por_seccion = "
+  SELECT niveles_estudio.nombre AS anio, secciones.nombre AS seccion, COUNT(inscripciones.id_estudiante) AS cantidad_estudiantes
+  FROM inscripciones
+  JOIN secciones ON inscripciones.id_seccion = secciones.id
+  JOIN niveles_estudio ON secciones.id_nivel_estudio = niveles_estudio.id
+  GROUP BY anio, seccion
+";
 
-$query_asignaciones_estudiantes = "SELECT COUNT(*) AS count FROM inscripciones";
-$query_materias = "SELECT COUNT(*) AS count FROM materias";
-$query_profesores = "SELECT COUNT(*) AS count FROM profesores";
+$result_estudiantes_por_seccion = $conn->query($query_estudiantes_por_seccion);
 
-$result_asignaciones_estudiantes = $conn->query($query_asignaciones_estudiantes);
-$result_materias = $conn->query($query_materias);
-$result_profesores = $conn->query($query_profesores);
+$secciones = [];
+$cantidad_estudiantes = [];
 
-$count_asignaciones_estudiantes = $result_asignaciones_estudiantes->fetch_assoc()['count'];
-$count_materias = $result_materias->fetch_assoc()['count'];
-$count_profesores = $result_profesores->fetch_assoc()['count'];
+while ($row = $result_estudiantes_por_seccion->fetch_assoc()) {
+    $secciones[] = $row['anio'] . ' - ' . $row['seccion']; // Año y sección juntos
+    $cantidad_estudiantes[] = $row['cantidad_estudiantes']; // Cantidad de estudiantes en esa sección
+}
+
+
 
 $conn->close();
 ?>
@@ -38,12 +46,12 @@ $conn->close();
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Primero A', 'Materias', 'Profesores'],
+      labels: <?= json_encode($secciones) ?>,  // Nombres de las secciones con año
       datasets: [{
         label: 'Cantidad de Estudiantes',
-        data: [<?= $count_asignaciones_estudiantes ?>, <?= $count_materias ?>, <?= $count_profesores ?>],
+        data: <?= json_encode($cantidad_estudiantes) ?>, // Cantidad de estudiantes por sección y año
         borderWidth: 1,
-        backgroundColor: ['#C2EFB3', '#C4B0B3', '#4C56D8']
+        backgroundColor: '#C2EFB3'
       }]
     },
     options: {
