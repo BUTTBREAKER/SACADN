@@ -3,7 +3,6 @@ require __DIR__ . '/../vendor/autoload.php';
 include __DIR__ . '/partials/header.php';
 ?>
 
-
 <body>
   <div class="container card card-body table-responsive">
     <h1 class="mt-5 mb-4">Consulta de Notas por lapso y Sección</h1>
@@ -15,13 +14,13 @@ include __DIR__ . '/partials/header.php';
           <select name="id_momento" id="id_momento" class="form-select" required>
             <option value="" disabled selected>Selecciona un Lapso</option>
             <?php
-            // Realizar la conexión a la base de datos (requiere el archivo de conexión)
+            // Conexión a la base de datos
             $db = require_once __DIR__ . '/conexion_be.php';
 
             // Consultar los momentos disponibles
-            $sql_momentos = "SELECT m.id, CONCAT('lapso ', m.numero_momento) AS momento
+            $sql_momentos = "SELECT m.id, CONCAT('Lapso ', m.numero_momento) AS momento
                              FROM momentos m
-                             ORDER BY  m.numero_momento DESC";
+                             ORDER BY m.numero_momento DESC";
             $result_momentos = $db->query($sql_momentos);
             while ($momento = $result_momentos->fetch_assoc()) {
               echo '<option value="' . $momento['id'] . '">' . $momento['momento'] . '</option>';
@@ -47,30 +46,30 @@ include __DIR__ . '/partials/header.php';
           </select>
         </div>
         <div class="col-md-4 d-grid">
-          <button type="submit" class="btn btn-primary mt-md-4">Consultar Notas</button>
+          <button type="submit" class="btn btn-success mt-md-4">Consultar Notas</button>
         </div>
       </div>
     </form>
+
     <?php
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id_momento']) && isset($_GET['id_seccion'])) {
-      // Obtener los valores de los parámetros del formulario
+      // Obtener los valores del formulario
       $idMomento = $_GET['id_momento'];
       $idSeccion = $_GET['id_seccion'];
 
-      // Consultar las notas en base al momento y la sección seleccionados
-      $sql = "SELECT e.id AS estudiante_id, e.nombre AS estudiante, ma.nombre AS materia, c.calificacion
+      // Consulta para obtener las notas basadas en el momento y la sección seleccionados
+      $sql = "SELECT e.id AS estudiante_id, CONCAT(e.nombres, ' ', e.apellidos) AS estudiante, ma.nombre AS materia, c.calificacion
               FROM calificaciones c
               JOIN boletines b ON c.id_boletin = b.id
               JOIN estudiantes e ON b.id_estudiante = e.id
               JOIN momentos m ON b.id_momento = m.id
               JOIN materias ma ON c.id_materia = ma.id
-              JOIN asignaciones_estudiantes ae ON ae.id_estudiante = e.id
-              WHERE m.id = ? AND ae.id_seccion = ? AND ae.id_nivel_estudio = (
-                  SELECT id_nivel_estudio FROM secciones WHERE id = ?
-              )";
+              JOIN inscripciones i ON i.id_estudiante = e.id
+              WHERE m.id = ? AND i.id_seccion = ?";
+
       $stmt = $db->prepare($sql);
-      $stmt->bind_param('iii', $idMomento, $idSeccion, $idSeccion);
+      $stmt->bind_param('ii', $idMomento, $idSeccion);
       $stmt->execute();
       $result = $stmt->get_result();
 
