@@ -23,7 +23,7 @@ echo <<<HTML
   <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
   <script>
     Swal.fire({
-      title: 'Momento registrado',
+      title: 'Lapso registrado',
       icon: 'success',
       showConfirmButton: false,
       timer: 3000

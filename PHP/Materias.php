@@ -26,9 +26,10 @@ $stmt->close();
 
 <div class="container card card-body table-responsive">
   <div class="container" style="overflow-x: auto;">
-    <!-- Botón para registrar nueva materia -->
-    <a href="nueva_materia.php" class="btn btn-primary">Registrar Nueva Materia</a>
-
+    <?php if ($role === 'A') : ?>
+      <!-- Botón para registrar nueva materia -->
+      <a href="nueva_materia.php" class="btn btn-primary">Registrar Nueva Materia</a>
+    <?php endif ?>
     <!-- Tabla para mostrar las materias existentes -->
     <table id="tablaMaterias" class="datatable">
       <thead>

@@ -6,10 +6,11 @@ include __DIR__ . '/partials/header.php';
 /** @var mysqli */
 $db = require_once __DIR__ . '/conexion_be.php';
 
-
-
+// Consulta SQL para seleccionar solo periodos activos
 $sql = <<<SQL
-  SELECT id, anio_inicio AS periodo FROM periodos
+  SELECT id, anio_inicio AS periodo
+  FROM periodos
+  WHERE estado = 'activo'
 SQL;
 
 $result = $db->query($sql);
@@ -19,7 +20,6 @@ $result = $db->query($sql);
   <form class="card col-md-5 py-3" method="post" action="./guardar_momento.php" autocomplete="off">
     <h1 class="card-title h3 text-center">Nuevo Registro de Lapso</h1>
     <div class="card-body row">
-
 
       <div class="col-md-12 form-floating mb-3">
         <input class="form-control" type="number" id="numero_momento" placeholder=" " name="numero_momento" pattern="[0-9]+" required>
