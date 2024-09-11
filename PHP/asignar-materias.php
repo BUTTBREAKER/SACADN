@@ -1,5 +1,5 @@
 <?php
-// verifica que solo pueden entrar los Administradores
+// Verifica que solo pueden entrar los Administradores
 include __DIR__ . '/partials/header.php';
 require __DIR__ . "/Middlewares/autorizacion.php";
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -9,6 +9,16 @@ require_once __DIR__ . '/conexion_be.php';
 
 if ($conexion === false) {
   die("Error al conectar con la base de datos.");
+}
+
+// Obtener el periodo activo
+$periodo_result = $conexion->query('SELECT id, anio_inicio FROM periodos WHERE estado = "activo" LIMIT 1');
+$periodo_activo = $periodo_result->fetch_assoc();
+$id_periodo_activo = $periodo_activo['id'] ?? null;
+$anio_periodo_activo = $periodo_activo['anio_inicio'] ?? null;
+
+if (!$id_periodo_activo) {
+  die("Error: No hay un periodo activo.");
 }
 
 // Obtener los datos necesarios
@@ -21,27 +31,46 @@ $materias = $materias_result->fetch_all(MYSQLI_ASSOC);
 $niveles_result = $conexion->query('SELECT id, nombre FROM niveles_estudio');
 $niveles = $niveles_result->fetch_all(MYSQLI_ASSOC);
 
-$secciones_result = $conexion->query('SELECT id, nombre FROM secciones');
-$secciones = $secciones_result->fetch_all(MYSQLI_ASSOC);
+// Procesar la solicitud AJAX para cargar las secciones
+if (isset($_POST['nivel_id'])) {
+  $nivel_id = intval($_POST['nivel_id']);
+  $periodo_id = intval($id_periodo_activo); // Obtener el ID del periodo activo
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $secciones_result = $conexion->prepare("
+    SELECT id, nombre
+    FROM secciones
+    WHERE id_nivel_estudio = ? AND id_periodo = ?
+  ");
+  $secciones_result->bind_param("ii", $nivel_id, $periodo_id);
+  $secciones_result->execute();
+  $secciones = $secciones_result->get_result()->fetch_all(MYSQLI_ASSOC);
+
+  // Retornar las opciones de secciones
+  foreach ($secciones as $seccion) {
+    echo '<option value="' . $seccion['id'] . '">' . $seccion['nombre'] . '</option>';
+  }
+  exit;
+}
+
+// Manejar la asignación de materias
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['nivel_id'])) {
   $id_profesor = $_POST['id_profesor'];
   $id_materia = $_POST['id_materia'];
   $id_nivel_estudio = $_POST['id_nivel_estudio'];
   $id_seccion = $_POST['id_seccion'];
 
-  // Verificar si ya existe una asignación para esa materia en la misma sección
-  $stmt_verificar = $conexion->prepare("SELECT id FROM asignaciones WHERE id_materia = ? AND id_seccion = ?");
-  $stmt_verificar->bind_param("ii", $id_materia, $id_seccion);
+  // Verificar si ya existe una asignación para esa materia en la misma sección y periodo
+  $stmt_verificar = $conexion->prepare("SELECT id FROM asignaciones WHERE id_materia = ? AND id_seccion = ? AND id_periodo = ?");
+  $stmt_verificar->bind_param("iii", $id_materia, $id_seccion, $id_periodo_activo);
   $stmt_verificar->execute();
   $stmt_verificar->store_result();
 
   if ($stmt_verificar->num_rows > 0) {
-    $mensaje = "Error: Esta materia ya está asignada a otro profesor en la misma sección.";
+    $mensaje = "Error: Esta materia ya está asignada a otro profesor en la misma sección y periodo.";
     $icono = "error";
   } else {
-    $stmt_asignacion = $conexion->prepare("INSERT INTO asignaciones (id_profesor, id_materia, id_nivel_estudio, id_seccion) VALUES (?, ?, ?, ?)");
-    $stmt_asignacion->bind_param("iiii", $id_profesor, $id_materia, $id_nivel_estudio, $id_seccion);
+    $stmt_asignacion = $conexion->prepare("INSERT INTO asignaciones (id_profesor, id_materia, id_nivel_estudio, id_seccion, id_periodo) VALUES (?, ?, ?, ?, ?)");
+    $stmt_asignacion->bind_param("iiiii", $id_profesor, $id_materia, $id_nivel_estudio, $id_seccion, $id_periodo_activo);
 
     try {
       $stmt_asignacion->execute();
@@ -67,6 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asignar Materias a Profesores</title>
   <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="../Assets/sweetalert2/sweetalert2.min.js"></script>
 </head>
 
@@ -75,6 +105,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row mx-0 justify-content-center pb-5">
       <form class="card col-md-5 py-4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <h2 class="card-title h3 text-center">Asignar Materias a Profesores</h2>
+
+        <div class="col-md-12 form-floating mb-3">
+          <input type="hidden" name="id_periodo" value="<?= htmlspecialchars($id_periodo_activo) ?>">
+          <input class="form-control" type="text" value="<?= htmlspecialchars($anio_periodo_activo) ?>" readonly>
+          <label for="id_periodo">Período Activo:</label>
+        </div>
+
         <div class="col-md-12 form-floating mb-3">
           <select name="id_profesor" class="form-select select-styled" id="id_profesor" required>
             <option value="" selected disabled>Seleccione un profesor</option>
@@ -117,9 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-md-12 form-floating mb-3">
           <select name="id_seccion" class="form-select select-styled" id="id_seccion" required>
             <option value="" selected disabled>Seleccione una sección</option>
-            <?php foreach ($secciones as $seccion) : ?>
-              <option value="<?= $seccion['id'] ?>"><?= $seccion['nombre'] ?></option>
-            <?php endforeach; ?>
           </select>
           <label class="ms-2 select-label" for="id_seccion">
             <i class="ri-barricade-line ri-lg icon"></i>
@@ -135,45 +169,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       </form>
     </div>
   </div>
-  </div>
-
 
   <script>
-    document.getElementById('id_nivel_estudio').addEventListener('change', cargarSecciones);
-
-    function cargarSecciones() {
-      const idNivelEstudio = document.getElementById('id_nivel_estudio').value;
-
-      if (idNivelEstudio) {
-        fetch(`./Procesophp/cargar_secciones.php?id_nivel_estudio=${idNivelEstudio}`)
-          .then(response => response.json())
-          .then(secciones => {
-            const seccionSelect = document.getElementById('id_seccion');
-            seccionSelect.innerHTML = ''; // Limpiamos las opciones existentes
-
-            // Iteramos sobre las secciones y creamos opciones
-            secciones.forEach(seccion => {
-              const option = document.createElement('option');
-              option.value = seccion.id;
-              option.textContent = seccion.nombre;
-              seccionSelect.appendChild(option);
-            });
-          })
-          .catch(error => console.error('Error al cargar secciones:', error));
-      }
-    }
-    // Mostrar mensaje con SweetAlert2
-    <?php if (isset($mensaje)) : ?>
-      Swal.fire({
-        title: 'Resultado',
-        text: '<?= $mensaje ?>',
-        icon: '<?= $icono ?>',
-        confirmButtonText: 'OK'
+    $(document).ready(function() {
+      $('#id_nivel_estudio').change(function() {
+        var nivel_id = $(this).val();
+        var periodo_id = <?= json_encode($id_periodo_activo); ?>;
+        if (nivel_id) {
+          $.post('<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>', {
+            nivel_id: nivel_id
+          }, function(data) {
+            $('#id_seccion').html(data);
+          });
+        }
       });
-    <?php endif; ?>
-  </script>
 
-  <?php include __DIR__ . '/partials/footer.php' ?>
+      <?php if (isset($mensaje)) : ?>
+        Swal.fire({
+          title: '<?= strpos($mensaje, "Error") !== false ? "Error" : "Resultado" ?>',
+          text: '<?= $mensaje ?>',
+          icon: '<?= $icono ?>',
+          confirmButtonText: 'OK'
+        });
+      <?php endif; ?>
+    });
+  </script>
 </body>
 
 </html>
+<?php include __DIR__ . '/partials/footer.php'; ?>

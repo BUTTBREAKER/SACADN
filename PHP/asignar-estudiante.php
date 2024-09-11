@@ -28,8 +28,16 @@ $niveles = $niveles_result->fetch_all(MYSQLI_ASSOC);
 // Procesar la solicitud AJAX para cargar las secciones
 if (isset($_POST['nivel_id'])) {
   $nivel_id = intval($_POST['nivel_id']);
-  $secciones_result = $conexion->query("SELECT id, nombre FROM secciones WHERE id_nivel_estudio = $nivel_id");
-  $secciones = $secciones_result->fetch_all(MYSQLI_ASSOC);
+  $periodo_id = intval($periodo_activo['id']); // Obtener el ID del periodo activo
+
+  $secciones_result = $conexion->prepare("
+    SELECT id, nombre
+    FROM secciones
+    WHERE id_nivel_estudio = ? AND id_periodo = ?
+  ");
+  $secciones_result->bind_param("ii", $nivel_id, $periodo_id);
+  $secciones_result->execute();
+  $secciones = $secciones_result->get_result()->fetch_all(MYSQLI_ASSOC);
 
   // Retornar las opciones de secciones
   foreach ($secciones as $seccion) {
