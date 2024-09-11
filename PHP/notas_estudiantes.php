@@ -1,11 +1,22 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 include __DIR__ . '/partials/header.php';
+
+// Conexión a la base de datos
+$db = require_once __DIR__ . '/conexion_be.php';
+
+// Obtener el periodo activo
+$stmt_periodo_activo = $db->prepare("SELECT id FROM periodos WHERE estado = 'activo' LIMIT 1");
+$stmt_periodo_activo->execute();
+$periodo_activo = $stmt_periodo_activo->get_result()->fetch_assoc();
+$stmt_periodo_activo->close();
+
+$periodo_id = $periodo_activo['id'];
 ?>
 
 <body>
   <div class="container card card-body table-responsive">
-    <h1 class="mt-5 mb-4">Consulta de Notas por lapso y Sección</h1>
+    <h1 class="mt-5 mb-4">Consulta de Notas por Lapso y Sección</h1>
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="get" class="mb-4">
       <div class="row">
@@ -14,34 +25,45 @@ include __DIR__ . '/partials/header.php';
           <select name="id_momento" id="id_momento" class="form-select" required>
             <option value="" disabled selected>Selecciona un Lapso</option>
             <?php
-            // Conexión a la base de datos
-            $db = require_once __DIR__ . '/conexion_be.php';
-
-            // Consultar los momentos disponibles
+            // Consultar los momentos disponibles solo para el periodo activo
             $sql_momentos = "SELECT m.id, CONCAT('Lapso ', m.numero_momento) AS momento
                              FROM momentos m
+                             JOIN boletines b ON m.id = b.id_momento
+                             WHERE b.id_periodo = ?
+                             GROUP BY m.id
                              ORDER BY m.numero_momento DESC";
-            $result_momentos = $db->query($sql_momentos);
+            $stmt_momentos = $db->prepare($sql_momentos);
+            $stmt_momentos->bind_param('i', $periodo_id);
+            $stmt_momentos->execute();
+            $result_momentos = $stmt_momentos->get_result();
             while ($momento = $result_momentos->fetch_assoc()) {
               echo '<option value="' . $momento['id'] . '">' . $momento['momento'] . '</option>';
             }
+            $stmt_momentos->close();
             ?>
           </select>
         </div>
         <div class="col-md-4">
-          <label for="id_seccion" class="form-label">Selecciona Año-Seccion:</label>
+          <label for="id_seccion" class="form-label">Selecciona Año-Sección:</label>
           <select name="id_seccion" id="id_seccion" class="form-select" required>
-            <option value="" disabled selected>Selecciona Año-Seccion</option>
+            <option value="" disabled selected>Selecciona Año-Sección</option>
             <?php
-            // Consultar las secciones disponibles
+            // Consultar las secciones disponibles solo para el periodo activo
             $sql_secciones = "SELECT s.id, s.nombre AS seccion, n.nombre AS nivel
                               FROM secciones s
                               JOIN niveles_estudio n ON s.id_nivel_estudio = n.id
+                              JOIN inscripciones i ON i.id_seccion = s.id
+                              WHERE i.id_periodo = ?
+                              GROUP BY s.id
                               ORDER BY n.nombre, s.nombre";
-            $result_secciones = $db->query($sql_secciones);
+            $stmt_secciones = $db->prepare($sql_secciones);
+            $stmt_secciones->bind_param('i', $periodo_id);
+            $stmt_secciones->execute();
+            $result_secciones = $stmt_secciones->get_result();
             while ($seccion = $result_secciones->fetch_assoc()) {
               echo '<option value="' . $seccion['id'] . '">' . $seccion['nivel'] . ' - ' . $seccion['seccion'] . '</option>';
             }
+            $stmt_secciones->close();
             ?>
           </select>
         </div>
@@ -58,7 +80,7 @@ include __DIR__ . '/partials/header.php';
       $idMomento = $_GET['id_momento'];
       $idSeccion = $_GET['id_seccion'];
 
-      // Consulta para obtener las notas basadas en el momento y la sección seleccionados
+      // Consulta para obtener las notas basadas en el momento, la sección seleccionados y el periodo activo
       $sql = "SELECT e.id AS estudiante_id, CONCAT(e.nombres, ' ', e.apellidos) AS estudiante, ma.nombre AS materia, c.calificacion
               FROM calificaciones c
               JOIN boletines b ON c.id_boletin = b.id
@@ -66,10 +88,10 @@ include __DIR__ . '/partials/header.php';
               JOIN momentos m ON b.id_momento = m.id
               JOIN materias ma ON c.id_materia = ma.id
               JOIN inscripciones i ON i.id_estudiante = e.id
-              WHERE m.id = ? AND i.id_seccion = ?";
+              WHERE m.id = ? AND i.id_seccion = ? AND b.id_periodo = ?";
 
       $stmt = $db->prepare($sql);
-      $stmt->bind_param('ii', $idMomento, $idSeccion);
+      $stmt->bind_param('iii', $idMomento, $idSeccion, $periodo_id);
       $stmt->execute();
       $result = $stmt->get_result();
 
@@ -137,4 +159,4 @@ include __DIR__ . '/partials/header.php';
   </script>
 </body>
 
-<?php include __DIR__ . '/partials/footer.php' ?>
+<?php include __DIR__ . '/partials/footer.php'; ?>
