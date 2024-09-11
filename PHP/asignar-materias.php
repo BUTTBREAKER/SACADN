@@ -25,8 +25,15 @@ if (!$id_periodo_activo) {
 $profesores_result = $conexion->query('SELECT id, nombre, apellido FROM profesores');
 $profesores = $profesores_result->fetch_all(MYSQLI_ASSOC);
 
-$materias_result = $conexion->query('SELECT id, nombre FROM materias');
-$materias = $materias_result->fetch_all(MYSQLI_ASSOC);
+// Obtener materias del periodo activo
+$materias_result = $conexion->prepare('
+  SELECT id, nombre
+  FROM materias
+  WHERE id_periodo = ?
+');
+$materias_result->bind_param('i', $id_periodo_activo);
+$materias_result->execute();
+$materias = $materias_result->get_result()->fetch_all(MYSQLI_ASSOC);
 
 $niveles_result = $conexion->query('SELECT id, nombre FROM niveles_estudio');
 $niveles = $niveles_result->fetch_all(MYSQLI_ASSOC);

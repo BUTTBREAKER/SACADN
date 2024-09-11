@@ -133,10 +133,11 @@ CREATE TABLE boletines (
 
 CREATE TABLE materias (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nombre VARCHAR(50) NOT NULL UNIQUE,
+  nombre VARCHAR(50) NOT NULL,
   fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP,
   id_periodo INT,
-  FOREIGN KEY (id_periodo) REFERENCES periodos(id)
+  FOREIGN KEY (id_periodo) REFERENCES periodos(id),
+  UNIQUE KEY unique_nombre_periodo (nombre, id_periodo)
 );
 
 

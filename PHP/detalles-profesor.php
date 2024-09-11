@@ -14,6 +14,18 @@ if (!$idProfesor) {
   exit;
 }
 
+// Obtener el ID del período activo
+$sqlPeriodoActivo = "SELECT id FROM periodos WHERE estado = 'activo'";
+$resultPeriodoActivo = $db->query($sqlPeriodoActivo);
+
+if ($resultPeriodoActivo->num_rows === 0) {
+  echo "No se ha definido un período activo.";
+  exit;
+}
+
+$periodoActivo = $resultPeriodoActivo->fetch_assoc();
+$idPeriodoActivo = $periodoActivo['id'];
+
 /* Seleccionar los detalles del profesor */
 $sql = "SELECT * FROM profesores WHERE id = ?";
 $stmt = $db->prepare($sql);
@@ -26,7 +38,6 @@ if ($result->num_rows === 0) {
   exit;
 }
 
-
 $profesor = $result->fetch_assoc();
 
 /* Seleccionar las asignaciones de materias para este profesor junto con el nivel de estudio y la sección */
@@ -34,14 +45,13 @@ $sqlAsignaciones = <<<SQL
   SELECT ma.nombre AS materia, ne.nombre AS nivel_estudio, s.nombre AS seccion
   FROM asignaciones a
   JOIN materias ma ON a.id_materia = ma.id
-  JOIN momentos m ON a.id_momento = m.id
   JOIN secciones s ON a.id_seccion = s.id
   JOIN niveles_estudio ne ON a.id_nivel_estudio = ne.id
-  WHERE a.id_profesor = ?
+  WHERE a.id_profesor = ? AND a.id_periodo = ?
 SQL;
 
 $stmtAsignaciones = $db->prepare($sqlAsignaciones);
-$stmtAsignaciones->bind_param('i', $idProfesor);
+$stmtAsignaciones->bind_param('ii', $idProfesor, $idPeriodoActivo);
 $stmtAsignaciones->execute();
 $resultAsignaciones = $stmtAsignaciones->get_result();
 
@@ -49,7 +59,7 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
 
 <div class="container card card-body">
   <h2>Detalles del Profesor</h2>
-  <p><strong>Nombre:</strong> <?= htmlspecialchars($profesor['nombre']) ?></a></p>
+  <p><strong>Nombre:</strong> <?= htmlspecialchars($profesor['nombre']) ?></p>
   <p><strong>Apellido:</strong> <?= htmlspecialchars($profesor['apellido']) ?></p>
   <p><strong>Teléfono:</strong> <?= htmlspecialchars($profesor['telefono']) ?></p>
   <p><strong>Dirección:</strong> <?= htmlspecialchars($profesor['direccion']) ?></p>
@@ -81,7 +91,8 @@ $resultAsignaciones = $stmtAsignaciones->get_result();
       <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="javascript:history.back()" class="btn btn-outline-secondary">Regresar</a></button>
     </div>
   <?php } else { ?>
-    <p>Este profesor no tiene asignadas materias.</p>
+    <p>Este profesor no tiene asignadas materias en este periodo.</p>
+    <buttontype= "button" class="btn-group btn-group-lg mx-3 mb-4"><a href="asignar-materias.php" class="btn btn-success mb-4">+ Nueva Materia</a></button>
   <?php } ?>
 </div>
 
