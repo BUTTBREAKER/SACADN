@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 include __DIR__ . '/partials/header.php';
 
-require __DIR__ . "/Middlewares/autorizacion.php";
 $user = auth()['usuario'];
 $conn = require_once __DIR__ . '/conexion_be.php';
 
@@ -105,6 +104,19 @@ $etiqueta_grafica = $cantidad_lapsos == 3 ? "Estudiantes Promovidos/No Promovido
 </div>
 
 <script>
+  // Generar colores aleatorios
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  // Asignar un color diferente para cada nivel
+  const colors = <?= json_encode($niveles) ?>.map(() => getRandomColor());
+
   // Gráfico 1: Total de Estudiantes por Nivel de Estudio
   const ctxEstudiantes = document.getElementById('chartEstudiantes').getContext('2d');
   new Chart(ctxEstudiantes, {
@@ -115,7 +127,7 @@ $etiqueta_grafica = $cantidad_lapsos == 3 ? "Estudiantes Promovidos/No Promovido
         label: 'Total de Estudiantes',
         data: <?= json_encode($total_estudiantes_nivel) ?>, // Datos de estudiantes por nivel
         borderWidth: 1,
-        backgroundColor: '#3C9DD0'
+        backgroundColor: colors // Usar colores dinámicos
       }]
     },
     options: {
@@ -160,5 +172,4 @@ $etiqueta_grafica = $cantidad_lapsos == 3 ? "Estudiantes Promovidos/No Promovido
     }
   });
 </script>
-
 <?php include __DIR__ . '/partials/footer.php' ?>
