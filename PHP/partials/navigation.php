@@ -142,6 +142,12 @@
               </a>
             </li>
             <li>
+            <li>
+              <a class="dropdown-item" href="Reasignar-estudiante.php">
+                <i class="ri-table-line"></i>
+                Reasignar Estudiantes
+              </a>
+            </li>
               <a class="dropdown-item" href="nuevo_curso.php">
                 <i class="ri-database-line"></i>
                 Aperturar sección
@@ -160,6 +166,12 @@
               <a class="dropdown-item" href="consulta_peridodo.php">
                 <i class="ri-calendar-view"></i>
                 Ver períodos
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="Periodos.php">
+                <i class="ri-calendar-view"></i>
+                Lista de períodos
               </a>
             </li>
             <?php if ($role === 'A') : ?>

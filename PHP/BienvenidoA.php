@@ -5,6 +5,7 @@ declare(strict_types=1);
 include __DIR__ . '/partials/header.php';
 
 require __DIR__ . "/Middlewares/autorizacion.php";
+$user = auth()['usuario'];
 $conn = require_once __DIR__ . '/conexion_be.php';
 
 // Obtener el ID del periodo activo
