@@ -5,9 +5,11 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/conexion_be.php';
 
 // Función para ejecutar consultas preparadas
-function getData($conexion, $query, $param) {
+function getData($conexion, $query, $params = []) {
   $stmt = $conexion->prepare($query);
-  $stmt->bind_param("i", $param);
+  if (!empty($params)) {
+    $stmt->bind_param(str_repeat('i', count($params)), ...$params);
+  }
   $stmt->execute();
   $result = $stmt->get_result();
   $stmt->close();
@@ -16,13 +18,13 @@ function getData($conexion, $query, $param) {
 
 try {
   // Obtén todos los periodos disponibles
-  $stmt_periodos = $conexion->prepare("SELECT id, anio_inicio FROM periodos ORDER BY anio_inicio DESC");
-  $stmt_periodos->execute();
-  $result_periodos = $stmt_periodos->get_result();
-  $stmt_periodos->close();
+  $query_periodos = "SELECT id, anio_inicio FROM periodos ORDER BY anio_inicio DESC";
+  $result_periodos = getData($conexion, $query_periodos);
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $periodo_id = $_POST['periodo_id'] ?? null;
+    $tipo_consulta = $_POST['tipo_consulta'] ?? null;
+    $id_seccion = $_POST['id_seccion'] ?? null;
 
     if ($periodo_id) {
       // Consulta para maestros y materias
@@ -37,7 +39,7 @@ try {
                 JOIN secciones s ON a.id_seccion = s.id
                 JOIN periodos per ON a.id_periodo = per.id
                 WHERE per.id = ?";
-      $result_maestros_materias = getData($conexion, $maestros_materias_query, $periodo_id);
+      $result_maestros_materias = getData($conexion, $maestros_materias_query, [$periodo_id]);
 
       // Consulta para representantes y estudiantes
       $representantes_estudiantes_query = "
@@ -51,27 +53,40 @@ try {
                 JOIN periodos per ON s.id_periodo = per.id
                 JOIN niveles_estudio n ON s.id_nivel_estudio = n.id
                 WHERE per.id = ?";
-      $result_representantes_estudiantes = getData($conexion, $representantes_estudiantes_query, $periodo_id);
+      $result_representantes_estudiantes = getData($conexion, $representantes_estudiantes_query, [$periodo_id]);
 
-      // Consulta actualizada para secciones, estudiantes y calificaciones definitivas
-      $secciones_estudiantes_calificaciones_query = "
-                SELECT s.nombre AS seccion_nombre, e.nombres AS estudiante_nombres,
-                       e.apellidos AS estudiante_apellidos, m.nombre AS materia_nombre,
-                       IFNULL(ROUND(AVG(c.calificacion), 2), 'Sin Calificación') AS calificacion_definitiva,
-                       n.nombre AS nivel_estudio, per.anio_inicio AS periodo
-                FROM secciones s
-                JOIN inscripciones i ON s.id = i.id_seccion
-                JOIN estudiantes e ON i.id_estudiante = e.id
-                JOIN asignaciones a ON s.id = a.id_seccion
-                JOIN materias m ON a.id_materia = m.id
-                LEFT JOIN boletines b ON e.id = b.id_estudiante
-                LEFT JOIN calificaciones c ON b.id = c.id_boletin AND c.id_materia = m.id
-                JOIN periodos per ON s.id_periodo = per.id
-                JOIN niveles_estudio n ON s.id_nivel_estudio = n.id
-                WHERE per.id = ?
-                GROUP BY s.nombre, e.nombres, e.apellidos, m.nombre, n.nombre, per.anio_inicio
-                ORDER BY s.nombre, e.apellidos, e.nombres, m.nombre";
-      $result_secciones_estudiantes_calificaciones = getData($conexion, $secciones_estudiantes_calificaciones_query, $periodo_id);
+      // Consulta para obtener las secciones disponibles
+      $secciones_query = "SELECT s.id, s.nombre AS seccion, n.nombre AS nivel
+                                FROM secciones s
+                                JOIN niveles_estudio n ON s.id_nivel_estudio = n.id
+                                JOIN inscripciones i ON i.id_seccion = s.id
+                                WHERE i.id_periodo = ?
+                                GROUP BY s.id
+                                ORDER BY n.nombre, s.nombre";
+      $result_secciones = getData($conexion, $secciones_query, [$periodo_id]);
+
+      // Si se seleccionó un tipo de consulta y una sección
+      if ($tipo_consulta && $id_seccion) {
+        if ($tipo_consulta == 'definitiva') {
+          $notas_query = "SELECT e.id AS estudiante_id, CONCAT(e.nombres, ' ', e.apellidos) AS estudiante,
+                                       ma.nombre AS materia, AVG(c.calificacion) AS calificacion_definitiva
+                                    FROM calificaciones c
+                                    JOIN boletines b ON c.id_boletin = b.id
+                                    JOIN estudiantes e ON b.id_estudiante = e.id
+                                    JOIN materias ma ON c.id_materia = ma.id
+                                    JOIN inscripciones i ON i.id_estudiante = e.id
+                                    WHERE i.id_seccion = ? AND b.id_periodo = ?
+                                    GROUP BY e.id, ma.id";
+          $result_notas = getData($conexion, $notas_query, [$id_seccion, $periodo_id]);
+
+          // Organizar los datos por estudiante
+          $calificacionesPorEstudiante = [];
+          while ($row = $result_notas->fetch_assoc()) {
+            $calificacionesPorEstudiante[$row['estudiante_id']]['estudiante'] = $row['estudiante'];
+            $calificacionesPorEstudiante[$row['estudiante_id']]['calificaciones'][$row['materia']] = number_format($row['calificacion_definitiva'], 2);
+          }
+        }
+      }
     }
   }
 } catch (Exception $e) {
@@ -99,8 +114,11 @@ try {
       <div class="col-md-12 form-floating mb-3">
         <select name="periodo_id" class="form-select" id="periodo" required>
           <option selected disabled>Seleccione un periodo</option>
-          <?php while ($row = $result_periodos->fetch_assoc()) : ?>
-            <option value="<?= $row['id'] ?>"><?= $row['anio_inicio'] ?></option>
+          <?php while ($row = $result_periodos->fetch_assoc()) :
+            $anio_fin = $row['anio_inicio'] + 1;
+            $periodo_texto = $row['anio_inicio'] . '-' . $anio_fin;
+          ?>
+            <option value="<?= $row['id'] ?>"><?= $periodo_texto ?></option>
           <?php endwhile; ?>
         </select>
         <label for="periodo">Periodo:</label>
@@ -110,6 +128,7 @@ try {
       </div>
     </form>
   </div>
+
   <?php if ($_SERVER["REQUEST_METHOD"] == "POST" && $periodo_id) : ?>
     <div class="container">
       <div class="card mb-4">
@@ -162,45 +181,85 @@ try {
           </tbody>
         </table>
       </div>
-      <div class="card mb-4">
-        <h3>Secciones, Estudiantes y Calificaciones Definitivas</h3>
-        <?php if ($result_secciones_estudiantes_calificaciones->num_rows > 0): ?>
-          <table id="table-secciones-estudiantes-calificaciones" class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Sección</th>
-                <th>Estudiante</th>
-                <th>Materia</th>
-                <th>Calificación Definitiva</th>
-                <th>Nivel de Estudio</th>
-                <th>Periodo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php while ($row = $result_secciones_estudiantes_calificaciones->fetch_assoc()) : ?>
-                <tr>
-                  <td><?= htmlspecialchars($row['seccion_nombre']) ?></td>
-                  <td><?= htmlspecialchars($row['estudiante_nombres'] . ' ' . $row['estudiante_apellidos']) ?></td>
-                  <td><?= htmlspecialchars($row['materia_nombre']) ?></td>
-                  <td><?= htmlspecialchars($row['calificacion_definitiva']) ?></td>
-                  <td><?= htmlspecialchars($row['nivel_estudio']) ?></td>
-                  <td><?= htmlspecialchars($row['periodo']) ?></td>
-                </tr>
-              <?php endwhile; ?>
-            </tbody>
-          </table>
-        <?php else: ?>
-          <p class="alert alert-info">No hay calificaciones cargadas para este periodo. Se mostrarán los estudiantes y materias sin calificaciones.</p>
-        <?php endif; ?>
+
+      <div class="row mx-0 justify-content-center pb-5">
+        <form class="card col-md-5 py-4" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+          <h2 class="card-title h3 text-center">Consultar Notas</h2>
+          <input type="hidden" name="periodo_id" value="<?= $periodo_id ?>">
+          <div class="col-md-12 form-floating mb-3">
+            <select name="tipo_consulta" class="form-select" id="tipo_consulta" required>
+              <option selected disabled>Seleccione tipo de consulta</option>
+              <option value="definitiva">Notas Definitivas</option>
+            </select>
+            <label for="tipo_consulta">Tipo de Consulta:</label>
+          </div>
+          <div class="col-md-12 form-floating mb-3">
+            <select name="id_seccion" class="form-select" id="id_seccion" required>
+              <option selected disabled>Seleccione Año-Sección</option>
+              <?php if (isset($result_secciones)) :
+                while ($seccion = $result_secciones->fetch_assoc()) : ?>
+                  <option value="<?= $seccion['id'] ?>"><?= $seccion['nivel'] . ' - ' . $seccion['seccion'] ?></option>
+              <?php endwhile;
+              endif; ?>
+            </select>
+            <label for="id_seccion">Año-Sección:</label>
+          </div>
+          <div class="btn-group btn-group-lg mx-3">
+            <button class="btn btn-success w-75" type="submit">Consultar Notas</button>
+          </div>
+        </form>
       </div>
+
+      <?php if (isset($calificacionesPorEstudiante)) : ?>
+        <div class="card">
+          <h3>Notas Definitivas</h3>
+          <div class="table-responsive">
+            <table id="table-notas-definitivas" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Estudiante</th>
+                  <?php
+                  // Obtener las materias de la primera fila de calificaciones para los encabezados
+                  $materias = array();
+                  foreach ($calificacionesPorEstudiante as $info) {
+                    foreach ($info['calificaciones'] as $materia => $calificacion) {
+                      if (!in_array($materia, $materias)) {
+                        $materias[] = $materia;
+                      }
+                    }
+                  }
+                  foreach ($materias as $materia) {
+                    echo "<th>" . htmlspecialchars($materia) . "</th>";
+                  }
+                  ?>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach ($calificacionesPorEstudiante as $estudiante_id => $info) : ?>
+                  <tr>
+                    <td><?= htmlspecialchars($info['estudiante']) ?></td>
+                    <?php foreach ($materias as $materia) : ?>
+                      <td><?= htmlspecialchars($info['calificaciones'][$materia] ?? '01') ?></td>
+                    <?php endforeach; ?>
+                  </tr>
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <?php endif; ?>
     </div>
-    <script>
-      // Inicializa SimpleDataTables para cada tabla
-      new simpleDatatables.DataTable("#table-maestros-materias");
-      new simpleDatatables.DataTable("#table-representantes-estudiantes");
-      new simpleDatatables.DataTable("#table-secciones-estudiantes-calificaciones");
-    </script>
-  <?php endif; ?>
+</body>
+
+</html>
+
+<script>
+  // Inicializa SimpleDataTables para cada tabla
+  new simpleDatatables.DataTable("#table-maestros-materias");
+  new simpleDatatables.DataTable("#table-representantes-estudiantes");
+  new simpleDatatables.DataTable("#table-notas-definitivas");
+</script>
+<?php endif; ?>
 </body>
 
 </html>
