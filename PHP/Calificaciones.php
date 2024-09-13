@@ -29,7 +29,16 @@ $id_seccion = $_POST['id_seccion'] ?? null;
 $id_estudiante = $_POST['id_estudiante'] ?? null;
 
 // Consultar todos los momentos, niveles de estudio y secciones
-$momentos = $conexion->query("SELECT id, CONCAT('Lapso ', numero_momento) AS momento FROM momentos")->fetch_all(MYSQLI_ASSOC);
+// Consultar momentos solo del periodo activo
+$momentos = $conexion->prepare("SELECT m.id, CONCAT('Lapso ', m.numero_momento) AS momento
+                                FROM momentos m
+                                JOIN periodos p ON m.id_periodo = p.id
+                                WHERE p.id = ?");
+
+$momentos->bind_param("i", $periodo_activo['id']);
+$momentos->execute();
+$momentos_result = $momentos->get_result();
+$momentos = $momentos_result->fetch_all(MYSQLI_ASSOC);
 $niveles_estudio = $conexion->query("SELECT id, nombre FROM niveles_estudio ORDER BY id")->fetch_all(MYSQLI_ASSOC);
 $secciones = $conexion->query("SELECT id, nombre FROM secciones")->fetch_all(MYSQLI_ASSOC);
 
@@ -76,7 +85,6 @@ if ($id_estudiante) {
   <link rel="stylesheet" href="../Assets/sweetalert2/borderless.min.css" />
  <!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -96,7 +104,7 @@ if ($id_estudiante) {
       <?php endif; ?>
       <div class="col-md-12 form-floating mb-3">
         <input type="hidden" name="periodo_id" value="<?= @$periodo_activo['id'] ?>">
-        <input class="form-control" type="text" value="<?= @$periodo_activo['anio_inicio'] ?>" readonly>
+        <input class="form-control" type="text" value="<?= htmlspecialchars("{$periodo_activo ['anio_inicio']}-" . (@$periodo_activo['anio_inicio'] + 1)) ?>" readonly>
         <label for="periodo_id">Período Activo:</label>
       </div>
       <div class="col-md-12 form-floating mb-3">

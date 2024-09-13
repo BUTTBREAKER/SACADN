@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST['nivel_id'])) {
 
         <div class="col-md-12 form-floating mb-3">
           <input type="hidden" name="id_periodo" value="<?= htmlspecialchars($id_periodo_activo) ?>">
-          <input class="form-control" type="text" value="<?= htmlspecialchars($anio_periodo_activo) ?>" readonly>
+          <input class="form-control" type="text" value="<?= htmlspecialchars ("{$periodo_activo['anio_inicio']}-" . ($periodo_activo['anio_inicio'] + 1))?>" readonly>
           <label for="id_periodo">Período Activo:</label>
         </div>
 

@@ -51,7 +51,7 @@ $result = $db->query($sql);
         <select class="form-select" id="genero" name="id_periodo" required placeholder=" " required>
           <option value="">Selecciona una opción</option>
           <?php while ($mostrar = $result->fetch_assoc()) { ?>
-            <option value="<?= $mostrar['id'] ?>"><?= $mostrar['periodo'] ?></option>
+            <option value="<?= $mostrar['id'] ?>"><?= htmlspecialchars("{$mostrar['periodo']}-" . ($mostrar['periodo'] + 1)) ?></option>
           <?php } ?>
         </select>
         <label class="ms-2" for="anio">

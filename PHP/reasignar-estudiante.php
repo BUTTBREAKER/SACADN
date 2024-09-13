@@ -177,7 +177,7 @@ foreach ($niveles_estudio as $nivel) {
             <script>
                 Swal.fire({
                     title: '¿Promover al siguiente nivel?',
-                    text: '<?= htmlspecialchars($estudiante['nombres'] . ' ' . $estudiante['apellidos']) . " cursó " . $estudiante['nivel_estudio'] . " Sección " . $estudiante['seccion'] . " en el periodo " . $estudiante['periodo_anterior'] ?>',
+                    text: '<?= htmlspecialchars($estudiante['nombres'] . ' ' . $estudiante['apellidos']) . " cursó " . $estudiante['nivel_estudio'] . " Sección " . $estudiante['seccion'] . " en el periodo " . $estudiante['periodo_anterior'] ."-" . ($estudiante['periodo_anterior'] + 1)?>',
                     icon: 'question',
                     showCancelButton: true,
                     confirmButtonText: 'Promover',

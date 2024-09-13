@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       <div class="col-md-12 form-floating mb-3">
         <input type="hidden" name="periodo_id" value="<?= @$periodo_activo['id'] ?>">
-        <input class="form-control" type="text" value="<?= @$periodo_activo['anio_inicio'] ?>" readonly>
+        <input class="form-control" type="text" value="<?= htmlspecialchars("{$periodo_activo ['anio_inicio']}-" . (@$periodo_activo['anio_inicio'] + 1)) ?>" readonly>
         <label for="periodo_id">Período Activo:</label>
       </div>
 
